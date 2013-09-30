@@ -1,0 +1,305 @@
+[01:07:20] *********Axiom 3D Engine Log *************
+Copyright Copyright ? 2003-2012 Axiom Rendering Engine Project Team.
+Version: 0.8.3101.12095
+Operating System: Microsoft Windows NT 6.1.7601 Service Pack 1
+.Net Framework: 2.0.50727.5472
+
+[01:07:20] *-*-* Axiom Initializing
+[01:07:20] ArchiveFactory for archive type ZipFile registered.
+[01:07:20] ArchiveFactory for archive type Folder registered.
+[01:07:21] Registering ResourceManager for type HighLevelGpuProgram
+[01:07:21] Creating resource group General
+[01:07:21] Creating resource group Internal
+[01:07:21] Creating resource group Bootstrap
+[01:07:21] Creating resource group AutoDetect
+[01:07:21] SceneManagerFactory for type 'DefaultSceneManager' registered
+[01:07:21] Registering ScriptLoader for patterns *.program *.material 
+[01:07:21] Registering ResourceManager for type Material
+[01:07:21] Registering ResourceManager for type Mesh
+[01:07:21] Registering ResourceManager for type Skeleton
+[01:07:21] Registering ScriptLoader for patterns *.particle 
+[01:07:22] Win32 Platform Manager Loaded.
+[01:07:22] Registering ScriptLoader for patterns *.fontdef 
+[01:07:22] Registering ResourceManager for type Font
+[01:07:22] Registering ScriptLoader for patterns *.overlay 
+[01:07:22] OverlayElementFactory for type 'BorderPanel' registered.
+[01:07:22] OverlayElementFactory for type 'TextArea' registered.
+[01:07:22] OverlayElementFactory for type 'Panel' registered.
+[01:07:22] Registering ScriptLoader for patterns *.compositor 
+[01:07:22] Registering ResourceManager for type Compositor
+[01:07:22] Registering ScriptLoader for patterns *.os 
+[01:07:22] Unable to load one or more of the requested types. Retrieve the LoaderExceptions property for more information.
+   at System.Reflection.Module._GetTypesInternal(StackCrawlMark& stackMark)
+   at System.Reflection.Assembly.GetTypes()
+   at Axiom.Core.DynamicLoader.Find(Type baseType)
+[01:07:22] Loader Exceptions:
+[01:07:22] Could not load file or assembly 'SlimDX, Version=2.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'SlimDX, Version=2.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'SlimDX, Version=2.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'SlimDX, Version=2.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'SlimDX, Version=2.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'SlimDX, Version=2.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'SlimDX, Version=2.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'SlimDX, Version=2.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'SlimDX, Version=2.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'SlimDX, Version=2.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'SlimDX, Version=2.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Unable to load one or more of the requested types. Retrieve the LoaderExceptions property for more information.
+   at System.Reflection.Module._GetTypesInternal(StackCrawlMark& stackMark)
+   at System.Reflection.Assembly.GetTypes()
+   at Axiom.Core.DynamicLoader.Find(Type baseType)
+[01:07:22] Loader Exceptions:
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework.Content.Pipeline, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework.Content.Pipeline, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework.Content.Pipeline, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Unable to load one or more of the requested types. Retrieve the LoaderExceptions property for more information.
+   at System.Reflection.Module._GetTypesInternal(StackCrawlMark& stackMark)
+   at System.Reflection.Assembly.GetTypes()
+   at Axiom.Core.DynamicLoader.Find(Type baseType)
+[01:07:22] Loader Exceptions:
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'Microsoft.Xna.Framework, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:22] Could not load file or assembly 'file:///C:\Users\FS367717\Desktop\AXIOM\samples\win32\cg.dll' or one of its dependencies. The module was expected to contain an assembly manifest.
+[01:07:22] Could not load file or assembly 'file:///C:\Users\FS367717\Desktop\AXIOM\samples\win32\DevIL.dll' or one of its dependencies. The module was expected to contain an assembly manifest.
+[01:07:22] Could not load file or assembly 'file:///C:\Users\FS367717\Desktop\AXIOM\samples\win32\FreeImage.dll' or one of its dependencies. The module was expected to contain an assembly manifest.
+[01:07:22] Could not load file or assembly 'file:///C:\Users\FS367717\Desktop\AXIOM\samples\win32\freetype6.dll' or one of its dependencies. The module was expected to contain an assembly manifest.
+[01:07:22] Could not load file or assembly 'file:///C:\Users\FS367717\Desktop\AXIOM\samples\win32\ILU.dll' or one of its dependencies. The module was expected to contain an assembly manifest.
+[01:07:23] Unable to load one or more of the requested types. Retrieve the LoaderExceptions property for more information.
+   at System.Reflection.Module._GetTypesInternal(StackCrawlMark& stackMark)
+   at System.Reflection.Assembly.GetTypes()
+   at Axiom.Core.DynamicLoader.Find(Type baseType)
+[01:07:23] Loader Exceptions:
+[01:07:23] Could not load file or assembly 'Axiom.SceneManagers.PortalConnected, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:23] Could not load file or assembly 'Axiom.SceneManagers.PortalConnected, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:23] Could not load file or assembly 'Axiom.SceneManagers.PortalConnected, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:23] Could not load file or assembly 'Axiom.SceneManagers.PortalConnected, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:23] Could not load file or assembly 'Axiom.SceneManagers.PortalConnected, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:24] Unable to load one or more of the requested types. Retrieve the LoaderExceptions property for more information.
+   at System.Reflection.Module._GetTypesInternal(StackCrawlMark& stackMark)
+   at System.Reflection.Assembly.GetTypes()
+   at Axiom.Core.DynamicLoader.Find(Type baseType)
+[01:07:24] Loader Exceptions:
+[01:07:24] Could not load file or assembly 'SlimDX, Version=2.0.10.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:24] Could not load file or assembly 'SlimDX, Version=2.0.10.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:24] Could not load file or assembly 'SlimDX, Version=2.0.10.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9' or one of its dependencies. The system cannot find the file specified.
+
+[01:07:24] Could not load file or assembly 'file:///C:\Users\FS367717\Desktop\AXIOM\samples\win32\zlib1.dll' or one of its dependencies. The module was expected to contain an assembly manifest.
+[01:07:24] Loaded plugin: Axiom nVidia Cg Plugin
+[01:07:25] FreeImage Version: 3.14.1
+[01:07:25] This program uses FreeImage, a free, open source image library supporting all common bitmap formats. See http://freeimage.sourceforge.net for details
+[01:07:25]  Supported formats: bmp,ico,jpg,jif,jpeg,jpe,jng,koa,iff,lbm,mng,pbm,pbm,pcd,pcx,pgm,pgm,png,ppm,ppm,ras,tga,targa,tif,tiff,wap,wbmp,wbm,psd,cut,xbm,xpm,gif,hdr,g3,sgi,exr,j2k,j2c,jp2,pfm,pct,pict,pic,bay,bmq,cr2,crw,cs1,dc2,dcr,dng,erf,fff,hdr,k25,kdc,mdc,mos,mrw,nef,orf,pef,pxn,raf,raw,rdc,sr2,srf,arw,3fr,cine,ia,kc2,mef,nrw,qtk,rw2,sti,drf,dsc,ptx,cap,iiq,rwz
+[01:07:25] Loaded plugin: Axiom FreeImage Codecs Plugin
+[01:07:25] Particle Emitter type 'Box' registered.
+[01:07:25] Particle Emitter type 'Point' registered.
+[01:07:25] Particle Emitter type 'Cylinder' registered.
+[01:07:25] Particle Emitter type 'Ellipsoid' registered.
+[01:07:25] Particle Emitter type 'HollowEllipsoid' registered.
+[01:07:25] Particle Emitter type 'Ring' registered.
+[01:07:25] Particle Affector type 'LinearForce' registered.
+[01:07:25] Particle Affector type 'ColourFader' registered.
+[01:07:25] Particle Affector type 'ColourFader2' registered.
+[01:07:25] Particle Affector type 'ColourImage' registered.
+[01:07:25] Particle Affector type 'ColourInterpolator' registered.
+[01:07:25] Particle Affector type 'Scaler' registered.
+[01:07:25] Particle Affector type 'Rotator' registered.
+[01:07:25] Particle Affector type 'DeflectorPlane' registered.
+[01:07:25] Particle Affector type 'DirectionRandomizer' registered.
+[01:07:25] Loaded plugin: Axiom ParticleFX Plugin
+[01:07:25] Axiom OpenGL (OpenTK) Rendering Subsystem created.
+[01:07:25] OpenGL : RenderSystem Option: Display Frequency = N/A
+[01:07:25] OpenGL : RenderSystem Option: Color Depth = 16
+[01:07:25] Loaded plugin: Axiom OpenGL (OpenTK) Rendering Subsystem
+[01:07:25] An instance of the OpenGL renderer is already loaded.
+Parameter name: OpenGL
+   at Axiom.Utilities.Contract.Requires(Boolean condition, String name, String message)
+   at Axiom.RenderSystems.OpenGL.Plugin.Initialize()
+   at Axiom.Core.PluginManager.LoadPlugin(ObjectCreator creator)
+[01:07:25] Loaded plugin: Axiom.Samples.Common
+[01:07:25] SceneManagerFactory for type 'BspSceneManager' registered
+[01:07:25] Loaded plugin: Axiom BSP Scene Manager Plugin
+[01:07:25] Factory EntityFactory registered for MovableObjectType 'Entity'.
+[01:07:25] Factory LightFactory registered for MovableObjectType 'Light'.
+[01:07:25] Factory BillboardSetFactory registered for MovableObjectType 'BillboardSet'.
+[01:07:25] Factory ManualObjectFactory registered for MovableObjectType 'ManualObject'.
+[01:07:25] Factory BillboardChainFactory registered for MovableObjectType 'BillboardChain'.
+[01:07:25] Factory RibbonTrailFactory registered for MovableObjectType 'RibbonTrail'.
+[01:07:25] Factory MovableTextFactory registered for MovableObjectType 'MovableText'.
+[01:07:25] OpenGL : RenderSystem Option: Video Mode = 1280 x 720
+[01:07:25] OpenGL : RenderSystem Option: Color Depth = 32
+[01:07:25] OpenGL : RenderSystem Option: Full Screen = Yes
+[01:07:25] OpenGL : RenderSystem Option: Display Frequency = 75
+[01:07:25] OpenGL : RenderSystem Option: FSAA = 0
+[01:07:25] OpenGL : RenderSystem Option: VSync = No
+[01:07:25] OpenGL : RenderSystem Option: RTT Preferred Mode = FBO
+[01:07:25] Creating resource group Essential
+[01:07:25] Added resource location '../media/Archives/SdkTrays.zip' of type 'ZipFile' to resource group 'Essential'
+[01:07:25] Added resource location '../media/Thumbnails' of type 'Folder' to resource group 'Essential'
+[01:07:25] Added resource location '../media/Icons' of type 'Folder' to resource group 'Essential'
+[01:07:25] Creating resource group Popular
+[01:07:25] Added resource location '../media/Archives/cubemapsJS.zip' of type 'ZipFile' to resource group 'Popular'
+[01:07:25] Added resource location '../media/Archives/skybox.zip' of type 'ZipFile' to resource group 'Popular'
+[01:07:25] Added resource location '../media/Archives/Sinbad.zip' of type 'ZipFile' to resource group 'Popular'
+[01:07:25] Added resource location '../media/Fonts' of type 'Folder' to resource group 'Popular'
+[01:07:25] Added resource location '../media/Programs' of type 'Folder' to resource group 'Popular'
+[01:07:25] Added resource location '../media/Materials' of type 'Folder' to resource group 'Popular'
+[01:07:25] Added resource location '../media/Particles' of type 'Folder' to resource group 'Popular'
+[01:07:25] Added resource location '../media/Textures' of type 'Folder' to resource group 'Popular'
+[01:07:25] Added resource location '../media/Meshes' of type 'Folder' to resource group 'Popular'
+[01:12:42] CPU Identifier & Features
+[01:12:42] -------------------------
+[01:12:42] CPU Identification not available
+[01:12:42]  *     SSE1: False
+[01:12:42]  *     SSE2: False
+[01:12:42]  *     SSE3: False
+[01:12:42]  *    SSSE3: False
+[01:12:42]  *    SSSE3: False
+[01:12:42]  *    SSSE3: False
+[01:12:42]  *    SSSE3: False
+[01:12:42] -------------------------
+[01:12:42] *** Starting OpenTKGL Subsystem ***
+[01:12:42] GLRenderSystem.CreateRenderWindow "Axiom Sample Browser", 1280x720 fullscreen miscParams:  colorDepth = 32  vsync = No  fsaa = 0  title = Axiom Sample Browser 
+[01:12:43] ***************************
+[01:12:43] *** GL Renderer Started ***
+[01:12:43] ***************************
+[01:12:43] Vendor: Intel
+[01:12:43] Video Board: Intel Bear Lake B
+[01:12:43] Version: 1.4.0 - Build 8.14.10.1930
+[01:12:43] Extensions supported: 
+[01:12:43] GL_EXT_blend_minmax
+[01:12:43] GL_EXT_blend_subtract
+[01:12:43] GL_EXT_blend_color
+[01:12:43] GL_EXT_abgr
+[01:12:43] GL_EXT_texture3D
+[01:12:43] GL_EXT_clip_volume_hint
+[01:12:43] GL_EXT_compiled_vertex_array
+[01:12:43] GL_EXT_cull_vertex
+[01:12:43] GL_SGIS_texture_edge_clamp
+[01:12:43] GL_SGIS_generate_mipmap
+[01:12:43] GL_EXT_draw_range_elements
+[01:12:43] GL_SGIS_texture_lod
+[01:12:43] GL_EXT_rescale_normal
+[01:12:43] GL_EXT_packed_pixels
+[01:12:43] GL_EXT_separate_specular_color
+[01:12:43] GL_ARB_multitexture
+[01:12:43] GL_EXT_texture_env_combine
+[01:12:43] GL_EXT_bgra
+[01:12:43] GL_EXT_blend_func_separate
+[01:12:43] GL_EXT_secondary_color
+[01:12:43] GL_EXT_fog_coord
+[01:12:43] GL_EXT_texture_env_add
+[01:12:43] GL_ARB_texture_cube_map
+[01:12:43] GL_ARB_transpose_matrix
+[01:12:43] GL_ARB_texture_env_add
+[01:12:43] GL_IBM_texture_mirrored_repeat
+[01:12:43] GL_EXT_multi_draw_arrays
+[01:12:43] GL_NV_blend_square
+[01:12:43] GL_ARB_texture_compression
+[01:12:43] GL_3DFX_texture_compression_FXT1
+[01:12:43] GL_EXT_texture_filter_anisotropic
+[01:12:43] GL_ARB_texture_border_clamp
+[01:12:43] GL_ARB_point_parameters
+[01:12:43] GL_ARB_texture_env_combine
+[01:12:43] GL_ARB_texture_env_dot3
+[01:12:43] GL_ARB_texture_env_crossbar
+[01:12:43] GL_EXT_texture_compression_s3tc
+[01:12:43] GL_ARB_shadow
+[01:12:43] GL_ARB_window_pos
+[01:12:43] GL_EXT_shadow_funcs
+[01:12:43] GL_EXT_stencil_wrap
+[01:12:43] GL_ARB_vertex_program
+[01:12:43] GL_ARB_fragment_program
+[01:12:43] GL_EXT_stencil_two_side
+[01:12:43] GL_ARB_vertex_buffer_object
+[01:12:43] GL_EXT_texture_lod_bias
+[01:12:43] GL_NV_texgen_reflection
+[01:12:43] GL_ARB_depth_texture
+[01:12:43] GL_WIN_swap_hint
+[01:12:43] 
+[01:12:43] GLSL support detected
+[01:12:43] GL: Using framebuffer copy for rendering to textures (worst)
+[01:12:43] GL: Warning: RenderTexture size is restricted to size of framebuffer. If you are on Linux, consider using GLX instead of SDL.
+[01:12:43] ---RenderSystem capabilities---
+[01:12:43] 	-GPU Vendor: Unknown
+[01:12:43] 	-Device Name: 
+[01:12:43] 	-Driver Version: 0.0.0.0
+[01:12:43] 	-Available texture units: 16
+[01:12:43] 	-Maximum lights available: 16
+[01:12:43] 	-Hardware generation of mip-maps: yes
+[01:12:43] 	-Texture blending: yes
+[01:12:43] 	-Anisotropic texture filtering: yes
+[01:12:43] 	-Dot product texture operation: yes
+[01:12:43] 	-Cube Mapping: yes
+[01:12:43] 	-Hardware stencil buffer: no
+[01:12:43] 	-Hardware vertex/index buffers: yes
+[01:12:43] 	-Vertex programs: yes
+[01:12:43] 		-Max vertex program version: arbvp1
+[01:12:43] 	-Fragment programs: yes
+[01:12:43] 		-Max fragment program version: arbfp1
+[01:12:43] 	-Texture compression: yes
+[01:12:43] 		-DXT: yes
+[01:12:43] 		-VTC: no
+[01:12:43] 	-Scissor rectangle: yes
+[01:12:43] 	-Hardware Occlusion Query: no
+[01:12:43] 	-User clip planes: yes
+[01:12:43] 	-VertexElementType.UBYTE4: yes
+[01:12:43] 	-Infinite far plane projection: yes
+[01:12:43] 	-Max Point Size: 255 
+[01:12:43] 	-Vertex texture fetch: yes 
+[01:12:43] 		-Max vertex textures: 16
+[01:12:43] 		-Vertex textures shared: yes
+[01:12:43] Registering ResourceManager for type Texture
+[01:12:43] Particle Renderer type 'billboard' registered.
+[01:12:58] Error Deleting Vertexbuffer[3].
+[01:12:58] Failed to delete IndexBuffer[2].
+[01:12:58] Error Deleting Vertexbuffer[1].
+[01:12:58] Error Deleting Texture[1].
+[01:12:58] Failed to delete IndexBuffer[6].
+[01:12:58] Error Deleting Vertexbuffer[5].
+[01:12:58] Failed to delete IndexBuffer[4].
