@@ -11,21 +11,46 @@ namespace GameClient
 
     }
 
+    class Item
+    {
+        public Item()
+        {
+
+        }
+    }
+
     class Creature
     {
         protected int level;
         protected int exp;
 
-        protected int MaxHP;
-        protected int HP;
-        protected int MP;
-        protected int Str;
-        protected int Dex;
-        protected int Int;
+        protected Dictionary<string, int> primaryAttr = new Dictionary<string, int>()
+        {
+            {"MaxHP", 0},
+            {"HP", 0},
+            {"MaxMP", 0},
+            {"MP", 0},
+            {"Str", 0},
+            {"Dex", 0},
+            {"Int", 0}
+        };
 
-        protected int DamageModMelee;
-        protected int DamageModRange;
-        protected int DamageModMagic;
+        protected Dictionary<string, int> secAttr = new Dictionary<string, int>()
+        {
+            {"DamageModMelee", 0},
+            {"DamageModRange", 0},
+            {"DamageModMagic", 0}
+        };
+
+        protected Dictionary<string, Item> itemsEquipped = new Dictionary<string, Item>()
+        {
+            {"Head", null},
+            {"RightArm", null},
+            {"LeftArm", null},
+            {"Chest", null},
+            {"RightLeg", null},
+            {"LeftLeg", null}
+        };
 
         protected Dictionary<string, int> resistance;
 
@@ -36,43 +61,49 @@ namespace GameClient
 
         public void addMaxHP(int MaxHP)
         {
-            this.MaxHP += MaxHP;
-            this.HP = this.MaxHP;
+            primaryAttr["MaxHP"] += MaxHP;
+            primaryAttr["HP"] = primaryAttr["MaxHP"];
         }
 
         public void addHP(int HP)
         {
-            this.HP += HP;
+            primaryAttr["HP"] += HP;
+        }
+
+        public void addMaxMP(int MaxMP)
+        {
+            primaryAttr["MaxMP"] += MaxMP;
+            primaryAttr["MP"] = primaryAttr["MaxMP"];
         }
 
         public void addMP(int MP)
         {
-            this.MP += MP;
+            primaryAttr["MP"] += MP;
         }
 
         public void addStr(int Str)
         {
-            this.Str += Str;
+            primaryAttr["Str"] += Str;
             updateSecondaryAttributes();
         }
 
         public void addDex(int Dex)
         {
-            this.Dex += Dex;
+            primaryAttr["Dex"] += Dex;
             updateSecondaryAttributes();
         }
 
         public void addInt(int Int)
         {
-            this.Int += Int;
+            primaryAttr["Int"] += Int;
             updateSecondaryAttributes();
         }
 
         protected void updateSecondaryAttributes()
         {
-            this.DamageModMagic = level*(this.Int + 10)/10;
-            this.DamageModMelee = (this.Str + 10) / 2;
-            this.DamageModRange = (this.Dex + 10) / 2;
+            secAttr["DamageModMagic"] = level * (primaryAttr["Int"] + 10) / 10;
+            secAttr["DamageModMelee"] = (primaryAttr["Str"] + 10) / 2;
+            secAttr["DamageModRange"] = (primaryAttr["Dex"] + 10) / 2;
         }
 
         public int getdamageReduction()
@@ -115,27 +146,27 @@ namespace GameClient
 
         public int getHP()
         {
-            return HP;
+            return primaryAttr["HP"];
         }
 
         public int getMP()
         {
-            return MP;
+            return primaryAttr["MP"];
         }
 
         public int getStr()
         {
-            return Str;
+            return primaryAttr["Str"];
         }
 
         public int getDex()
         {
-            return Dex;
+            return primaryAttr["Dex"];
         }
 
         public int getInt()
         {
-            return Int;
+            return primaryAttr["Int"];
         }
 
         public Dictionary<string, int> getResistance()
@@ -145,17 +176,27 @@ namespace GameClient
 
         public int getDamageModMelee()
         {
-            return DamageModMelee;
+            return secAttr["DamageModMelee"];
         }
 
         public int getDamageModRange()
         {
-            return DamageModRange;
+            return secAttr["DamageModRange"];
         }
 
         public int getDamageModMagic()
         {
-            return DamageModMagic;
+            return secAttr["DamageModMagic"];
+        }
+
+        public int getPrimaryAttr(string primaryAttr)
+        {
+            return primaryAttr[primaryAttr];
+        }
+
+        public int getSecondAttr(string secondAttr)
+        {
+            return secAttr[secondAttr];
         }
     }
 
@@ -190,11 +231,13 @@ namespace GameClient
     class Attack
     {
         private string type;
-        private int attributeOfAttack;
+        private string attributeOfAttack;
         private List<string> damageType;
         private int damage;
+        private bool piercing;
 
-        public Attack(string type, int attributeOfAttack, int damage, params string[] damageTypes)
+        //type: Melee, Range or Magic; attributeOfAttack: Str, Dex or Int; damage: damage of attack; damageTypes: what type of attack it is Ex: Physical
+        public Attack(string type, string attributeOfAttack, int damage, params string[] damageTypes)
         {
             this.type = type;
             this.attributeOfAttack = attributeOfAttack;
@@ -202,12 +245,18 @@ namespace GameClient
             this.damageType = new List<string>(damageTypes);
         }
 
+        public Attack(string type, string attributeOfAttack, int damage, bool piercing, params string[] damageTypes)
+        {
+            this(type, attributeOfAttack, damage, damageTypes);
+            this.piercing = piercing;
+        }
+
         public string getType()
         {
             return type;
         }
 
-        public int getAttr()
+        public string getAttr()
         {
             return attributeOfAttack;
         }
@@ -221,14 +270,19 @@ namespace GameClient
         {
             return damage;
         }
+
+        public bool getPiercing()
+        {
+            return piercing;
+        }
     }
 
     class Combat
     {
         public static Result Battle(Creature attacker, Attack attack, Creature defender)
         {
-            int resultDamage = 0;
-            if (attack.getPiercing() = false)
+            int resultDamage = attack.getDamage() + attacker.getSecondAttr("DamageMod" + attack.getType());
+            if (attack.getPiercing() == false)
             {
                 resultDamage = attack.getDamage() - defender.getdamageReduction();
             }
@@ -281,12 +335,12 @@ namespace GameClient
 
                 if (defender.hasShield() == true)
                 {
-                    chance = (attack.getAttr() / 2 / defenderAttr + defender.getShield().getBlock()) * 100
+                    chance = (attacker.getPrimaryAttr(attack.getAttr()) / 2 / defenderAttr + defender.getShield().getBlock()) * 100
                     defenceType = "Block";
                 }
                 else
                 {
-                    chance = (attack.getAttr() / 2 / defenderAttr) * 100;
+                    chance = (attacker.getPrimaryAttr(attack.getAttr()) / 2 / defenderAttr) * 100;
                 }
             }
             else if (attack.getType() == "Range")
@@ -297,12 +351,12 @@ namespace GameClient
 
                 if (defender.hasShield() == true)
                 {
-                    chance = (attack.getAttr() / 2 / defenderAttr + defender.getShield().getBlock()) * 100
+                    chance = (attacker.getPrimaryAttr(attack.getAttr()) / 2 / defenderAttr + defender.getShield().getBlock()) * 100
                     defenceType = "Block";
                 }
                 else
                 {
-                    chance = (attack.getAttr() / 2 / defenderAttr) * 100;
+                    chance = (attacker.getPrimaryAttr(attack.getAttr()) / 2 / defenderAttr) * 100;
                 }
             }
             else //Magic
@@ -318,7 +372,7 @@ namespace GameClient
                     defenderAttr = defender.getDex();
                     defenceType = "Dodge";
                 }
-                chance = (attack.getAttr() / 2 / defenderAttr) * 100;
+                chance = (attacker.getPrimaryAttr(attack.getAttr()) / 2 / defenderAttr) * 100;
             }
 
             Random rand = new Random();
