@@ -8,7 +8,10 @@ namespace GameClient
 {
     public class Client
     {
+        public static void Main()
+        {
 
+        }
     }
 
     class Item
@@ -23,23 +26,37 @@ namespace GameClient
     {
         protected int level;
         protected int exp;
+        protected int skillPoints;
 
         protected Dictionary<string, int> primaryAttr = new Dictionary<string, int>()
+        {
+            {"Str", 0},
+            {"Dex", 0},
+            {"Int", 0},
+            {"Vit", 0}
+        };
+
+        protected Dictionary<string, int> itemAdd = new Dictionary<string, int>()
+        {
+            {"MaxHP", 0},
+            {"MaxMP", 0},
+            {"Str", 0},
+            {"Dex", 0},
+            {"Int", 0},
+            {"Vit", 0},
+            {"DamageReduction", 0}
+        };
+
+        protected Dictionary<string, int> secAttr = new Dictionary<string, int>()
         {
             {"MaxHP", 0},
             {"HP", 0},
             {"MaxMP", 0},
             {"MP", 0},
-            {"Str", 0},
-            {"Dex", 0},
-            {"Int", 0}
-        };
-
-        protected Dictionary<string, int> secAttr = new Dictionary<string, int>()
-        {
             {"DamageModMelee", 0},
             {"DamageModRange", 0},
-            {"DamageModMagic", 0}
+            {"DamageModMagic", 0},
+            {"DamageReduction", 0}
         };
 
         protected Dictionary<string, Item> itemsEquipped = new Dictionary<string, Item>()
@@ -57,28 +74,6 @@ namespace GameClient
         public Creature()
         {
 
-        }
-
-        public void addMaxHP(int MaxHP)
-        {
-            primaryAttr["MaxHP"] += MaxHP;
-            primaryAttr["HP"] = primaryAttr["MaxHP"];
-        }
-
-        public void addHP(int HP)
-        {
-            primaryAttr["HP"] += HP;
-        }
-
-        public void addMaxMP(int MaxMP)
-        {
-            primaryAttr["MaxMP"] += MaxMP;
-            primaryAttr["MP"] = primaryAttr["MaxMP"];
-        }
-
-        public void addMP(int MP)
-        {
-            primaryAttr["MP"] += MP;
         }
 
         public void addStr(int Str)
@@ -99,8 +94,18 @@ namespace GameClient
             updateSecondaryAttributes();
         }
 
+        public void addVit(int Vit)
+        {
+            primaryAttr["Vit"] += Vit;
+            updateSecondaryAttributes();
+        }
+
         protected void updateSecondaryAttributes()
         {
+            secAttr["MaxHP"] = getPrimaryAttr("Vit")*10;
+            secAttr["HP"] = secAttr["MaxHP"];
+            secAttr["MaxMP"] = getPrimaryAttr("Int")*10;
+            secAttr["MP"] = secAttr["MaxMP"];
             secAttr["DamageModMagic"] = level * (primaryAttr["Int"] + 10) / 10;
             secAttr["DamageModMelee"] = (primaryAttr["Str"] + 10) / 2;
             secAttr["DamageModRange"] = (primaryAttr["Dex"] + 10) / 2;
@@ -144,63 +149,74 @@ namespace GameClient
             return level;
         }
 
-        public int getHP()
-        {
-            return primaryAttr["HP"];
-        }
-
-        public int getMP()
-        {
-            return primaryAttr["MP"];
-        }
-
-        public int getStr()
-        {
-            return primaryAttr["Str"];
-        }
-
-        public int getDex()
-        {
-            return primaryAttr["Dex"];
-        }
-
-        public int getInt()
-        {
-            return primaryAttr["Int"];
-        }
-
         public Dictionary<string, int> getResistance()
         {
             return resistance;
         }
 
-        public int getDamageModMelee()
+        public int getPrimaryAttr(string priAttr)
         {
-            return secAttr["DamageModMelee"];
-        }
+            int ret = primaryAttr[priAttr];
+            if (itemAdd.ContainsKey(priAttr))
+            {
+                ret += itemAdd[priAttr];
+            }
 
-        public int getDamageModRange()
-        {
-            return secAttr["DamageModRange"];
-        }
-
-        public int getDamageModMagic()
-        {
-            return secAttr["DamageModMagic"];
-        }
-
-        public int getPrimaryAttr(string primaryAttr)
-        {
-            return primaryAttr[primaryAttr];
+            return ret;
         }
 
         public int getSecondAttr(string secondAttr)
         {
-            return secAttr[secondAttr];
+            int ret = secAttr[secondAttr];
+            if (itemAdd.ContainsKey(secondAttr))
+            {
+                ret += itemAdd[secondAttr];
+            }
+
+            return ret;
+        }
+
+        public Item getEquip(string slot)
+        {
+            if (itemsEquipped.ContainsKey(slot))
+            {
+                
+            }
+            return null;
+        }
+
+        public void setEquip(string slot, Item item)
+        {
+            if (itemsEquipped.ContainsKey(slot))
+            {
+                removeFromInventory(item);
+                addToInventory(itemsEquipped[slot]);
+                itemsEquipped[slot] = item;
+            }
+        }
+
+        public void addToInventory(Item item)
+        {
+
+        }
+
+        public void removeFromInventory(int slot)
+        {
+
+        }
+
+        public void removeFromInventory(Item item)
+        {
+
         }
     }
 
     class Player : Creature
+    {
+
+    }
+
+    class NPC : Creature
     {
 
     }
@@ -246,8 +262,8 @@ namespace GameClient
         }
 
         public Attack(string type, string attributeOfAttack, int damage, bool piercing, params string[] damageTypes)
+            : this(type, attributeOfAttack, damage, damageTypes)
         {
-            this(type, attributeOfAttack, damage, damageTypes);
             this.piercing = piercing;
         }
 
@@ -279,6 +295,40 @@ namespace GameClient
 
     class Combat
     {
+        public Combat()
+        {
+            //set by input
+            Creature[] team1 = new Creature[1];
+            Creature[] team2 = new Creature[1];
+            //end
+            bool battleOn = true;
+            while (battleOn)
+            {
+                //Set up so you get input
+                Creature[] orderOfAttack = determineOrder();
+                
+
+
+            }
+
+            
+            
+        }
+
+        private Creature[] determineOrder(params Creature[] args)
+        {
+            int length = 0;
+            foreach (var item in args)
+            {
+                length += item.;
+            }
+            foreach (var item in args)
+            {
+
+            }
+            return null;
+        }
+
         public static Result Battle(Creature attacker, Attack attack, Creature defender)
         {
             int resultDamage = attack.getDamage() + attacker.getSecondAttr("DamageMod" + attack.getType());
@@ -322,14 +372,14 @@ namespace GameClient
             else if (attack.getType() == "Melee")
             {
                 int defenderAttr;
-                if (defender.getStr() > defender.getDex())
+                if (defender.getPrimaryAttr("Str") > defender.getPrimaryAttr("Dex"))
                 {
-                    defenderAttr = defender.getStr();
+                    defenderAttr = defender.getPrimaryAttr("Str");
                     defenceType = "Block";
                 }
                 else
                 {
-                    defenderAttr = defender.getDex();
+                    defenderAttr = defender.getPrimaryAttr("Dex");
                     defenceType = "Dodge";
                 }
 
