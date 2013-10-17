@@ -6,18 +6,134 @@ using System.Threading.Tasks;
 
 namespace GameClient
 {
-    class Creature
+    class Position
     {
+        public int x;
+        public int y;
+
+        public Position(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    class Inventory
+    {
+        private int gold;
+        private Item[] inv;
+
+        public Inventory(int size)
+        {
+            inv = new Item[size];
+        }
+
+        public Inventory(params Item[] items)
+        {
+            inv = items;
+        }
+
+        public void setInvSize(int size)
+        {
+            Item[] temp = inv;
+            inv = new Item[size];
+            temp.CopyTo(inv, 0);
+        }
+
+        public bool addToInv(Item item)
+        {
+            bool added = false;
+            for (int i = 0; i < this.inv.Length; i++)
+            {
+                if (inv[i] == null)
+                {
+                    inv[i] = item;
+                    added = true;
+                    break;
+                }
+            }
+            if (added)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool removeFromInv(int index)
+        {
+            try
+            {
+                if (this.inv[index] == null)
+                {
+                    return false;
+                }
+                this.inv[index] = null;
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+
+            return true;
+        }
+        
+        public bool removeFromInv(Item item)
+        {
+            for (int i = 0; i < this.inv.Length; i++)
+            {
+                if (this.inv[i] == item)
+                {
+                    this.inv[i] = null;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public int getInvSize()
+        {
+            return inv.Length;
+        }
+
+        public void addGold(int gold)
+        {
+            this.gold += gold;
+        }
+
+        public int getGold()
+        {
+            return this.gold;
+        }
+
+        public void openInvWindow(Inventory inventory)
+        {
+            //Opens an inv window to switch between inventories
+        }
+    }
+
+    abstract class Creature
+    {
+        public int currentTeam;
         protected int level;
         protected int exp;
         protected int skillPoints;
+        protected Attack nextAttack;
+        public Position position;
+        public Inventory inventory;
+
+        public Dictionary<string, Item> reward;
+        public Dictionary<string, int> rewardNum;
 
         protected Dictionary<string, int> primaryAttr = new Dictionary<string, int>()
         {
-            {"Str", 0},
-            {"Dex", 0},
-            {"Int", 0},
-            {"Vit", 0}
+            {"Str", 10},
+            {"Dex", 10},
+            {"Int", 10},
+            {"Vit", 10}
         };
 
         protected Dictionary<string, int> itemAdd = new Dictionary<string, int>()
@@ -57,7 +173,7 @@ namespace GameClient
 
         public Creature()
         {
-
+            updateSecondaryAttributes();
         }
 
         public void addStr(int Str)
@@ -160,6 +276,28 @@ namespace GameClient
             return ret;
         }
 
+        public void setPrimaryAttr(string priAttr, int num)
+        {
+            primaryAttr[priAttr] = num;
+        }
+
+        public void setSecondAttr(string secondAttr, int num)
+        {
+            secAttr[secondAttr] = num;
+        }
+
+        public void setNextAttack(Attack nextAttack)
+        {
+            this.nextAttack = nextAttack;
+        }
+
+        public Attack getNextAttack()
+        {
+            Attack temp = nextAttack;
+            nextAttack = null;
+            return temp;
+        }
+
         public Item getEquip(string slot)
         {
             if (itemsEquipped.ContainsKey(slot))
@@ -179,19 +317,15 @@ namespace GameClient
             }
         }
 
-        public void addToInventory(Item item)
+        public Inventory getInventory()
         {
-
+            return inventory;
         }
 
-        public void removeFromInventory(int slot)
+        //
+        public abstract Attack generateAttack()
         {
-
-        }
-
-        public void removeFromInventory(Item item)
-        {
-
+            return null;
         }
     }
 
