@@ -10,11 +10,10 @@ namespace GameClient
 
     public class Client
     {
-        public static const Client GAME = new Client();
+        public static Client GAME = new Client();
 
-        public static void Main()
+        public void loop()
         {
-            //Game loop
             while (true)
             {
                 GAME.update();
@@ -33,11 +32,47 @@ namespace GameClient
         }
     }
 
+    public class Test
+    {
+        public static void test()
+        {
+            Creature cre1 = new NPC("Peasant", 10, 11, 8, 10);
+            Creature cre2 = new NPC("Drunkard", 12, 9, 6, 11);
+            Combat combat = new Combat(new Creature[] { cre1 }, new Creature[] { cre2 }, false);
+        }
+    }
+
+    class Message
+    {
+        public static void sendMessagePlayer(string str)
+        {
+            Console.Out.WriteLine(str);
+        }
+
+        public static void sendMessageDev(string str)
+        {
+            Console.Out.WriteLine(str);
+        }
+    }
+
     class Item
     {
+        private Dictionary<string, int> itemAttributes = null;
+
         public Item()
         {
 
+        }
+
+        //Needs to be implemented
+        public string getItemType()
+        {
+            return null;
+        }
+
+        public int getItemAttribute(string attribute)
+        {
+            return itemAttributes[attribute];
         }
 
         //Placeholder method

@@ -38,27 +38,61 @@ namespace GameClient
 
     class Attack
     {
+        public static Dictionary<string, Attack> MELEE = new Dictionary<string, Attack>
+                                {
+                                    {"Punch", new Attack("Melee", "Str", 2, false, "Enemy", "Physical")},
+                                    {"Kick", new Attack("Melee", "Str", 4, false, "Enemy", "Physical")}
+                                    
+                                    
+                                };
+        public static Dictionary<string, Attack> RANGE = new Dictionary<string, Attack>
+                                {
+                                    {"Arrow shot", new Attack("Melee", "Dex", 7, true, "Enemy", "Physical")}
+
+
+
+                                };
+        public static Dictionary<string, Attack> MAGIC = new Dictionary<string, Attack>
+                                {
+                                    {"Heal", new Attack("Magic", "int", 4, false, 12, true, "Enemy", "Physical")}
+
+
+
+                                };
+
         public string type;
         public string attributeOfAttack;
         public List<string> damageType;
+        public bool positiveDamage;
         public int damage;
-        public int placeOfVictim;
+        public string victimType;
         public bool piercing;
+        public int MPCost;
 
         //type: Melee, Range or Magic; attributeOfAttack: Str, Dex or Int; damage: damage of attack; damageTypes: what type of attack it is Ex: Physical
-        public Attack(string type, string attributeOfAttack, int damage, int placeOfVictim, params string[] damageTypes)
+        public Attack(string type, string attributeOfAttack, int damage, string victimType, params string[] damageTypes)
         {
             this.type = type;
             this.attributeOfAttack = attributeOfAttack;
-            this.placeOfVictim = placeOfVictim;
+            this.victimType = victimType;
             this.damage = damage;
             this.damageType = new List<string>(damageTypes);
+            this.piercing = false;
+            MPCost = 0;
+            this.positiveDamage = false;
         }
 
-        public Attack(string type, string attributeOfAttack, int damage, bool piercing, int placeOfVictim, params string[] damageTypes)
-            : this(type, attributeOfAttack, damage, placeOfVictim, damageTypes)
+        public Attack(string type, string attributeOfAttack, int damage, bool piercing, string victimType, params string[] damageTypes)
+            : this(type, attributeOfAttack, damage, victimType, damageTypes)
         {
             this.piercing = piercing;
+        }
+
+        public Attack(string type, string attributeOfAttack, int damage, bool piercing, int MPCost, bool positiveDamage, string victimType, params string[] damageTypes)
+            : this(type, attributeOfAttack, damage, piercing, victimType, damageTypes)
+        {
+            this.MPCost = MPCost;
+            this.positiveDamage = positiveDamage;
         }
     }
 
@@ -112,44 +146,76 @@ namespace GameClient
             while (battleOn)
             {
                 Attack nextAttack = creatures[cycle].getNextAttack();
+                int target = 0;
+
                 if (nextAttack == null)
                 {
-                    nextAttack = creatures.generateAttack();
+                    nextAttack = creatures[cycle].generateAttack();
+                    target = creatures[cycle].chooseTarget(creatures, cycle, nextAttack);
+                    
                 }
 
-                if ((creatures[cycle].getSecondAttr("HP") > 0))
+                if (creatures[cycle].getSecondAttr("HP") > 0)
                 {
-                    Result outcome;
+                    Result outcome = null;
+                    bool skip = false;
 
                     if (nextAttack == null)
                     {
+                        Message.sendMessagePlayer(creatures[cycle] + " is stunned");
                         outcome = new Result("Stunned");
+                        skip = true;
                     }
                     else if (nextAttack.type == "Run Away")
                     {
+                        Message.sendMessagePlayer("Team " + creatures[cycle].currentTeam + " runs away");
                         //implement code to run away
                     }
                     else
                     {
+                        outcome = Battle(creatures[cycle], nextAttack, creatures[target]);
+                        if (outcome.result == "Hit")
+                        {
+                            Message.sendMessagePlayer(creatures[target] + " is Hit for " + outcome.damage + " damage");
+                        }
+                        else
+                        {
+                            Message.sendMessagePlayer(creatures[target] + outcome.result);
+                        }
                         //Run animation for attack here
-                        outcome = Battle(creatures[cycle], nextAttack, creatures[nextAttack.placeOfVictim]);
                     }
 
-                    //Needs to implement a method to print message result to screen
-                    //Screen.print(outcome)
-                    creatures[nextAttack.placeOfVictim].setSecondAttr("HP", creatures[nextAttack.placeOfVictim].getSecondAttr("HP") - outcome.damage);
-                    int won = this.update();
-                    if (won == 1)
+                    if (skip)
                     {
-                        checkReward();
-                        return 1;
+                        //Needs to implement a method to print message result to screen
+                        //Screen.print(outcome)
+                        if (nextAttack.positiveDamage)
+                        {
+                            creatures[target].setSecondAttr("HP", creatures[target].getSecondAttr("HP") + outcome.damage);
+                            if (creatures[target].getSecondAttr("HP") > creatures[target].getSecondAttr("MaxHP"))
+                            {
+                                creatures[target].setSecondAttr("HP", creatures[target].getSecondAttr("MaxHP"));
+                            }
+                        }
+                        else
+                        {
+                            creatures[target].setSecondAttr("HP", creatures[target].getSecondAttr("HP") - outcome.damage);
+                        }
+                        creatures[cycle].setSecondAttr("MP" ,creatures[cycle].getSecondAttr("MP") - nextAttack.MPCost);
+                    
+                        int won = this.update();
+                        if (won == 1)
+                        {
+                            checkReward();
+                            return 1;
+                        }
+                        else if (won == 2)
+                        {
+                            checkReward();
+                            return 2;
+                        }
+                        this.render();
                     }
-                    else if (won == 2)
-                    {
-                        checkReward();
-                        return 2;
-                    }
-                    this.render();
                 }
 
                 //Gets the next creature in the cycle
@@ -192,7 +258,7 @@ namespace GameClient
 
             List<string> resultDamageType = attack.damageType;
 
-            int resistancePercent;
+            int resistancePercent = 0;
             int count = resultDamageType.Count;
             for (int i = 0; i < resultDamageType.Count; i++)
             {
@@ -207,7 +273,7 @@ namespace GameClient
             }
             resultDamage *= (100-resistancePercent)/100;
 
-            string defenceType;
+            string defenceType = "";
             int chance = 0;
 
             if (resultDamage <= 0)
@@ -232,14 +298,22 @@ namespace GameClient
                     defenceType = "Dodge";
                 }
 
-                if (defender.getEquip("LeftArm").isShield())
+                if (defender.getEquip("LeftArm") != null)
                 {
-                    chance = (attacker.getPrimaryAttr(attack.attributeOfAttack) / 2 / defenderAttr + defender.getEquip("LeftArm").getBlock()) * 100
-                    defenceType = "Block";
+                    if (defender.getEquip("LeftArm").getItemType() == "Shield")
+                    {
+                        chance = (attacker.getPrimaryAttr(attack.attributeOfAttack) / 2 / defenderAttr + defender.getEquip("LeftArm").getItemAttribute("Block")) * 100;
+                        defenceType = "Block";
+                    }
+                    else
+                    {
+                        chance = attacker.getPrimaryAttr(attack.attributeOfAttack) * 100 / 2 / defenderAttr;
+                    }
                 }
                 else
                 {
-                    chance = (attacker.getPrimaryAttr(attack.attributeOfAttack) / 2 / defenderAttr) * 100;
+                    Message.sendMessageDev(attacker.getPrimaryAttr(attack.attributeOfAttack) + " " + defenderAttr);
+                    chance = attacker.getPrimaryAttr(attack.attributeOfAttack) * 100 / 2 / defenderAttr;
                 }
             }
             else if (attack.type == "Range") //Ranged
@@ -248,9 +322,9 @@ namespace GameClient
                 defenderAttr = defender.getPrimaryAttr("Dex");
                 defenceType = "Dodge";
 
-                if (defender.getEquip("LeftArm").isShield())
+                if (defender.getEquip("LeftArm").getItemType() == "Shield")
                 {
-                    chance = (attacker.getPrimaryAttr(attack.attributeOfAttack) / 2 / defenderAttr + defender.getEquip("LeftArm").getBlock()) * 100;
+                    chance = (attacker.getPrimaryAttr(attack.attributeOfAttack) / 2 / defenderAttr + defender.getEquip("LeftArm").getItemAttribute("Block")) * 100;
                     defenceType = "Block";
                 }
                 else
@@ -273,8 +347,11 @@ namespace GameClient
                 }
                 chance = (attacker.getPrimaryAttr(attack.attributeOfAttack) / 2 / defenderAttr) * 100;
             }
-
             Random rand = new Random();
+
+            Message.sendMessageDev(rand + " " + chance);
+            System.Threading.Thread.Sleep(800);
+
             if (chance >= (rand.NextDouble()*100))
             {
                 defenceType = "Hit";

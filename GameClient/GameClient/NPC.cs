@@ -117,6 +117,7 @@ namespace GameClient
 
     abstract class Creature
     {
+        public string name;
         public int currentTeam;
         protected int level;
         protected int exp;
@@ -169,10 +170,17 @@ namespace GameClient
             {"LeftLeg", null}
         };
 
-        protected Dictionary<string, int> resistance;
+        protected Dictionary<string, int> resistance = new Dictionary<string, int>() { };
 
-        public Creature()
+        public Creature(string name) : this(name, 10, 10, 10, 10) {}
+
+        public Creature(string name, int s, int d, int i, int v)
         {
+            this.name = name;
+            primaryAttr["Str"] = s;
+            primaryAttr["Dex"] = d;
+            primaryAttr["Int"] = i;
+            primaryAttr["Vit"] = v;
             updateSecondaryAttributes();
         }
 
@@ -206,11 +214,12 @@ namespace GameClient
             secAttr["HP"] = secAttr["MaxHP"];
             secAttr["MaxMP"] = getPrimaryAttr("Int") * 10;
             secAttr["MP"] = secAttr["MaxMP"];
-            secAttr["DamageModMagic"] = level * (primaryAttr["Int"] + 10) / 10;
-            secAttr["DamageModMelee"] = (primaryAttr["Str"] + 10) / 2;
-            secAttr["DamageModRange"] = (primaryAttr["Dex"] + 10) / 2;
+            secAttr["DamageModMagic"] = (primaryAttr["Int"] - 10) / 2;
+            secAttr["DamageModMelee"] = (primaryAttr["Str"] - 10) / 2;
+            secAttr["DamageModRange"] = (primaryAttr["Dex"] - 10) / 2;
         }
 
+        //Needs to be implemented
         public int getdamageReduction()
         {
             return 0;
@@ -309,11 +318,12 @@ namespace GameClient
 
         public void setEquip(string slot, Item item)
         {
-            if (itemsEquipped.ContainsKey(slot))
+            if (itemsEquipped.ContainsKey(slot) && item.getItemType() == slot)
             {
-                removeFromInventory(item);
-                addToInventory(itemsEquipped[slot]);
-                itemsEquipped[slot] = item;
+                if (inventory.removeFromInv(item))
+                {
+                    itemsEquipped[slot] = item;
+                }
             }
         }
 
@@ -322,25 +332,87 @@ namespace GameClient
             return inventory;
         }
 
-        //
-        public abstract Attack generateAttack()
+        public override string ToString()
         {
-            return null;
+            return name;
         }
+
+        //Needs to be implemented for diffrent creatures, remember to put a check on Manapoints for attacks
+        public abstract Attack generateAttack();
+
+        public abstract int chooseTarget(Creature[] creature, int myPlaceInCreature, Attack attack);
     }
 
     class Player : Creature
     {
+        public Player(string name) : base(name) { }
 
+        public override Attack generateAttack()
+        {
+            return null;
+        }
+
+        public override int chooseTarget(Creature[] creature, int myPlaceInCreature, Attack attack)
+        {
+            return 0;
+        }
     }
 
     class NPC : Creature
     {
+        public NPC(string name) : base(name) { }
 
+        public NPC(string name, int s, int d, int i, int v) : base(name, s, d, i, v) { }
+
+        public override Attack generateAttack()
+        {
+            return Attack.MELEE["Punch"];
+        }
+
+        public override int chooseTarget(Creature[] creatures, int myPlaceInCreature, Attack attack)
+        {
+            Random rand = new Random();
+
+            int lookFor = 0;
+            if (attack.victimType == "Enemy")
+            {
+                lookFor = this.currentTeam;
+            }
+            else if (attack.victimType == "Ally")
+            {
+                if (this.currentTeam == 1)
+                {
+                    lookFor = 2;
+                }
+                else
+                {
+                    lookFor = 1;
+                }
+            }
+
+            while (true)
+            {
+                int target = rand.Next(creatures.Length);
+                if ((creatures[target].getSecondAttr("HP") > 0) && (target != myPlaceInCreature) && (creatures[target].currentTeam != lookFor))
+                {
+                    return target;
+                }
+            }
+        }
     }
 
     class Enemy : Creature
     {
+        public Enemy(string name) : base(name) { }
 
+        public override Attack generateAttack()
+        {
+            return null;
+        }
+
+        public override int chooseTarget(Creature[] creature, int myPlaceInCreature, Attack attack)
+        {
+            return 0;
+        }
     }
 }
