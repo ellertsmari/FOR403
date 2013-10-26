@@ -42,6 +42,7 @@ namespace GameClient
         {
             Creature cre1 = new NPC("Peasant", 10, 12, 9, 5);
             Creature cre2 = new NPC("Drunkard", 12, 9, 8, 6);
+            cre2.setEquipAdmin("Off-Hand", new ItemShield("Off-Hand", 40));
             Combat combat = new Combat(new Creature[] { cre1 }, new Creature[] { cre2 }, false);
             Console.ReadLine();
         }
@@ -77,8 +78,8 @@ namespace GameClient
             string[] possibleSlots = new string[]
             {
                 "Head",
-                "RightArm",
-                "LeftArm",
+                "Main-Hand",
+                "Off-Hand",
                 "Chest",
                 "RightLeg",
                 "LeftLeg"
@@ -116,14 +117,16 @@ namespace GameClient
 
     class ItemShield : Item
     {
-        public ItemShield(string equipSlot) : base(equipSlot)
-        {
+        int blockPercentage;
 
+        public ItemShield(string equipSlot, int blockPercentage) : base(equipSlot)
+        {
+            this.blockPercentage = blockPercentage;
         }
 
         public int getBlock()
         {
-            return 0;
+            return blockPercentage;
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace GameClient
 {
@@ -108,14 +109,14 @@ namespace GameClient
                 int damage;
                 bool equipNull = false;
 
-                if (user.getEquip("RightArm") == null)
+                if (user.getEquip("Main-Hand") == null)
                 {
                     damage = 1;
                     equipNull = true;
                 }
                 else
                 {
-                    damage = ((ItemWeapon) user.getEquip("RightArm")).getDamage();
+                    damage = ((ItemWeapon)user.getEquip("Main-Hand")).getDamage();
                 }
 
                 if (hit == 1)
@@ -126,7 +127,7 @@ namespace GameClient
                     }
                     else
                     {
-                        hit = ((ItemWeapon)user.getEquip("RightArm")).getCritMod();
+                        hit = ((ItemWeapon)user.getEquip("Main-Hand")).getCritMod();
                     }
                 }
                 else
@@ -175,11 +176,11 @@ namespace GameClient
             int chance;
 
             bool skip = true;
-            if (target.getEquip("LeftArm") != null)
+            if (target.getEquip("Off-Hand") != null)
             {
-                if (target.getEquip("LeftArm").GetType() == typeof(ItemShield))
+                if (target.getEquip("Off-Hand").GetType() == typeof(ItemShield))
                 {
-                    defenderAttr = target.getPrimaryAttr("Str") * (100 + ((ItemShield)target.getEquip("LeftArm")).getBlock()) / 100;
+                    defenderAttr = target.getPrimaryAttr("Str") * (100 + ((ItemShield)target.getEquip("Off-Hand")).getBlock()) / 100;
                     resultMessage = "Block";
                     skip = false;
                 }
@@ -254,8 +255,9 @@ namespace GameClient
             //Battle loop, stops when one team is dead.
             while (battleOn)
             {
-                Ability ability = creatures[cycle].generateAbility();
-                int target = creatures[cycle].chooseTarget(creatures, cycle, ability);
+                Ability ability;
+                int target;
+                creatures[cycle].generateAction(out ability, out target, creatures, cycle);
 
                 Result result = ability.runAbility(creatures[cycle], creatures[target]);
                 creatures[cycle] = result.user;
