@@ -171,7 +171,19 @@ namespace GameClient
 
         public List<Ability> abilities = new List<Ability>();
 
-        protected Dictionary<string, int> resistance = new Dictionary<string, int>() { };
+        //If values are set to - then they work like the attribute is super effective against them
+        //for example -400 physical resistance adds 400% more damage to pure physical attacks against him
+        protected Dictionary<string, int> resistance = new Dictionary<string, int>()
+        {
+            {"Physical", 0},
+            {"Fire", 0},
+            {"Earth", 0},
+            {"Water", 0},
+            {"Wind", 0},
+            {"Dark", 0},
+            {"Light", 0},
+            {"Void", 0}
+        };
 
         public Creature(string name) : this(name, 2, 2, 2, 2) {}
 
@@ -184,6 +196,14 @@ namespace GameClient
             primaryAttr["Vit"] = v;
             updateSecondaryAttributes();
             this.level = 1;
+        }
+
+        public Creature(string name, int s, int d, int i, int v, Dictionary<string, int> resistance) : this(name, s, d, i, v)
+        {
+            foreach (var item in resistance)
+            {
+                setResistance(item.Key, item.Value);
+            }
         }
 
         public void addStr(int Str)
@@ -260,6 +280,23 @@ namespace GameClient
             return level;
         }
 
+        public void setResistance(string key, int value)
+        {
+            if (value > 100)
+            {
+                throw new FORException("Value too high for resistance");
+            }
+
+            if (this.resistance.ContainsKey(key))
+            {
+                this.resistance[key] = value;
+            }
+            else
+            {
+                this.resistance.Add(key, value);
+            }
+        }
+
         public Dictionary<string, int> getResistance()
         {
             return resistance;
@@ -316,15 +353,17 @@ namespace GameClient
             return null;
         }
 
-        public void setEquip(string slot, Item item)
+        public bool setEquip(string slot, Item item)
         {
-            if (itemsEquipped.ContainsKey(slot) && item.getItemType() == slot)
+            if (itemsEquipped.ContainsKey(slot) && item.getEquipSlot() == slot)
             {
                 if (inventory.removeFromInv(item))
                 {
                     itemsEquipped[slot] = item;
+                    return true;
                 }
             }
+            return false;
         }
 
         public Inventory getInventory()
@@ -347,6 +386,14 @@ namespace GameClient
     {
         public Player(string name) : base(name) { }
 
+        public Player(string name, int s, int d, int i, int v) : base(name, s, d, i, v) 
+        {
+        }
+
+        public Player(string name, int s, int d, int i, int v, Dictionary<string, int> resistance) : base(name, s, d, i, v, resistance)
+        {
+        }
+
         public override Ability generateAbility()
         {
             return null;
@@ -365,6 +412,10 @@ namespace GameClient
         }
 
         public NPC(string name, int s, int d, int i, int v) : base(name, s, d, i, v) 
+        {
+        }
+
+        public NPC(string name, int s, int d, int i, int v, Dictionary<string, int> resistance) : base(name, s, d, i, v, resistance)
         {
         }
 
@@ -417,6 +468,14 @@ namespace GameClient
     class Enemy : Creature
     {
         public Enemy(string name) : base(name) { }
+
+        public Enemy(string name, int s, int d, int i, int v) : base(name, s, d, i, v) 
+        {
+        }
+
+        public Enemy(string name, int s, int d, int i, int v, Dictionary<string, int> resistance) : base(name, s, d, i, v, resistance)
+        {
+        }
 
         public override Ability generateAbility()
         {

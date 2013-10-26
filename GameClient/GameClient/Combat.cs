@@ -70,7 +70,7 @@ namespace GameClient
     class AttackMelee : Ability
     {
         private float damageMod;
-        private string damageType;
+        private Dictionary<string, int> damageTypes = new Dictionary<string, int>();
         private string attributeAttack;
 
         //Do not set, used in calculations
@@ -82,12 +82,19 @@ namespace GameClient
         {
             this.damageMod = damageMod;
             this.attributeAttack = attributeAttack;
-            damageType = "Physical";
+            this.damageTypes.Add("Physical", 100);
         }
 
-        public AttackMelee(string name, int MPCost, float damageMod, string attributeAttack, string damageType) : this(name, MPCost, damageMod, attributeAttack)
+        public AttackMelee(string name, int MPCost, float damageMod, string attributeAttack, string[] damageTypes, int[] damageTypePercentage) : this(name, MPCost, damageMod, attributeAttack)
         {
-            this.damageType = damageType;
+            if (damageTypes.Length != damageTypePercentage.Length)
+            {
+                throw new FORException("Length of arrays in method not the same");
+            }
+            for (int i = 0; i < damageTypes.Length; i++)
+            {
+                this.damageTypes.Add(damageTypes[i], damageTypePercentage[i]);
+            }
         }
 
         public override Result runAbility(Creature user, Creature target)
@@ -127,8 +134,18 @@ namespace GameClient
                     hit = 1;
                 }
 
-                damage = (int)(damage * damageMod * hit + user.getSecondAttr("DamageModMelee"));
-                if (user.getEquip("RightArm") != null)
+                damage = (int)(damage * damageMod + user.getSecondAttr("DamageModMelee")) * hit;
+
+                foreach (var item in this.damageTypes)
+                {
+                    if (target.getResistance().ContainsKey(item.Key))
+                    {
+                        damage -= damage * item.Value * target.getResistance()[item.Key] / 10000;
+                    }
+                }
+
+                //Needs to figure out how to implement damage type on weapon into damage resistance
+                /*if (user.getEquip("RightArm") != null)
                 {
                     foreach (var item in ((ItemWeapon)user.getEquip("RightArm")).getDamageType())
                     {
@@ -137,7 +154,7 @@ namespace GameClient
                             damage = damage * (100-target.getResistance()[item]) / 100;
                         }
                     }
-                }
+                }*/
 
                 if (damage < 1)
                 {
@@ -160,7 +177,7 @@ namespace GameClient
             bool skip = true;
             if (target.getEquip("LeftArm") != null)
             {
-                if (target.getEquip("LeftArm").getItemType() == "Shield")
+                if (target.getEquip("LeftArm").GetType() == typeof(ItemShield))
                 {
                     defenderAttr = target.getPrimaryAttr("Str") * (100 + ((ItemShield)target.getEquip("LeftArm")).getBlock()) / 100;
                     resultMessage = "Block";
@@ -287,7 +304,7 @@ namespace GameClient
                 order[start] = item;
                 start++;
             }
-            Array.Sort(order, delegate(Creature x, Creature y) { return x.getPrimaryAttr("Dex").CompareTo(y.getPrimaryAttr("Dex")); });
+            Array.Sort(order, delegate(Creature x, Creature y) { return y.getPrimaryAttr("Dex").CompareTo(x.getPrimaryAttr("Dex")); });
             return order;
         }
 

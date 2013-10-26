@@ -47,6 +47,13 @@ namespace GameClient
         }
     }
 
+    class FORException : Exception
+    {
+        public FORException() : base() { }
+        public FORException(string message) : base(message) { }
+        public FORException(string message, System.Exception inner) : base(message, inner) { }
+    }
+
     class Message
     {
         public static void sendMessagePlayer(string str)
@@ -60,20 +67,40 @@ namespace GameClient
         }
     }
 
-    class Item
+    abstract class Item
     {
         protected Dictionary<string, int> itemAttributes = null;
         protected string equipSlot;
 
-        public Item()
+        public Item(string equipSlot)
         {
+            string[] possibleSlots = new string[]
+            {
+                "Head",
+                "RightArm",
+                "LeftArm",
+                "Chest",
+                "RightLeg",
+                "LeftLeg"
+            };
 
-        }
-
-        //Needs to be implemented
-        public string getItemType()
-        {
-            return null;
+            bool exec = true;
+            foreach (var slot in possibleSlots)
+            {
+                if (slot == equipSlot)
+                {
+                    exec = false;
+                    break;
+                }
+            }
+            if (exec)
+            {
+                throw new FORException("Slot in item does not exist");
+            }
+            else
+            {
+                this.equipSlot = equipSlot;
+            }
         }
 
         public int getItemAttribute(string attribute)
@@ -81,16 +108,15 @@ namespace GameClient
             return itemAttributes[attribute];
         }
 
-        //Placeholder method
-        public bool isShield()
+        public string getEquipSlot()
         {
-            return false;
+            return equipSlot;
         }
     }
 
     class ItemShield : Item
     {
-        public ItemShield() : base()
+        public ItemShield(string equipSlot) : base(equipSlot)
         {
 
         }
@@ -105,7 +131,7 @@ namespace GameClient
     {
         private List<string> damageTypes = new List<string>();
 
-        public ItemWeapon() : base()
+        public ItemWeapon(string equipSlot) : base(equipSlot)
         {
             this.damageTypes.Add("Physical");
         }
