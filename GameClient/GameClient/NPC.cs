@@ -122,7 +122,6 @@ namespace GameClient
         protected int level;
         protected int exp;
         protected int skillPoints;
-        protected Attack nextAttack;
         public Position position;
         public Inventory inventory;
 
@@ -131,10 +130,10 @@ namespace GameClient
 
         protected Dictionary<string, int> primaryAttr = new Dictionary<string, int>()
         {
-            {"Str", 10},
-            {"Dex", 10},
-            {"Int", 10},
-            {"Vit", 10}
+            {"Str", 0},
+            {"Dex", 0},
+            {"Int", 0},
+            {"Vit", 0}
         };
 
         protected Dictionary<string, int> itemAdd = new Dictionary<string, int>()
@@ -170,9 +169,11 @@ namespace GameClient
             {"LeftLeg", null}
         };
 
+        public List<Ability> abilities = new List<Ability>();
+
         protected Dictionary<string, int> resistance = new Dictionary<string, int>() { };
 
-        public Creature(string name) : this(name, 10, 10, 10, 10) {}
+        public Creature(string name) : this(name, 2, 2, 2, 2) {}
 
         public Creature(string name, int s, int d, int i, int v)
         {
@@ -182,6 +183,7 @@ namespace GameClient
             primaryAttr["Int"] = i;
             primaryAttr["Vit"] = v;
             updateSecondaryAttributes();
+            this.level = 1;
         }
 
         public void addStr(int Str)
@@ -210,9 +212,9 @@ namespace GameClient
 
         protected void updateSecondaryAttributes()
         {
-            secAttr["MaxHP"] = getPrimaryAttr("Vit") * 10;
+            secAttr["MaxHP"] = getPrimaryAttr("Vit") * 4;
             secAttr["HP"] = secAttr["MaxHP"];
-            secAttr["MaxMP"] = getPrimaryAttr("Int") * 10;
+            secAttr["MaxMP"] = getPrimaryAttr("Int") * 4;
             secAttr["MP"] = secAttr["MaxMP"];
             secAttr["DamageModMagic"] = (primaryAttr["Int"] - 10) / 2;
             secAttr["DamageModMelee"] = (primaryAttr["Str"] - 10) / 2;
@@ -295,16 +297,14 @@ namespace GameClient
             secAttr[secondAttr] = num;
         }
 
-        public void setNextAttack(Attack nextAttack)
+        public void addAbility(Ability ability)
         {
-            this.nextAttack = nextAttack;
+            abilities.Add(ability);
         }
 
-        public Attack getNextAttack()
+        public bool rmAbility(Ability ability)
         {
-            Attack temp = nextAttack;
-            nextAttack = null;
-            return temp;
+            return abilities.Remove(ability);
         }
 
         public Item getEquip(string slot)
@@ -338,21 +338,21 @@ namespace GameClient
         }
 
         //Needs to be implemented for diffrent creatures, remember to put a check on Manapoints for attacks
-        public abstract Attack generateAttack();
+        public abstract Ability generateAbility();
 
-        public abstract int chooseTarget(Creature[] creature, int myPlaceInCreature, Attack attack);
+        public abstract int chooseTarget(Creature[] creature, int myPlaceInCreature, Ability ability);
     }
 
     class Player : Creature
     {
         public Player(string name) : base(name) { }
 
-        public override Attack generateAttack()
+        public override Ability generateAbility()
         {
             return null;
         }
 
-        public override int chooseTarget(Creature[] creature, int myPlaceInCreature, Attack attack)
+        public override int chooseTarget(Creature[] creature, int myPlaceInCreature, Ability ability)
         {
             return 0;
         }
@@ -360,25 +360,38 @@ namespace GameClient
 
     class NPC : Creature
     {
-        public NPC(string name) : base(name) { }
-
-        public NPC(string name, int s, int d, int i, int v) : base(name, s, d, i, v) { }
-
-        public override Attack generateAttack()
+        public NPC(string name) : base(name)
         {
-            return Attack.MELEE["Punch"];
         }
 
-        public override int chooseTarget(Creature[] creatures, int myPlaceInCreature, Attack attack)
+        public NPC(string name, int s, int d, int i, int v) : base(name, s, d, i, v) 
+        {
+        }
+
+        public override Ability generateAbility()
+        {
+            if (abilities.Count == 0)
+            {
+                return AbilityStorage.MELEE["Punch"];
+            }
+            else
+            {
+                //Put call to AI here
+                return abilities[0];
+            }
+        }
+
+        //replace later to put AI code here
+        public override int chooseTarget(Creature[] creatures, int myPlaceInCreature, Ability ability)
         {
             Random rand = new Random();
 
             int lookFor = 0;
-            if (attack.victimType == "Enemy")
+            if (ability.victimType == "Enemy")
             {
                 lookFor = this.currentTeam;
             }
-            else if (attack.victimType == "Ally")
+            else if (ability.victimType == "Ally")
             {
                 if (this.currentTeam == 1)
                 {
@@ -405,12 +418,12 @@ namespace GameClient
     {
         public Enemy(string name) : base(name) { }
 
-        public override Attack generateAttack()
+        public override Ability generateAbility()
         {
             return null;
         }
 
-        public override int chooseTarget(Creature[] creature, int myPlaceInCreature, Attack attack)
+        public override int chooseTarget(Creature[] creature, int myPlaceInCreature, Ability ability)
         {
             return 0;
         }

@@ -10,14 +10,12 @@ namespace GameClient
 
     public class Client
     {
-        public static Client GAME = new Client();
-
         public void loop()
         {
             while (true)
             {
-                GAME.update();
-                GAME.render();
+                ConstantLib.GAME.update();
+                ConstantLib.GAME.render();
             }
         }
 
@@ -32,13 +30,20 @@ namespace GameClient
         }
     }
 
+    class ConstantLib
+    {
+        public static Client GAME = new Client();
+        public static Random RANDOM = new Random();
+    }
+
     public class Test
     {
         public static void test()
         {
-            Creature cre1 = new NPC("Peasant", 10, 11, 8, 10);
-            Creature cre2 = new NPC("Drunkard", 12, 9, 6, 11);
+            Creature cre1 = new NPC("Peasant", 10, 12, 9, 5);
+            Creature cre2 = new NPC("Drunkard", 12, 9, 8, 6);
             Combat combat = new Combat(new Creature[] { cre1 }, new Creature[] { cre2 }, false);
+            Console.ReadLine();
         }
     }
 
@@ -57,7 +62,8 @@ namespace GameClient
 
     class Item
     {
-        private Dictionary<string, int> itemAttributes = null;
+        protected Dictionary<string, int> itemAttributes = null;
+        protected string equipSlot;
 
         public Item()
         {
@@ -79,6 +85,44 @@ namespace GameClient
         public bool isShield()
         {
             return false;
+        }
+    }
+
+    class ItemShield : Item
+    {
+        public ItemShield() : base()
+        {
+
+        }
+
+        public int getBlock()
+        {
+            return 0;
+        }
+    }
+
+    class ItemWeapon : Item
+    {
+        private List<string> damageTypes = new List<string>();
+
+        public ItemWeapon() : base()
+        {
+            this.damageTypes.Add("Physical");
+        }
+
+        public int getDamage()
+        {
+            return 1;
+        }
+
+        public int getCritMod()
+        {
+            return 2;
+        }
+
+        public List<string> getDamageType()
+        {
+            return damageTypes;
         }
     }
 }

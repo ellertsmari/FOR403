@@ -1,0 +1,8 @@
+E:\Programming\Projects\C#\FOR403\GameClient\Tester\bin\Debug\Tester.exe.config
+E:\Programming\Projects\C#\FOR403\GameClient\Tester\bin\Debug\Tester.exe
+E:\Programming\Projects\C#\FOR403\GameClient\Tester\bin\Debug\Tester.pdb
+E:\Programming\Projects\C#\FOR403\GameClient\Tester\bin\Debug\GameClient.dll
+E:\Programming\Projects\C#\FOR403\GameClient\Tester\bin\Debug\GameClient.pdb
+E:\Programming\Projects\C#\FOR403\GameClient\Tester\obj\Debug\Tester.csprojResolveAssemblyReference.cache
+E:\Programming\Projects\C#\FOR403\GameClient\Tester\obj\Debug\Tester.exe
+E:\Programming\Projects\C#\FOR403\GameClient\Tester\obj\Debug\Tester.pdb

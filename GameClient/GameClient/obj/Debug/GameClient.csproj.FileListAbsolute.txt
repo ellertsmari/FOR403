@@ -1,0 +1,5 @@
+E:\Programming\Projects\C#\FOR403\GameClient\GameClient\bin\Debug\GameClient.dll
+E:\Programming\Projects\C#\FOR403\GameClient\GameClient\bin\Debug\GameClient.pdb
+E:\Programming\Projects\C#\FOR403\GameClient\GameClient\obj\Debug\GameClient.csprojResolveAssemblyReference.cache
+E:\Programming\Projects\C#\FOR403\GameClient\GameClient\obj\Debug\GameClient.dll
+E:\Programming\Projects\C#\FOR403\GameClient\GameClient\obj\Debug\GameClient.pdb
