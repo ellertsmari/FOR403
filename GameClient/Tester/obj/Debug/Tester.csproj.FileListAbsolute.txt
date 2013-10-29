@@ -6,3 +6,6 @@ E:\Programming\Projects\C#\FOR403\GameClient\Tester\bin\Debug\GameClient.pdb
 E:\Programming\Projects\C#\FOR403\GameClient\Tester\obj\Debug\Tester.csprojResolveAssemblyReference.cache
 E:\Programming\Projects\C#\FOR403\GameClient\Tester\obj\Debug\Tester.exe
 E:\Programming\Projects\C#\FOR403\GameClient\Tester\obj\Debug\Tester.pdb
+C:\Users\FS369745\Documents\Repos\FOR403\GameClient\Tester\bin\Debug\Tester.exe.config
+C:\Users\FS369745\Documents\Repos\FOR403\GameClient\Tester\obj\Debug\Tester.exe
+C:\Users\FS369745\Documents\Repos\FOR403\GameClient\Tester\obj\Debug\Tester.pdb
