@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameClient
 {
-    abstract class AI
+    public abstract class AI
     {
         public Ability nextAbility;
         public int nextTarget;
@@ -20,7 +20,7 @@ namespace GameClient
         public abstract void generateActionCombat(Creature user, Creature[] creatures, int myPlaceInCreature);
     }
 
-    class defultAI : AI
+    public class defultAI : AI
     {
         public defultAI() : base()
         {

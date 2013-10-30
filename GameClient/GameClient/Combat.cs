@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace GameClient
 {
-    class Result
+    public class Result
     {
         public string result;
         public Creature user;
@@ -27,7 +27,7 @@ namespace GameClient
     }
 
     //Here we make abilities
-    class AbilityStorage
+    public class AbilityStorage
     {
         public static Dictionary<string, Ability> MELEE = new Dictionary<string, Ability>
                                 {
@@ -43,7 +43,7 @@ namespace GameClient
     }
 
     //Inherit this class to add new abilities to the game
-    abstract class Ability
+    public abstract class Ability
     {
         public string name;
         public int MPCost;
@@ -68,7 +68,7 @@ namespace GameClient
     }
 
     //Class for basic melee attack abilities
-    class AttackMelee : Ability
+    public class AttackMelee : Ability
     {
         private float damageMod;
         private Dictionary<string, int> damageTypes = new Dictionary<string, int>();
@@ -206,7 +206,7 @@ namespace GameClient
         }
     }
 
-    class Combat
+    public class Combat
     {
         private Creature[] team1;
         private Creature[] team2;

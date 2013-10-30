@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameClient
 {
-    class Position
+    public class Position
     {
         public int x;
         public int y;
@@ -18,7 +18,7 @@ namespace GameClient
         }
     }
 
-    class Inventory
+    public class Inventory
     {
         private int gold;
         private Item[] inv;
@@ -115,7 +115,7 @@ namespace GameClient
         }
     }
 
-    abstract class Creature
+    public abstract class Creature
     {
         public string name;
         public int currentTeam;
@@ -471,7 +471,7 @@ namespace GameClient
         public abstract void generateAction(out Ability value1AI, out int value2AI, Creature[] creatures, int myPlaceInCreature);
     }
 
-    class Player : Creature
+    public class Player : Creature
     {
         public Player(string name) : base(name) { }
 
@@ -489,7 +489,7 @@ namespace GameClient
         }
     }
 
-    class NPC : Creature
+    public class NPC : Creature
     {
         private AI ai = new defultAI();
 
@@ -513,7 +513,7 @@ namespace GameClient
         }
     }
 
-    class Enemy : Creature
+    public class Enemy : Creature
     {
         private AI ai = new defultAI();
 

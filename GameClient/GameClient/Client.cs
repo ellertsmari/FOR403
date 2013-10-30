@@ -30,7 +30,7 @@ namespace GameClient
         }
     }
 
-    class ConstantLib
+    public class ConstantLib
     {
         public static Client GAME = new Client();
         public static Random RANDOM = new Random();
@@ -41,21 +41,22 @@ namespace GameClient
         public static void test()
         {
             Creature cre1 = new NPC("Peasant", 10, 12, 9, 5);
+            Creature cre3 = new NPC("Peasant", 10, 12, 9, 5);
             Creature cre2 = new NPC("Drunkard", 12, 9, 8, 6);
             cre2.setEquipAdmin("Off-Hand", new ItemShield("Off-Hand", 40));
-            Combat combat = new Combat(new Creature[] { cre1 }, new Creature[] { cre2 }, false);
+            Combat combat = new Combat(new Creature[] { cre1, cre3 }, new Creature[] { cre2 }, false);
             Console.ReadLine();
         }
     }
 
-    class FORException : Exception
+    public class FORException : Exception
     {
         public FORException() : base() { }
         public FORException(string message) : base(message) { }
         public FORException(string message, System.Exception inner) : base(message, inner) { }
     }
 
-    class Message
+    public class Message
     {
         public static void sendMessagePlayer(string str)
         {

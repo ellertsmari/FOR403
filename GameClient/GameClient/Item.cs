@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameClient
 {
-    abstract class Item
+    public abstract class Item
     {
         protected Dictionary<string, int> itemAttributes = null;
         protected string equipSlot;
@@ -53,7 +53,7 @@ namespace GameClient
         }
     }
 
-    class ItemShield : Item
+    public class ItemShield : Item
     {
         int blockPercentage;
 
@@ -69,24 +69,28 @@ namespace GameClient
         }
     }
 
-    class ItemWeapon : Item
+    public class ItemWeapon : Item
     {
         private List<string> damageTypes = new List<string>();
+        private int damage;
+        private int critMod;
 
-        public ItemWeapon(string equipSlot)
-            : base(equipSlot)
+
+        public ItemWeapon(string equipSlot, int damage, int critMod) : base(equipSlot)
         {
             this.damageTypes.Add("Physical");
+            this.damage = damage;
+            this.critMod = critMod;
         }
 
         public int getDamage()
         {
-            return 1;
+            return damage;
         }
 
         public int getCritMod()
         {
-            return 2;
+            return critMod;
         }
 
         public List<string> getDamageType()
