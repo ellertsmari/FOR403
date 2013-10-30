@@ -15,7 +15,7 @@
         <header />
         <body>
           <mainTex dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Texture]]">
-            <contentPath dataType="String">Data\Proto.Texture.res</contentPath>
+            <contentPath dataType="String">Data\Sprites\Proto.Texture.res</contentPath>
           </mainTex>
         </body>
       </textures>

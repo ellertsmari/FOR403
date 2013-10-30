@@ -153,6 +153,7 @@ namespace GameClient
             {"HP", 0},
             {"MaxMP", 0},
             {"MP", 0},
+            {"Speed", 0},
             {"DamageModMelee", 0},
             {"DamageModRange", 0},
             {"DamageModMagic", 0},
@@ -232,10 +233,11 @@ namespace GameClient
 
         protected void updateSecondaryAttributes()
         {
-            secAttr["MaxHP"] = getPrimaryAttr("Vit") * 4;
+            secAttr["MaxHP"] = primaryAttr["Vit"] * 4;
             secAttr["HP"] = secAttr["MaxHP"];
-            secAttr["MaxMP"] = getPrimaryAttr("Int") * 4;
+            secAttr["MaxMP"] = primaryAttr["Int"] * 4;
             secAttr["MP"] = secAttr["MaxMP"];
+            secAttr["Speed"] = primaryAttr["Dex"];
             secAttr["DamageModMagic"] = (primaryAttr["Int"] - 10) / 2;
             secAttr["DamageModMelee"] = (primaryAttr["Str"] - 10) / 2;
             secAttr["DamageModRange"] = (primaryAttr["Dex"] - 10) / 2;

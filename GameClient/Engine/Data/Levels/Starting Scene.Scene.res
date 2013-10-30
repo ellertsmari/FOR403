@@ -67,7 +67,7 @@
                   <H dataType="Float">200</H>
                 </rect>
                 <sharedMat dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Material]]">
-                  <contentPath dataType="String">Data\grass.Material.res</contentPath>
+                  <contentPath dataType="String">Data\Sprites\grass.Material.res</contentPath>
                 </sharedMat>
                 <customMat />
                 <colorTint dataType="Struct" type="Duality.ColorFormat.ColorRgba">
@@ -216,14 +216,14 @@
             <object />
           </_items>
           <_size dataType="Int">2</_size>
-          <_version dataType="Int">2</_version>
+          <_version dataType="Int">4</_version>
         </compList>
         <active dataType="Bool">true</active>
         <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
         <compTransform dataType="ObjectRef">3928348872</compTransform>
       </object>
       <object dataType="Class" type="Duality.GameObject" id="736248006">
-        <name dataType="String">Proto</name>
+        <name dataType="String">Player</name>
         <prefabLink />
         <identifier dataType="Struct" type="System.Guid" surrogate="true">
           <header>
@@ -238,15 +238,15 @@
           <body>
             <keys dataType="Array" type="System.Type[]" id="979087904" length="4">
               <object dataType="ObjectRef">321083428</object>
-              <object dataType="ObjectRef">1857182776</object>
-              <object dataType="Type" id="3468361024" value="Duality.Components.Physics.RigidBody" />
-              <object dataType="Type" id="2646294912" value="Engine.PlayerComponent" />
+              <object dataType="Type" id="3468361024" value="Duality.Components.Renderers.AnimSpriteRenderer" />
+              <object dataType="Type" id="2646294912" value="Duality.Components.Physics.RigidBody" />
+              <object dataType="Type" id="2506416320" value="Engine.PlayerComponent" />
             </keys>
             <values dataType="Array" type="Duality.Component[]" id="1769756096" length="4">
               <object dataType="Class" type="Duality.Components.Transform" id="3096562938">
                 <pos dataType="Struct" type="OpenTK.Vector3">
-                  <X dataType="Float">-3</X>
-                  <Y dataType="Float">-8.5</Y>
+                  <X dataType="Float">-0.24971962</X>
+                  <Y dataType="Float">0.209222078</Y>
                   <Z dataType="Float">0</Z>
                 </pos>
                 <angle dataType="Float">0</angle>
@@ -255,8 +255,8 @@
                 <ignoreParent dataType="Bool">false</ignoreParent>
                 <parentTransform />
                 <posAbs dataType="Struct" type="OpenTK.Vector3">
-                  <X dataType="Float">-3</X>
-                  <Y dataType="Float">-8.5</Y>
+                  <X dataType="Float">-0.24971962</X>
+                  <Y dataType="Float">0.209222078</Y>
                   <Z dataType="Float">0</Z>
                 </posAbs>
                 <angleAbs dataType="Float">0</angleAbs>
@@ -277,15 +277,22 @@
                 <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
                 <active dataType="Bool">true</active>
               </object>
-              <object dataType="Class" type="Duality.Components.Renderers.SpriteRenderer" id="2378414574">
+              <object dataType="Class" type="Duality.Components.Renderers.AnimSpriteRenderer" id="443683387">
+                <animFirstFrame dataType="Int">24</animFirstFrame>
+                <animFrameCount dataType="Int">8</animFrameCount>
+                <animDuration dataType="Float">1</animDuration>
+                <animLoopMode dataType="Enum" type="Duality.Components.Renderers.AnimSpriteRenderer+LoopMode" name="Loop" value="1" />
+                <animTime dataType="Float">0</animTime>
+                <animPaused dataType="Bool">true</animPaused>
+                <customFrameSequence />
                 <rect dataType="Struct" type="Duality.Rect">
-                  <X dataType="Float">-14</X>
-                  <Y dataType="Float">-17.5</Y>
-                  <W dataType="Float">28</W>
-                  <H dataType="Float">35</H>
+                  <X dataType="Float">-9</X>
+                  <Y dataType="Float">-12</Y>
+                  <W dataType="Float">18</W>
+                  <H dataType="Float">24</H>
                 </rect>
                 <sharedMat dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Material]]">
-                  <contentPath dataType="String">Data\Proto.Material.res</contentPath>
+                  <contentPath dataType="String">Data\Sprites\HeroSpritesnobg.Material.res</contentPath>
                 </sharedMat>
                 <customMat />
                 <colorTint dataType="Struct" type="Duality.ColorFormat.ColorRgba">
@@ -320,10 +327,10 @@
                 <shapes dataType="Class" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="330710722">
                   <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="2064184020" length="4">
                     <object dataType="Class" type="Duality.Components.Physics.CircleShapeInfo" id="2089241544">
-                      <radius dataType="Float">128</radius>
+                      <radius dataType="Float">4.972799</radius>
                       <position dataType="Struct" type="OpenTK.Vector2">
-                        <X dataType="Float">0</X>
-                        <Y dataType="Float">0</Y>
+                        <X dataType="Float">-1.060813</X>
+                        <Y dataType="Float">7.001355</Y>
                       </position>
                       <parent dataType="ObjectRef">3799024530</parent>
                       <density dataType="Float">1</density>
@@ -428,12 +435,12 @@
         <compList dataType="Class" type="System.Collections.Generic.List`1[[Duality.Component]]" id="3696580960">
           <_items dataType="Array" type="Duality.Component[]" id="1244858128" length="4">
             <object dataType="ObjectRef">3096562938</object>
-            <object dataType="ObjectRef">2378414574</object>
             <object dataType="ObjectRef">3799024530</object>
             <object dataType="ObjectRef">2748429640</object>
+            <object dataType="ObjectRef">443683387</object>
           </_items>
           <_size dataType="Int">4</_size>
-          <_version dataType="Int">22</_version>
+          <_version dataType="Int">26</_version>
         </compList>
         <active dataType="Bool">true</active>
         <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
