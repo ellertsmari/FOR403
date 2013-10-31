@@ -1,10 +1,8 @@
 [Core] Info:    Initializing OpenAL...
-[Core] Info:        OpenAL Drivers installed in C:\Windows\system32\OpenAL32.dll
+[Core] Info:        OpenAL Drivers not found. Using 64 Bit software fallback.
 [Core] Info:        Available devices:
-[Core]              Generic Software on Speakers (Razer Surround Audio Controller) (Default),
-[Core]              Generic Software on Speakers (Realtek High Definition Audio),
-[Core]              Generic Software on Realtek Digital Output (Realtek High Definition Audio)
-[Core] Info:        Current device: Generic Software
+[Core]              Speakers (Realtek High Definition Audio) (Default)
+[Core] Info:        Current device: OpenAL Soft
 [Core] Info:        256 sources available
 [Core] Info:    Assembly loaded: FarseerOpenTK
 [Core] Info:    Scanning for core plugins...
@@ -35,19 +33,3 @@
 [Core] Info:    Loading Ressource 'Data\Sprites\HeroSpritesnobg.Material.res'...
 [Core] Info:        Loading Ressource 'Data\Sprites\HeroSpritesnobg.Texture.res'...
 [Core] Info:            Loading Ressource 'Data\Sprites\HeroSpritesnobg.Pixmap.res'...
-[Core] ERROR:   KeyNotFoundException at TValue Dictionary<,>.get_Item(TKey): The given key was not present in the dictionary.
-[Core]          CallStack:
-[Core]             at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
-[Core]             at GameClient.Creature.getSecondAttr(String secondAttr) in e:\Programming\Projects\C#\FOR403\GameClient\GameClient\Creature.cs:line 320
-[Core]             at Engine.PlayerComponent.Duality.ICmpUpdatable.OnUpdate()
-[Core]             at Duality.GameObject.Update()
-[Core]             at Duality.Resources.Scene.Update()
-[Core]             at Duality.DualityApp.Update()
-[Core]             at DualityLauncher.DualityLauncher.OnUpdateFrame(FrameEventArgs e)
-[Core]             at OpenTK.GameWindow.OnUpdateFrameInternal(FrameEventArgs e)
-[Core]             at OpenTK.GameWindow.RaiseUpdateFrame(Stopwatch update_watch, Double& next_update, FrameEventArgs update_args)
-[Core]             at OpenTK.GameWindow.DispatchUpdateAndRenderFrame(Object sender, EventArgs e)
-[Core]             at OpenTK.GameWindow.Run(Double updates_per_second, Double frames_per_second)
-[Core]             at OpenTK.GameWindow.Run()
-[Core]             at DualityLauncher.DualityLauncher.Main(String[] args)
-[Core] ERROR:   DualityApp terminated unexpectedly

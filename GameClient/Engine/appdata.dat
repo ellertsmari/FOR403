@@ -4,7 +4,7 @@
     <appName dataType="String">Engine</appName>
     <authorName dataType="String">Wolf</authorName>
     <websiteUrl dataType="String">http://www.fetzenet.de</websiteUrl>
-    <version dataType="UInt">124</version>
+    <version dataType="UInt">150</version>
     <startScene dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Scene]]">
       <contentPath dataType="String">Data\Levels\Starting Scene.Scene.res</contentPath>
     </startScene>

@@ -15,42 +15,49 @@ namespace Engine
     [Serializable]
     [RequiredComponent(typeof(RigidBody))]
     [RequiredComponent(typeof(AnimSpriteRenderer))]
-    public class PlayerComponent : Component, ICmpUpdatable, ICmpInitializable
+    public class PlayerComponent : Component, ICmpUpdatable
     {
         private GameClient.Player player;
 
         public PlayerComponent()
         {
             player = new GameClient.Player("Player One");
+            Console.Out.WriteLine("Stop");
+
         }
 
         void ICmpUpdatable.OnUpdate()
         {
             RigidBody body = this.GameObj.RigidBody;
             AnimSpriteRenderer sprite = this.GameObj.GetComponent<AnimSpriteRenderer>();
+            int maxSpeed = player.getSecondAttr("Speed");
 
             if (DualityApp.Keyboard[Key.Left])
             {
-                body.ApplyLocalForce(Vector2.UnitX * 0.01f * player.getSecondAttr("Speed") * body.Mass);
+                body.ApplyLocalForce(Vector2.UnitX * -0.01f * body.Mass);
+                if (body.LinearVelocity.Length > maxSpeed)
+                {
+                    body.LinearVelocity = new Vector2(body.LinearVelocity.Length * (float)(Math.Cos(body.LinearVelocity.Angle) + Math.PI), body.LinearVelocity.Length * (float)(Math.Sin(body.LinearVelocity.Angle) + Math.PI));
+                }
                 sprite.AnimFirstFrame = 0;
                 sprite.AnimPaused = false;
             }
             else if (DualityApp.Keyboard[Key.Right])
             {
-                body.ApplyLocalForce(Vector2.UnitX * 0.01f * player.getSecondAttr("Speed") * body.Mass);
+                body.ApplyLocalForce(Vector2.UnitX * 0.01f * body.Mass);
                 sprite.AnimFirstFrame = 8;
                 sprite.AnimPaused = false;
             }
 
             if (DualityApp.Keyboard[Key.Up])
             {
-                body.ApplyLocalForce(Vector2.UnitX * 0.01f * player.getSecondAttr("Speed") * body.Mass);
+                body.ApplyLocalForce(Vector2.UnitY * -0.01f * body.Mass);
                 sprite.AnimFirstFrame = 16;
                 sprite.AnimPaused = false;
             }
             else if (DualityApp.Keyboard[Key.Down])
             {
-                body.ApplyLocalForce(Vector2.UnitX * 0.01f * player.getSecondAttr("Speed") * body.Mass);
+                body.ApplyLocalForce(Vector2.UnitY * 0.01f * body.Mass);
                 sprite.AnimFirstFrame = 24;
                 sprite.AnimPaused = false;
             }
@@ -61,11 +68,13 @@ namespace Engine
                 if (DualityApp.Keyboard.KeyReleased(Key.Up))
                 {
                     sprite.AnimFirstFrame = 16;
+                    sprite.AnimTime = 0;
                     sprite.AnimPaused = true;
                 }
                 else if (DualityApp.Keyboard.KeyReleased(Key.Down))
                 {
                     sprite.AnimFirstFrame = 24;
+                    sprite.AnimTime = 0;
                     sprite.AnimPaused = true;
                 }
             }
@@ -76,24 +85,16 @@ namespace Engine
                 if (DualityApp.Keyboard.KeyReleased(Key.Left))
                 {
                     sprite.AnimFirstFrame = 0;
+                    sprite.AnimTime = 0;
                     sprite.AnimPaused = true;
                 }
                 else if (DualityApp.Keyboard.KeyReleased(Key.Right))
                 {
                     sprite.AnimFirstFrame = 8;
+                    sprite.AnimTime = 0;
                     sprite.AnimPaused = true;
                 }
             }
-        }
-        
-        void ICmpInitializable.OnInit(Component.InitContext context)
-        {
-            
-        }
-
-        void ICmpInitializable.OnShutdown(Component.ShutdownContext context)
-        {
-            
         }
     }
 }

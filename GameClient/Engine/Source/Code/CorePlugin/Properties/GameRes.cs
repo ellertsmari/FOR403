@@ -34,9 +34,13 @@ namespace GameRes
 				Proto_Texture.MakeAvailable();
 			}
 		}
+		public static Duality.ContentRef<Duality.Resources.Pixmap> Tileset_Pixmap { get { return Duality.ContentProvider.RequestContent<Duality.Resources.Pixmap>(@"Data\Tileset.Pixmap.res"); }}
+		public static Duality.ContentRef<Duality.Resources.Texture> Tileset_Texture { get { return Duality.ContentProvider.RequestContent<Duality.Resources.Texture>(@"Data\Tileset.Texture.res"); }}
 		public static void LoadAll() {
 			Levels.LoadAll();
 			Sprites.LoadAll();
+			Tileset_Pixmap.MakeAvailable();
+			Tileset_Texture.MakeAvailable();
 		}
 	}
 
