@@ -76,7 +76,6 @@
     <Compile Include="PlayerComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\GameRes.cs" />
-    <Compile Include="TestObject.cs" />
     <Compile Include="TextureMaker.cs" />
   </ItemGroup>
   <ItemGroup>

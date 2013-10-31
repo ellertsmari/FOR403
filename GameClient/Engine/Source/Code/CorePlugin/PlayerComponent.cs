@@ -18,6 +18,7 @@ namespace Engine
     public class PlayerComponent : Component, ICmpUpdatable
     {
         private GameClient.Player player;
+        private float accMod = 0.03f;
 
         public PlayerComponent()
         {
@@ -32,34 +33,101 @@ namespace Engine
             AnimSpriteRenderer sprite = this.GameObj.GetComponent<AnimSpriteRenderer>();
             int maxSpeed = player.getSecondAttr("Speed");
 
-            if (DualityApp.Keyboard[Key.Left])
+            if (DualityApp.Keyboard[Key.Left] && DualityApp.Keyboard[Key.Up])
             {
-                body.ApplyLocalForce(Vector2.UnitX * -0.01f * body.Mass);
-                if (body.LinearVelocity.Length > maxSpeed)
-                {
-                    body.LinearVelocity = new Vector2(body.LinearVelocity.Length * (float)(Math.Cos(body.LinearVelocity.Angle) + Math.PI), body.LinearVelocity.Length * (float)(Math.Sin(body.LinearVelocity.Angle) + Math.PI));
-                }
+                body.LinearVelocity = new Vector2((float)(maxSpeed * Math.Cos(Math.PI * 5 / 4)), (float)(maxSpeed * Math.Sin(Math.PI * 5 / 4)));
                 sprite.AnimFirstFrame = 0;
                 sprite.AnimPaused = false;
             }
-            else if (DualityApp.Keyboard[Key.Right])
+            else if (DualityApp.Keyboard[Key.Left] && DualityApp.Keyboard[Key.Down])
             {
-                body.ApplyLocalForce(Vector2.UnitX * 0.01f * body.Mass);
-                sprite.AnimFirstFrame = 8;
+                body.LinearVelocity = new Vector2((float)(maxSpeed * Math.Cos(Math.PI * 3 / 4)), (float)(maxSpeed * Math.Sin(Math.PI * 3 / 4)));
+                sprite.AnimFirstFrame = 0;
                 sprite.AnimPaused = false;
+            }
+            else if (DualityApp.Keyboard[Key.Right] && DualityApp.Keyboard[Key.Up])
+            {
+                body.LinearVelocity = new Vector2((float)(maxSpeed * Math.Cos(Math.PI * 7 / 4)), (float)(maxSpeed * Math.Sin(Math.PI * 7 / 4)));
+                sprite.AnimFirstFrame = 0;
+                sprite.AnimPaused = false;
+            }
+            else if (DualityApp.Keyboard[Key.Right] && DualityApp.Keyboard[Key.Down])
+            {
+                body.LinearVelocity = new Vector2((float)(maxSpeed * Math.Cos(Math.PI / 4)), (float)(maxSpeed * Math.Sin(Math.PI / 4)));
+                sprite.AnimFirstFrame = 0;
+                sprite.AnimPaused = false;
+            }
+            else
+            {
+                if (DualityApp.Keyboard[Key.Left])
+                {
+                    body.LinearVelocity = new Vector2(-maxSpeed, 0);
+                    sprite.AnimFirstFrame = 0;
+                    sprite.AnimPaused = false;
+                }
+                else if (DualityApp.Keyboard[Key.Right])
+                {
+                    body.LinearVelocity = new Vector2(maxSpeed, 0);
+                    sprite.AnimFirstFrame = 8;
+                    sprite.AnimPaused = false;
+                }
+
+                if (DualityApp.Keyboard[Key.Up])
+                {
+                    body.LinearVelocity = new Vector2(0, -maxSpeed);
+                    sprite.AnimFirstFrame = 16;
+                    sprite.AnimPaused = false;
+                }
+                else if (DualityApp.Keyboard[Key.Down])
+                {
+                    body.LinearVelocity = new Vector2(0, maxSpeed);
+                    sprite.AnimFirstFrame = 24;
+                    sprite.AnimPaused = false;
+                }
+            }
+            
+            if ((DualityApp.Keyboard.KeyReleased(Key.Down)||DualityApp.Keyboard.KeyReleased(Key.Up))&&(!(DualityApp.Keyboard.KeyPressed(Key.Down))||!(DualityApp.Keyboard.KeyPressed(Key.Up))))
+            {
+                body.LinearVelocity = new Vector2(body.LinearVelocity.X, 0);
+                sprite.AnimTime = 0;
+                sprite.AnimPaused = true;
             }
 
-            if (DualityApp.Keyboard[Key.Up])
+            if ((DualityApp.Keyboard.KeyReleased(Key.Right) || DualityApp.Keyboard.KeyReleased(Key.Left)) && (!(DualityApp.Keyboard.KeyPressed(Key.Right)) || !(DualityApp.Keyboard.KeyPressed(Key.Left))))
             {
-                body.ApplyLocalForce(Vector2.UnitY * -0.01f * body.Mass);
-                sprite.AnimFirstFrame = 16;
-                sprite.AnimPaused = false;
+                body.LinearVelocity = body.LinearVelocity = new Vector2(0, body.LinearVelocity.Y);
+                sprite.AnimTime = 0;
+                sprite.AnimPaused = true;
             }
-            else if (DualityApp.Keyboard[Key.Down])
+
+            //OLD CODE
+            /*if (body.LinearVelocity.Length < maxSpeed)
             {
-                body.ApplyLocalForce(Vector2.UnitY * 0.01f * body.Mass);
-                sprite.AnimFirstFrame = 24;
-                sprite.AnimPaused = false;
+                if (DualityApp.Keyboard[Key.Left])
+                {
+                    body.ApplyLocalForce(Vector2.UnitX * -accMod * body.Mass);
+                    sprite.AnimFirstFrame = 0;
+                    sprite.AnimPaused = false;
+                }
+                else if (DualityApp.Keyboard[Key.Right])
+                {
+                    body.ApplyLocalForce(Vector2.UnitX * accMod * body.Mass);
+                    sprite.AnimFirstFrame = 8;
+                    sprite.AnimPaused = false;
+                }
+
+                if (DualityApp.Keyboard[Key.Up])
+                {
+                    body.ApplyLocalForce(Vector2.UnitY * -accMod * body.Mass);
+                    sprite.AnimFirstFrame = 16;
+                    sprite.AnimPaused = false;
+                }
+                else if (DualityApp.Keyboard[Key.Down])
+                {
+                    body.ApplyLocalForce(Vector2.UnitY * accMod * body.Mass);
+                    sprite.AnimFirstFrame = 24;
+                    sprite.AnimPaused = false;
+                }
             }
 
             if ((DualityApp.Keyboard.KeyReleased(Key.Down)||DualityApp.Keyboard.KeyReleased(Key.Up))&&(!(DualityApp.Keyboard.KeyPressed(Key.Down))||!(DualityApp.Keyboard.KeyPressed(Key.Up))))
@@ -94,7 +162,7 @@ namespace Engine
                     sprite.AnimTime = 0;
                     sprite.AnimPaused = true;
                 }
-            }
+            }*/
         }
     }
 }

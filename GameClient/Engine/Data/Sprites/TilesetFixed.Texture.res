@@ -2,11 +2,11 @@
 <root>
   <object dataType="Class" type="Duality.Resources.Texture">
     <basePixmap dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Pixmap]]">
-      <contentPath dataType="String">Data\Sprites\grass.Pixmap.res</contentPath>
+      <contentPath dataType="String">Data\Sprites\TilesetFixed.Pixmap.res</contentPath>
     </basePixmap>
     <size dataType="Struct" type="OpenTK.Vector2">
-      <X dataType="Float">200</X>
-      <Y dataType="Float">200</Y>
+      <X dataType="Float">176</X>
+      <Y dataType="Float">172</Y>
     </size>
     <texSizeMode dataType="Enum" type="Duality.Resources.Texture+SizeMode" name="Enlarge" value="0" />
     <filterMag dataType="Enum" type="OpenTK.Graphics.OpenGL.TextureMagFilter" name="Linear" value="9729" />

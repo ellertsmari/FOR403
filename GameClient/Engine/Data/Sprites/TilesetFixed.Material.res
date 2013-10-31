@@ -15,13 +15,13 @@
         <header />
         <body>
           <mainTex dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Texture]]">
-            <contentPath dataType="String">Data\Sprites\grass.Texture.res</contentPath>
+            <contentPath dataType="String">Data\Sprites\TilesetFixed.Texture.res</contentPath>
           </mainTex>
         </body>
       </textures>
       <uniforms />
       <dirtyFlag dataType="Enum" type="Duality.Resources.BatchInfo+DirtyFlag" name="None" value="0" />
-      <hashCode dataType="Int">1545452817</hashCode>
+      <hashCode dataType="Int">425380731</hashCode>
     </info>
     <sourcePath />
   </object>
