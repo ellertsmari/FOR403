@@ -517,16 +517,18 @@ namespace GameClient
 
     public class Enemy : Creature
     {
-        private AI ai = new defultAI();
+        public AI ai {get; set;}
 
-        public Enemy(string name) : base(name) { }
+        public Enemy(string name) : base(name) { ai = new defultAI();}
 
         public Enemy(string name, int s, int d, int i, int v) : base(name, s, d, i, v) 
         {
+            ai = new defultAI();
         }
 
         public Enemy(string name, int s, int d, int i, int v, Dictionary<string, int> resistance) : base(name, s, d, i, v, resistance)
         {
+            ai = new defultAI();
         }
 
         public override void generateAction(out Ability nextAbility, out int nextTarget, Creature[] creatures, int myPlaceInCreature)

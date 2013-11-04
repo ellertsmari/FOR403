@@ -18,10 +18,6 @@ namespace GameRes
 				StartingPlace_Scene.MakeAvailable();
 			}
 		}
-		public static class MenuTextures {
-			public static void LoadAll() {
-			}
-		}
 		public static class Sprites {
 			public static Duality.ContentRef<Duality.Resources.Material> HeroSpritesnobgFixed_Material { get { return Duality.ContentProvider.RequestContent<Duality.Resources.Material>(@"Data\Sprites\HeroSpritesnobgFixed.Material.res"); }}
 			public static Duality.ContentRef<Duality.Resources.Pixmap> HeroSpritesnobgFixed_Pixmap { get { return Duality.ContentProvider.RequestContent<Duality.Resources.Pixmap>(@"Data\Sprites\HeroSpritesnobgFixed.Pixmap.res"); }}
@@ -42,7 +38,6 @@ namespace GameRes
 		public static Duality.ContentRef<Duality.Resources.Prefab> Tile_Prefab { get { return Duality.ContentProvider.RequestContent<Duality.Resources.Prefab>(@"Data\Tile.Prefab.res"); }}
 		public static void LoadAll() {
 			Levels.LoadAll();
-			MenuTextures.LoadAll();
 			Sprites.LoadAll();
 			Player_Prefab.MakeAvailable();
 			Tile_Prefab.MakeAvailable();

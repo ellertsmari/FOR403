@@ -18,6 +18,12 @@ namespace GameClient
 
         //This method should se nextAbility and nextTarget accordingly
         public abstract void generateActionCombat(Creature user, Creature[] creatures, int myPlaceInCreature);
+
+        //This method should be used to move the user through the World
+        public abstract void moveWorld(Creature user)
+        {
+
+        }
     }
 
     public class defultAI : AI
