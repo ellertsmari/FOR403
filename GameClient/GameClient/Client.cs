@@ -10,6 +10,8 @@ namespace GameClient
 
     public class Client
     {
+        public Player player;
+
         public void loop()
         {
             while (true)

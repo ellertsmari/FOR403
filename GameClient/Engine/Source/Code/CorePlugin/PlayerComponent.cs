@@ -18,7 +18,6 @@ namespace Engine
     public class PlayerComponent : Component, ICmpUpdatable
     {
         private GameClient.Player player;
-        private float accMod = 0.03f;
 
         public PlayerComponent()
         {
@@ -99,70 +98,6 @@ namespace Engine
                 sprite.AnimTime = 0;
                 sprite.AnimPaused = true;
             }
-
-            //OLD CODE
-            /*if (body.LinearVelocity.Length < maxSpeed)
-            {
-                if (DualityApp.Keyboard[Key.Left])
-                {
-                    body.ApplyLocalForce(Vector2.UnitX * -accMod * body.Mass);
-                    sprite.AnimFirstFrame = 0;
-                    sprite.AnimPaused = false;
-                }
-                else if (DualityApp.Keyboard[Key.Right])
-                {
-                    body.ApplyLocalForce(Vector2.UnitX * accMod * body.Mass);
-                    sprite.AnimFirstFrame = 8;
-                    sprite.AnimPaused = false;
-                }
-
-                if (DualityApp.Keyboard[Key.Up])
-                {
-                    body.ApplyLocalForce(Vector2.UnitY * -accMod * body.Mass);
-                    sprite.AnimFirstFrame = 16;
-                    sprite.AnimPaused = false;
-                }
-                else if (DualityApp.Keyboard[Key.Down])
-                {
-                    body.ApplyLocalForce(Vector2.UnitY * accMod * body.Mass);
-                    sprite.AnimFirstFrame = 24;
-                    sprite.AnimPaused = false;
-                }
-            }
-
-            if ((DualityApp.Keyboard.KeyReleased(Key.Down)||DualityApp.Keyboard.KeyReleased(Key.Up))&&(!(DualityApp.Keyboard.KeyPressed(Key.Down))||!(DualityApp.Keyboard.KeyPressed(Key.Up))))
-            {
-                body.LinearVelocity = new Vector2(body.LinearVelocity.X, 0);
-                if (DualityApp.Keyboard.KeyReleased(Key.Up))
-                {
-                    sprite.AnimFirstFrame = 16;
-                    sprite.AnimTime = 0;
-                    sprite.AnimPaused = true;
-                }
-                else if (DualityApp.Keyboard.KeyReleased(Key.Down))
-                {
-                    sprite.AnimFirstFrame = 24;
-                    sprite.AnimTime = 0;
-                    sprite.AnimPaused = true;
-                }
-            }
-
-            if ((DualityApp.Keyboard.KeyReleased(Key.Right) || DualityApp.Keyboard.KeyReleased(Key.Left)) && (!(DualityApp.Keyboard.KeyPressed(Key.Right)) || !(DualityApp.Keyboard.KeyPressed(Key.Left))))
-            {
-                body.LinearVelocity = body.LinearVelocity = new Vector2(0, body.LinearVelocity.Y);
-                if (DualityApp.Keyboard.KeyReleased(Key.Left))
-                {
-                    sprite.AnimFirstFrame = 0;
-                    sprite.AnimTime = 0;
-                    sprite.AnimPaused = true;
-                }
-                else if (DualityApp.Keyboard.KeyReleased(Key.Right))
-                {
-                    sprite.AnimFirstFrame = 8;
-                    sprite.AnimTime = 0;
-                    sprite.AnimPaused = true;
-                }
-            }*/
         }
     }
 }

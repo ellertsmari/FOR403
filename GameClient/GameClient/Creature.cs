@@ -515,8 +515,19 @@ namespace GameClient
         }
     }
 
+    public enum Enemies
+    {
+
+    }
+
     public class Enemy : Creature
     {
+        private static List<Enemy> instances = new List<Enemy>();
+        public static IEnumerable<Enemy> Instances
+        {
+            get { return instances; }
+        }
+
         public AI ai {get; set;}
 
         public Enemy(string name) : base(name) { ai = new defultAI();}
