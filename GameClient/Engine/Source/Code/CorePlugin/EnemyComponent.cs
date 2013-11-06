@@ -15,10 +15,8 @@ namespace Engine
     [RequiredComponent(typeof(AnimSpriteRenderer))]
     public class EnemyComponent : Component, ICmpUpdatable
     {
-        public static void Create(Vector3 pos, Enemy type)
+        /*public static void Create(Vector3 pos, Enemy type)
         {
-            GameObject p;
-
             if (Player.Instance == null) return;
             type = Player.Instance.PickValidPowerup(type);
 
@@ -36,14 +34,42 @@ namespace Engine
             p.Transform.Pos = pos;
             p.Transform.Vel = new Vector3(MathF.Rnd.NextVector2(1.0f));
             Scene.Current.RegisterObj(p);
-        }
+        }*/
 
         private Enemy enemy;
+        private String enemyType;
 
-        public Enemy EnemyType
+        public String EnemyType
         {
-            get { return this.enemy; }
-            set { this.enemy = value; }
+            get { return this.enemyType; }
+            set { this.enemyType = value; }
+        }
+
+        public int lvl;
+        public int s;
+        public int d;
+        public int v;
+        public int i;
+
+        public int level{
+            get { return this.lvl; }
+            set { this.lvl = value; }
+        }
+        public int Str{
+            get { return this.s; }
+            set { this.s = value; }
+        }
+        public int Dex{
+            get { return this.d; }
+            set { this.d = value; }
+        }
+        public int Vit{
+            get { return this.v; }
+            set { this.v = value; }
+        }
+        public int Int{
+            get { return this.i; }
+            set { this.i = value; }
         }
 
         public EnemyComponent()
