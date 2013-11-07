@@ -28,9 +28,16 @@
 [Core] Info:    Loading Ressource 'Data\Levels\StartingPlace.Scene.res'...
 [Core] Info:        Assembly loaded: GameClient
 [Core] Info:        Loading Ressource 'Data\Player.Prefab.res'...
-[Core] Info:    Loading Ressource 'Data\Sprites\HeroSpritesnobgFixed.Material.res'...
-[Core] Info:        Loading Ressource 'Data\Sprites\HeroSpritesnobgFixed.Texture.res'...
-[Core] Info:            Loading Ressource 'Data\Sprites\HeroSpritesnobgFixed.Pixmap.res'...
-[Core] Info:    Saving UserData..
-[Core] Info:    Saving MetaData..
-[Core] Info:    DualityApp terminated
+[Core] Warning:         Field 'accMod' not found. Discarding value '0.03'
+[Core] ERROR:   NullReferenceException at Void EnemyComponent.Duality.ICmpUpdatable.OnUpdate(): Object reference not set to an instance of an object.
+[Core]          CallStack:
+[Core]             at Engine.EnemyComponent.Duality.ICmpUpdatable.OnUpdate()
+[Core]             at Duality.GameObject.Update()
+[Core]             at Duality.Resources.Scene.Update()
+[Core]             at Duality.DualityApp.Update()
+[Core]             at DualityLauncher.DualityLauncher.OnUpdateFrame(FrameEventArgs e)
+[Core]             at OpenTK.GameWindow.RaiseUpdateFrame(Stopwatch update_watch, Double& next_update, FrameEventArgs update_args)
+[Core]             at OpenTK.GameWindow.DispatchUpdateAndRenderFrame(Object sender, EventArgs e)
+[Core]             at OpenTK.GameWindow.Run(Double updates_per_second, Double frames_per_second)
+[Core]             at DualityLauncher.DualityLauncher.Main(String[] args)
+[Core] ERROR:   DualityApp terminated unexpectedly

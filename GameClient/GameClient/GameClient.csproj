@@ -43,6 +43,7 @@
     <Compile Include="AI.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Combat.cs" />
+    <Compile Include="ConstantLib.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="Effect.cs" />
     <Compile Include="Item.cs" />

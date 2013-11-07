@@ -10,6 +10,14 @@ using OpenTK;
 
 namespace Engine
 {
+    public enum EnemyType
+    {
+        Skeleton,
+        Zombie,
+        GiantSpider,
+        Wolf
+    }
+
     [Serializable]
     [RequiredComponent(typeof(RigidBody))]
     [RequiredComponent(typeof(AnimSpriteRenderer))]
@@ -37,12 +45,12 @@ namespace Engine
         }*/
 
         private Enemy enemy;
-        private String enemyType;
+        private EnemyType type;
 
-        public String EnemyType
+        public EnemyType Enemy
         {
-            get { return this.enemyType; }
-            set { this.enemyType = value; }
+            get { return this.type; }
+            set { enemy = (Enemy)typeof(ConstantLib).GetField(Enum.GetName(typeof(EnemyType), value)).GetValue(enemy); this.type = value; }
         }
 
         public int lvl;
@@ -80,7 +88,7 @@ namespace Engine
         void ICmpUpdatable.OnUpdate()
         {
             RigidBody body = this.GameObj.RigidBody;
-            this.enemy.ai.moveWorld(this.enemy);
+            //this.enemy.ai.moveWorld(this.enemy);
             this.GameObj.Transform.Pos = new Vector3(this.enemy.position.x, this.enemy.position.y, this.GameObj.Transform.Pos.Z);
         }
     }

@@ -32,12 +32,6 @@ namespace GameClient
         }
     }
 
-    public class ConstantLib
-    {
-        public static Client GAME = new Client();
-        public static Random RANDOM = new Random();
-    }
-
     public class Test
     {
         public static void test()
