@@ -40,6 +40,26 @@ namespace GameClient
         public static Dictionary<string, Ability> MAGIC = new Dictionary<string, Ability>
                                 {
                                 };
+
+        public static Ability lookForAbility(String name)
+        {
+            if (MELEE.ContainsKey(name))
+            {
+                return MELEE[name];
+            }
+            else if (RANGE.ContainsKey(name))
+            {
+                return RANGE[name];
+            }
+            else if (MAGIC.ContainsKey(name))
+            {
+                return MAGIC[name];
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 
     //Inherit this class to add new abilities to the game
@@ -65,6 +85,11 @@ namespace GameClient
 
         //Here you code the chance to hit
         public abstract int calculateChance(Creature user, Creature target);
+
+        public override string ToString()
+        {
+            return this.name;
+        }
     }
 
     //Class for basic melee attack abilities
@@ -102,7 +127,7 @@ namespace GameClient
         {
             int chance = calculateChance(user, target);
 
-            int hit = (ConstantLib.RANDOM.Next(100) + 1);
+            int hit = (Client.RANDOM.Next(100) + 1);
 
             if (!(chance < hit))
             {

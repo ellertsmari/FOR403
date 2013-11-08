@@ -10,14 +10,17 @@ namespace GameClient
 
     public class Client
     {
+
+        public static Client GAME = new Client();
+        public static Random RANDOM = new Random();
         public Player player;
 
         public void loop()
         {
             while (true)
             {
-                ConstantLib.GAME.update();
-                ConstantLib.GAME.render();
+                GAME.update();
+                GAME.render();
             }
         }
 

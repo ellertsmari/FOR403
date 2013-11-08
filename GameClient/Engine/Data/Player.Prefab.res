@@ -2,7 +2,6 @@
 <root>
   <object dataType="Class" type="Duality.Resources.Prefab">
     <objTree dataType="Class" type="Duality.GameObject" id="1472296175">
-      <name dataType="String">Player</name>
       <prefabLink />
       <identifier dataType="Struct" type="System.Guid" surrogate="true">
         <header>
@@ -14,7 +13,6 @@
       <children dataType="Class" type="System.Collections.Generic.List`1[[Duality.GameObject]]" id="2952958832">
         <_items dataType="Array" type="Duality.GameObject[]" id="4105400480" length="4">
           <object dataType="Class" type="Duality.GameObject" id="2534581906">
-            <name dataType="String">PlayerCamera</name>
             <prefabLink />
             <identifier dataType="Struct" type="System.Guid" surrogate="true">
               <header>
@@ -164,6 +162,7 @@
               <_size dataType="Int">2</_size>
               <_version dataType="Int">2</_version>
             </compList>
+            <name dataType="String">PlayerCamera</name>
             <active dataType="Bool">true</active>
             <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
             <compTransform dataType="ObjectRef">599929542</compTransform>
@@ -243,7 +242,7 @@
                     </position>
                     <parent dataType="ObjectRef">240105403</parent>
                     <density dataType="Float">1</density>
-                    <friction dataType="Float">0.3</friction>
+                    <friction dataType="Float">0</friction>
                     <restitution dataType="Float">0.3</restitution>
                     <sensor dataType="Bool">false</sensor>
                   </object>
@@ -335,7 +334,6 @@
                   </body>
                 </resistance>
               </player>
-              <accMod dataType="Float">0.03</accMod>
               <gameobj dataType="ObjectRef">1472296175</gameobj>
               <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
               <active dataType="Bool">true</active>
@@ -353,6 +351,7 @@
         <_size dataType="Int">4</_size>
         <_version dataType="Int">4</_version>
       </compList>
+      <name dataType="String">Player</name>
       <active dataType="Bool">true</active>
       <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
       <compTransform dataType="ObjectRef">3832611107</compTransform>

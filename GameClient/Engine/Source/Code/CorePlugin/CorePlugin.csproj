@@ -72,6 +72,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbilityContainer.cs" />
+    <Compile Include="ConstantLib.cs" />
     <Compile Include="CorePlugin.cs" />
     <Compile Include="EnemyComponent.cs" />
     <Compile Include="NPCComponent.cs" />
@@ -84,6 +86,7 @@
     <ProjectReference Include="..\..\..\..\GameClient\GameClient.csproj">
       <Project>{0ec1e19c-833f-41a3-8e13-22dd2d81b5cd}</Project>
       <Name>GameClient</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

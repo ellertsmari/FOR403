@@ -277,6 +277,11 @@ namespace GameClient
             }
         }
 
+        public void setLevel(int lvl)
+        {
+            this.level = lvl;
+        }
+
         public int getLevel()
         {
             return level;

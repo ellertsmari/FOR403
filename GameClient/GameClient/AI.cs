@@ -38,7 +38,7 @@ namespace GameClient
             //Defult Targeting code
             while (true)
             {
-                int target = ConstantLib.RANDOM.Next(creatures.Length);
+                int target = Client.RANDOM.Next(creatures.Length);
                 if ((creatures[target].getSecondAttr("HP") > 0) && (target != myPlaceInCreature) && (creatures[target].currentTeam != user.currentTeam))
                 {
                     nextTarget = target;
@@ -68,7 +68,7 @@ namespace GameClient
             //Defult Targeting code
             while (true)
             {
-                int target = ConstantLib.RANDOM.Next(creatures.Length);
+                int target = Client.RANDOM.Next(creatures.Length);
                 if ((creatures[target].getSecondAttr("HP") > 0) && (target != myPlaceInCreature) && (creatures[target].currentTeam != user.currentTeam))
                 {
                     nextTarget = target;
