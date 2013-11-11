@@ -37,7 +37,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--DockPanel configuration file. Author: Weifen Luo, all rights reserved.-->
 <!--!!! AUTOMATICALLY GENERATED FILE. DO NOT MODIFY !!!-->
-<DockPanel FormatVersion="1.0" DockLeftPortion="0.25" DockRightPortion="0.43828125" DockTopPortion="0.25" DockBottomPortion="0.25" ActiveDocumentPane="1" ActivePane="3">
+<DockPanel FormatVersion="1.0" DockLeftPortion="0.25" DockRightPortion="0.43828125" DockTopPortion="0.25" DockBottomPortion="0.25" ActiveDocumentPane="1" ActivePane="1">
   <Contents Count="5">
     <Content ID="0" PersistString="EditorBase.ProjectFolderView" AutoHidePortion="0.25" IsHidden="False" IsFloat="False" />
     <Content ID="1" PersistString="EditorBase.SceneView" AutoHidePortion="0.25" IsHidden="False" IsFloat="False" />

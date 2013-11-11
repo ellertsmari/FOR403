@@ -6,10 +6,6 @@
 namespace GameRes
 {
 	public static class Data {
-		public static class Enemies {
-			public static void LoadAll() {
-			}
-		}
 		public static class Levels {
 			public static Duality.ContentRef<Duality.Resources.Scene> Combat_Scene { get { return Duality.ContentProvider.RequestContent<Duality.Resources.Scene>(@"Data\Levels\Combat.Scene.res"); }}
 			public static Duality.ContentRef<Duality.Resources.Scene> Level1_Scene { get { return Duality.ContentProvider.RequestContent<Duality.Resources.Scene>(@"Data\Levels\Level1.Scene.res"); }}
@@ -18,10 +14,6 @@ namespace GameRes
 				Combat_Scene.MakeAvailable();
 				Level1_Scene.MakeAvailable();
 				Options_Scene.MakeAvailable();
-			}
-		}
-		public static class MenuTextures {
-			public static void LoadAll() {
 			}
 		}
 		public static class Sprites {
@@ -43,9 +35,7 @@ namespace GameRes
 		public static Duality.ContentRef<Duality.Resources.Prefab> Player_Prefab { get { return Duality.ContentProvider.RequestContent<Duality.Resources.Prefab>(@"Data\Player.Prefab.res"); }}
 		public static Duality.ContentRef<Duality.Resources.Prefab> Tile_Prefab { get { return Duality.ContentProvider.RequestContent<Duality.Resources.Prefab>(@"Data\Tile.Prefab.res"); }}
 		public static void LoadAll() {
-			Enemies.LoadAll();
 			Levels.LoadAll();
-			MenuTextures.LoadAll();
 			Sprites.LoadAll();
 			Player_Prefab.MakeAvailable();
 			Tile_Prefab.MakeAvailable();

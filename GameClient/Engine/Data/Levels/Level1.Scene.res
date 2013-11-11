@@ -222,8 +222,8 @@
             <values dataType="Array" type="Duality.Component[]" id="3274214668" length="4">
               <object dataType="Class" type="Duality.Components.Transform" id="2634906069">
                 <pos dataType="Struct" type="OpenTK.Vector3">
-                  <X dataType="Float">0</X>
-                  <Y dataType="Float">0</Y>
+                  <X dataType="Float">153</X>
+                  <Y dataType="Float">-147</Y>
                   <Z dataType="Float">0</Z>
                 </pos>
                 <angle dataType="Float">0</angle>
@@ -232,8 +232,8 @@
                 <ignoreParent dataType="Bool">false</ignoreParent>
                 <parentTransform />
                 <posAbs dataType="Struct" type="OpenTK.Vector3">
-                  <X dataType="Float">0</X>
-                  <Y dataType="Float">0</Y>
+                  <X dataType="Float">153</X>
+                  <Y dataType="Float">-147</Y>
                   <Z dataType="Float">0</Z>
                 </posAbs>
                 <angleAbs dataType="Float">0</angleAbs>

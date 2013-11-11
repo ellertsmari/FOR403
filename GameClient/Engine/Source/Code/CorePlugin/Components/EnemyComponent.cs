@@ -13,9 +13,7 @@ namespace Engine
 {
 
     [Serializable]
-    [RequiredComponent(typeof(RigidBody))]
-    [RequiredComponent(typeof(AnimSpriteRenderer))]
-    public class EnemyComponent : Component, ICmpUpdatable, ICmpInitializable
+    public class EnemyComponent : Component, ICmpInitializable
     {
         private Enemy enemy;
         private EnemyType type;
@@ -27,6 +25,13 @@ namespace Engine
         {
             get { return this.enemy.Stats; }
             set { this.enemy.Stats = value; }
+        }
+
+        [EditorHintFlags(MemberFlags.Invisible)]
+        public Enemy Enemy
+        {
+            get { return this.enemy; }
+            set { this.enemy = value; }
         }
 
         [EditorHintFlags(MemberFlags.ForceWriteback)]
@@ -74,13 +79,6 @@ namespace Engine
         {
             this.EnemyType = EnemyType.Wolf;
             this.AbilityNameStorage = new List<NameOfAbility>() { NameOfAbility.Claw };
-        }
-
-        void ICmpUpdatable.OnUpdate()
-        {
-            RigidBody body = this.GameObj.RigidBody;
-            //this.enemy.ai.moveWorld(this.enemy);
-            //this.GameObj.Transform.Pos = new Vector3(this.enemy.position.x, this.enemy.position.y, this.GameObj.Transform.Pos.Z);
         }
 
         void ICmpInitializable.OnInit(Component.InitContext context)
