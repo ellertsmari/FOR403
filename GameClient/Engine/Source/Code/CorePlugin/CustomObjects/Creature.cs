@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Duality.EditorHints;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameClient
+namespace Engine
 {
     public class Position
     {
@@ -115,50 +116,146 @@ namespace GameClient
         }
     }
 
+    [Serializable]
+    public class Stats
+    {
+        private int _level;
+        private int _exp;
+        private int _skillPoints;
+        private int _strength;
+        private int _dexterity;
+        private int _vitality;
+        private int _intelligence;
+        private int _maxHP;
+        private int _maxMP;
+        private int _hp;
+        private int _mp;
+        private int _damageModMelee;
+        private int _damageModRange;
+        private int _damageModMagic;
+        private int _damageReduction;
+        private int _speed;
+
+        public int Level
+        {
+            get { return this._level; }
+            set { this._level = value; }
+        }
+        public int Exp
+        {
+            get { return this._exp; }
+            set { this._exp = value; }
+        }
+        public int SkillPoints
+        {
+            get { return this._skillPoints; }
+            set { this._skillPoints = value; }
+        }
+        [EditorHintFlags(MemberFlags.AffectsOthers)]
+        public int Strength
+        {
+            get { return this._strength; }
+            set { this._strength = value; this.updateSecondaryAttributes(); }
+        }
+        [EditorHintFlags(MemberFlags.AffectsOthers)]
+        public int Dexterity
+        {
+            get { return this._dexterity; }
+            set { this._dexterity = value; this.updateSecondaryAttributes(); }
+        }
+        [EditorHintFlags(MemberFlags.AffectsOthers)]
+        public int Vitality
+        {
+            get { return this._vitality; }
+            set { this._vitality = value; this.updateSecondaryAttributes(); }
+        }
+        [EditorHintFlags(MemberFlags.AffectsOthers)]
+        public int Intelligence
+        {
+            get { return this._intelligence; }
+            set { this._intelligence = value; this.updateSecondaryAttributes(); }
+        }
+        [EditorHintFlags(MemberFlags.ReadOnly)]
+        public int MaxHP
+        {
+            get { return this._maxHP; }
+            private set { this._maxHP = value; }
+        }
+        [EditorHintFlags(MemberFlags.ReadOnly)]
+        public int MaxMP
+        {
+            get { return this._maxMP; }
+            private set { this._maxMP = value; }
+        }
+        public int HP
+        {
+            get { return this._hp; }
+            set { this._hp = value; }
+        }
+        public int MP
+        {
+            get { return this._mp; }
+            set { this._mp = value; }
+        }
+        [EditorHintFlags(MemberFlags.ReadOnly)]
+        public int DamageModMelee
+        {
+            get { return this._damageModMelee; }
+            private set { this._damageModMelee = value; }
+        }
+        [EditorHintFlags(MemberFlags.ReadOnly)]
+        public int DamageModRange
+        {
+            get { return this._damageModRange; }
+            private set { this._damageModRange = value; }
+        }
+        [EditorHintFlags(MemberFlags.ReadOnly)]
+        public int DamageModMagic
+        {
+            get { return this._damageModMagic; }
+            private set { this._damageModMagic = value; }
+        }
+        [EditorHintFlags(MemberFlags.ReadOnly)]
+        public int DamageReduction
+        {
+            get { return this._damageReduction; }
+            private set { this._damageReduction = value; }
+        }
+        [EditorHintFlags(MemberFlags.ReadOnly)]
+        public int Speed
+        {
+            get { return this._speed; }
+            private set { this._speed = value; }
+        }
+
+        public void updateSecondaryAttributes()
+        {
+            this._maxHP = this._vitality * 4;
+            this._hp = this._maxHP;
+            this._maxMP = this._intelligence * 4;
+            this._mp = this._maxMP;
+            this._speed = this._dexterity;
+            this._damageModMagic = (this._intelligence - 10) / 2;
+            this._damageModMelee = (this._strength - 10) / 2;
+            this._damageModRange = (this._dexterity - 10) / 2;
+        }
+
+        public override string ToString()
+        {
+            return "Stats";
+        }
+    }
+
     public abstract class Creature
     {
         public string name;
         public int currentTeam;
-        protected int level;
-        protected int exp;
-        protected int skillPoints;
         public Position position;
         public Inventory inventory;
+        private Stats stats;
 
         public Dictionary<string, Item> reward;
         public Dictionary<string, int> rewardNum;
-
-        protected Dictionary<string, int> primaryAttr = new Dictionary<string, int>()
-        {
-            {"Str", 0},
-            {"Dex", 0},
-            {"Int", 0},
-            {"Vit", 0}
-        };
-
-        protected Dictionary<string, int> itemAdd = new Dictionary<string, int>()
-        {
-            {"MaxHP", 0},
-            {"MaxMP", 0},
-            {"Str", 0},
-            {"Dex", 0},
-            {"Int", 0},
-            {"Vit", 0},
-            {"DamageReduction", 0}
-        };
-
-        protected Dictionary<string, int> secAttr = new Dictionary<string, int>()
-        {
-            {"MaxHP", 0},
-            {"HP", 0},
-            {"MaxMP", 0},
-            {"MP", 0},
-            {"Speed", 0},
-            {"DamageModMelee", 0},
-            {"DamageModRange", 0},
-            {"DamageModMagic", 0},
-            {"DamageReduction", 0}
-        };
 
         protected Dictionary<string, Item> itemsEquipped = new Dictionary<string, Item>()
         {
@@ -190,13 +287,14 @@ namespace GameClient
 
         public Creature(string name, int s, int d, int i, int v)
         {
+            this.Stats = new Stats();
             this.name = name;
-            primaryAttr["Str"] = s;
-            primaryAttr["Dex"] = d;
-            primaryAttr["Int"] = i;
-            primaryAttr["Vit"] = v;
-            updateSecondaryAttributes();
-            this.level = 1;
+            this.Stats.Strength = s;
+            this.stats.Dexterity = d;
+            this.stats.Vitality = v;
+            this.stats.Intelligence = i;
+            this.stats.Level = 1;
+            this.Stats.updateSecondaryAttributes();
         }
 
         public Creature(string name, int s, int d, int i, int v, Dictionary<string, int> resistance) : this(name, s, d, i, v)
@@ -207,40 +305,10 @@ namespace GameClient
             }
         }
 
-        public void addStr(int Str)
+        public Stats Stats
         {
-            primaryAttr["Str"] += Str;
-            updateSecondaryAttributes();
-        }
-
-        public void addDex(int Dex)
-        {
-            primaryAttr["Dex"] += Dex;
-            updateSecondaryAttributes();
-        }
-
-        public void addInt(int Int)
-        {
-            primaryAttr["Int"] += Int;
-            updateSecondaryAttributes();
-        }
-
-        public void addVit(int Vit)
-        {
-            primaryAttr["Vit"] += Vit;
-            updateSecondaryAttributes();
-        }
-
-        protected void updateSecondaryAttributes()
-        {
-            secAttr["MaxHP"] = primaryAttr["Vit"] * 4;
-            secAttr["HP"] = secAttr["MaxHP"];
-            secAttr["MaxMP"] = primaryAttr["Int"] * 4;
-            secAttr["MP"] = secAttr["MaxMP"];
-            secAttr["Speed"] = primaryAttr["Dex"];
-            secAttr["DamageModMagic"] = (primaryAttr["Int"] - 10) / 2;
-            secAttr["DamageModMelee"] = (primaryAttr["Str"] - 10) / 2;
-            secAttr["DamageModRange"] = (primaryAttr["Dex"] - 10) / 2;
+            get { return this.stats; }
+            set { this.stats = value; }
         }
 
         //Needs to be implemented
@@ -249,24 +317,12 @@ namespace GameClient
             return 0;
         }
 
-        public void giveExp(int exp)
-        {
-            this.exp += exp;
-            calculateLevel();
-        }
-
-        public void takeExp(int exp)
-        {
-            this.exp -= exp;
-            calculateLevel();
-        }
-
         protected void calculateLevel()
         {
             while (true)
             {
-                float levelMod = (level / 10f) * 2;
-                if (exp >= (level + levelMod) * 800)
+                float levelMod = (this.Stats.Level / 10f) * 2;
+                if (this.Stats.Exp >= (this.Stats.Level + levelMod) * 800)
                 {
                     //Set level up
                 }
@@ -275,16 +331,6 @@ namespace GameClient
                     break;
                 }
             }
-        }
-
-        public void setLevel(int lvl)
-        {
-            this.level = lvl;
-        }
-
-        public int getLevel()
-        {
-            return level;
         }
 
         public void setResistance(string key, int value)
@@ -307,38 +353,6 @@ namespace GameClient
         public Dictionary<string, int> getResistance()
         {
             return resistance;
-        }
-
-        public int getPrimaryAttr(string priAttr)
-        {
-            int ret = primaryAttr[priAttr];
-            if (itemAdd.ContainsKey(priAttr))
-            {
-                ret += itemAdd[priAttr];
-            }
-
-            return ret;
-        }
-
-        public int getSecondAttr(string secondAttr)
-        {
-            int ret = secAttr[secondAttr];
-            if (itemAdd.ContainsKey(secondAttr))
-            {
-                ret += itemAdd[secondAttr];
-            }
-
-            return ret;
-        }
-
-        public void setPrimaryAttr(string priAttr, int num)
-        {
-            primaryAttr[priAttr] = num;
-        }
-
-        public void setSecondAttr(string secondAttr, int num)
-        {
-            secAttr[secondAttr] = num;
         }
 
         public void addAbility(Ability ability)
@@ -366,17 +380,13 @@ namespace GameClient
             {
                 if (inventory.removeFromInv(item))
                 {
-                    if (itemsEquipped[slot] != null)
+                    if (deEquip(slot))
                     {
-                        if (!inventory.addToInv(itemsEquipped[slot]))
-                        {
-                            inventory.addToInv(item);
-                            return false;
-                        }
+                        itemsEquipped[slot] = item;
+                        return true;
                     }
-
-                    itemsEquipped[slot] = item;
-                    return true;
+                    inventory.addToInv(item);
+                    return false;
                 }
             }
             else if (slot == "Main-Hand" && (item.getEquipSlot() == "Two-Handed"))
@@ -413,6 +423,19 @@ namespace GameClient
                 }
             }
             return false;
+        }
+
+        public bool deEquip(string slot)
+        {
+            if (itemsEquipped[slot] != null)
+            {
+                if (!inventory.addToInv(itemsEquipped[slot]))
+                {
+                    return false;
+                }
+            }
+            itemsEquipped[slot] = null;
+            return true;
         }
 
         public bool setEquipAdmin(string slot, Item item)
@@ -464,9 +487,10 @@ namespace GameClient
             return false;
         }
 
-        public Inventory getInventory()
+        public Inventory Inventory
         {
-            return inventory;
+            get { return this.inventory; }
+            set { this.inventory = value; }
         }
 
         public override string ToString()
@@ -478,6 +502,7 @@ namespace GameClient
         public abstract void generateAction(out Ability value1AI, out int value2AI, Creature[] creatures, int myPlaceInCreature);
     }
 
+    [Serializable]
     public class Player : Creature
     {
         public Player(string name) : base(name) { }
@@ -496,6 +521,7 @@ namespace GameClient
         }
     }
 
+    [Serializable]
     public class NPC : Creature
     {
         private AI ai = new defultAI();
@@ -520,11 +546,7 @@ namespace GameClient
         }
     }
 
-    public enum Enemies
-    {
-
-    }
-
+    [Serializable]
     public class Enemy : Creature
     {
         private static List<Enemy> instances = new List<Enemy>();

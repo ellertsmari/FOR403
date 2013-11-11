@@ -42,18 +42,18 @@
                     <ignoreParent dataType="Bool">false</ignoreParent>
                     <parentTransform dataType="Class" type="Duality.Components.Transform" id="3832611107">
                       <pos dataType="Struct" type="OpenTK.Vector3">
-                        <X dataType="Float">2.021389</X>
-                        <Y dataType="Float">-16.5169334</Y>
+                        <X dataType="Float">0</X>
+                        <Y dataType="Float">0</Y>
                         <Z dataType="Float">0</Z>
                       </pos>
                       <angle dataType="Float">0</angle>
                       <scale dataType="Float">1</scale>
                       <deriveAngle dataType="Bool">true</deriveAngle>
-                      <ignoreParent dataType="Bool">true</ignoreParent>
+                      <ignoreParent dataType="Bool">false</ignoreParent>
                       <parentTransform />
                       <posAbs dataType="Struct" type="OpenTK.Vector3">
-                        <X dataType="Float">2.021389</X>
-                        <Y dataType="Float">-16.5169334</Y>
+                        <X dataType="Float">0</X>
+                        <Y dataType="Float">0</Y>
                         <Z dataType="Float">0</Z>
                       </posAbs>
                       <angleAbs dataType="Float">0</angleAbs>
@@ -75,8 +75,8 @@
                       <active dataType="Bool">true</active>
                     </parentTransform>
                     <posAbs dataType="Struct" type="OpenTK.Vector3">
-                      <X dataType="Float">2.27110863</X>
-                      <Y dataType="Float">-16.2305717</Y>
+                      <X dataType="Float">0.24971962</X>
+                      <Y dataType="Float">0.2863617</Y>
                       <Z dataType="Float">-300</Z>
                     </posAbs>
                     <angleAbs dataType="Float">0.0108782528</angleAbs>
@@ -186,7 +186,7 @@
           <values dataType="Array" type="Duality.Component[]" id="971002464" length="4">
             <object dataType="ObjectRef">3832611107</object>
             <object dataType="Class" type="Duality.Components.Renderers.AnimSpriteRenderer" id="1179731556">
-              <animFirstFrame dataType="Int">24</animFirstFrame>
+              <animFirstFrame dataType="Int">25</animFirstFrame>
               <animFrameCount dataType="Int">8</animFrameCount>
               <animDuration dataType="Float">1</animDuration>
               <animLoopMode dataType="Enum" type="Duality.Components.Renderers.AnimSpriteRenderer+LoopMode" name="Loop" value="1" />
@@ -194,9 +194,9 @@
               <animPaused dataType="Bool">false</animPaused>
               <customFrameSequence />
               <rect dataType="Struct" type="Duality.Rect">
-                <X dataType="Float">-9</X>
+                <X dataType="Float">-8</X>
                 <Y dataType="Float">-12</Y>
-                <W dataType="Float">18</W>
+                <W dataType="Float">16</W>
                 <H dataType="Float">24</H>
               </rect>
               <sharedMat dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Material]]">
@@ -235,14 +235,14 @@
               <shapes dataType="Class" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="459104483">
                 <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="34401506" length="4">
                   <object dataType="Class" type="Duality.Components.Physics.CircleShapeInfo" id="597833044">
-                    <radius dataType="Float">4.972799</radius>
+                    <radius dataType="Float">128</radius>
                     <position dataType="Struct" type="OpenTK.Vector2">
-                      <X dataType="Float">-1.060813</X>
-                      <Y dataType="Float">7.001355</Y>
+                      <X dataType="Float">0</X>
+                      <Y dataType="Float">0</Y>
                     </position>
                     <parent dataType="ObjectRef">240105403</parent>
                     <density dataType="Float">1</density>
-                    <friction dataType="Float">0</friction>
+                    <friction dataType="Float">0.3</friction>
                     <restitution dataType="Float">0.3</restitution>
                     <sensor dataType="Bool">false</sensor>
                   </object>
@@ -259,52 +259,32 @@
               <active dataType="Bool">true</active>
             </object>
             <object dataType="Class" type="Engine.PlayerComponent" id="3484477809">
-              <player dataType="Class" type="GameClient.Player" id="2401379593">
+              <player dataType="Class" type="Engine.Player" id="2401379593">
                 <name dataType="String">Player One</name>
                 <currentTeam dataType="Int">0</currentTeam>
-                <level dataType="Int">1</level>
-                <exp dataType="Int">0</exp>
-                <skillPoints dataType="Int">0</skillPoints>
                 <position />
                 <inventory />
+                <stats dataType="Class" type="Engine.Stats" id="3297825546">
+                  <_level dataType="Int">1</_level>
+                  <_exp dataType="Int">0</_exp>
+                  <_skillPoints dataType="Int">0</_skillPoints>
+                  <_strength dataType="Int">2</_strength>
+                  <_dexterity dataType="Int">2</_dexterity>
+                  <_vitality dataType="Int">2</_vitality>
+                  <_intelligence dataType="Int">2</_intelligence>
+                  <_maxHP dataType="Int">8</_maxHP>
+                  <_maxMP dataType="Int">8</_maxMP>
+                  <_hp dataType="Int">8</_hp>
+                  <_mp dataType="Int">8</_mp>
+                  <_damageModMelee dataType="Int">-4</_damageModMelee>
+                  <_damageModRange dataType="Int">-4</_damageModRange>
+                  <_damageModMagic dataType="Int">-4</_damageModMagic>
+                  <_damageReduction dataType="Int">0</_damageReduction>
+                  <_speed dataType="Int">2</_speed>
+                </stats>
                 <reward />
                 <rewardNum />
-                <primaryAttr dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="3297825546" surrogate="true">
-                  <header />
-                  <body>
-                    <Str dataType="Int">2</Str>
-                    <Dex dataType="Int">2</Dex>
-                    <Int dataType="Int">2</Int>
-                    <Vit dataType="Int">2</Vit>
-                  </body>
-                </primaryAttr>
-                <itemAdd dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="3428448844" surrogate="true">
-                  <header />
-                  <body>
-                    <MaxHP dataType="Int">0</MaxHP>
-                    <MaxMP dataType="Int">0</MaxMP>
-                    <Str dataType="Int">0</Str>
-                    <Dex dataType="Int">0</Dex>
-                    <Int dataType="Int">0</Int>
-                    <Vit dataType="Int">0</Vit>
-                    <DamageReduction dataType="Int">0</DamageReduction>
-                  </body>
-                </itemAdd>
-                <secAttr dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="352843494" surrogate="true">
-                  <header />
-                  <body>
-                    <MaxHP dataType="Int">8</MaxHP>
-                    <HP dataType="Int">8</HP>
-                    <MaxMP dataType="Int">8</MaxMP>
-                    <MP dataType="Int">8</MP>
-                    <Speed dataType="Int">2</Speed>
-                    <DamageModMelee dataType="Int">-4</DamageModMelee>
-                    <DamageModRange dataType="Int">-4</DamageModRange>
-                    <DamageModMagic dataType="Int">-4</DamageModMagic>
-                    <DamageReduction dataType="Int">0</DamageReduction>
-                  </body>
-                </secAttr>
-                <itemsEquipped dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[GameClient.Item]]" id="3891611704" surrogate="true">
+                <itemsEquipped dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[Engine.Item]]" id="3428448844" surrogate="true">
                   <header />
                   <body>
                     <Head />
@@ -315,12 +295,12 @@
                     <LeftLeg />
                   </body>
                 </itemsEquipped>
-                <abilities dataType="Class" type="System.Collections.Generic.List`1[[GameClient.Ability]]" id="2908142082">
-                  <_items dataType="Array" type="GameClient.Ability[]" id="2792823276" length="0" />
+                <abilities dataType="Class" type="System.Collections.Generic.List`1[[Engine.Ability]]" id="352843494">
+                  <_items dataType="Array" type="Engine.Ability[]" id="1595977768" length="0" />
                   <_size dataType="Int">0</_size>
                   <_version dataType="Int">0</_version>
                 </abilities>
-                <resistance dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="349135332" surrogate="true">
+                <resistance dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="3891611704" surrogate="true">
                   <header />
                   <body>
                     <Physical dataType="Int">0</Physical>

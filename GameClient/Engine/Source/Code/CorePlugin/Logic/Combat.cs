@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace GameClient
+namespace Engine
 {
     public class Result
     {
@@ -23,42 +23,6 @@ namespace GameClient
         public override string ToString()
         {
             return result;
-        }
-    }
-
-    //Here we make abilities
-    public class AbilityStorage
-    {
-        public static Dictionary<string, Ability> MELEE = new Dictionary<string, Ability>
-                                {
-                                    {"Punch", new AttackMelee("Punch", 0, 1, "Str")},
-                                    {"Kick", new AttackMelee("Kick", 0, 2, "Str")}
-                                };
-        public static Dictionary<string, Ability> RANGE = new Dictionary<string, Ability>
-                                {
-                                };
-        public static Dictionary<string, Ability> MAGIC = new Dictionary<string, Ability>
-                                {
-                                };
-
-        public static Ability lookForAbility(String name)
-        {
-            if (MELEE.ContainsKey(name))
-            {
-                return MELEE[name];
-            }
-            else if (RANGE.ContainsKey(name))
-            {
-                return RANGE[name];
-            }
-            else if (MAGIC.ContainsKey(name))
-            {
-                return MAGIC[name];
-            }
-            else
-            {
-                return null;
-            }
         }
     }
 
@@ -93,25 +57,24 @@ namespace GameClient
     }
 
     //Class for basic melee attack abilities
-    public class AttackMelee : Ability
+    public class AttackMeleeBlunt : Ability
     {
         private float damageMod;
         private Dictionary<string, int> damageTypes = new Dictionary<string, int>();
-        private string attributeAttack;
 
         //Do not set, used in calculations
         private int defenderAttr;
         private string resultMessage;
         //END
 
-        public AttackMelee(string name, int MPCost, float damageMod, string attributeAttack) : base(name, "Enemy", MPCost)
+        public AttackMeleeBlunt(string name, int MPCost, float damageMod) : base(name, "Enemy", MPCost)
         {
             this.damageMod = damageMod;
-            this.attributeAttack = attributeAttack;
             this.damageTypes.Add("Physical", 100);
         }
 
-        public AttackMelee(string name, int MPCost, float damageMod, string attributeAttack, string[] damageTypes, int[] damageTypePercentage) : this(name, MPCost, damageMod, attributeAttack)
+        public AttackMeleeBlunt(string name, int MPCost, float damageMod, string[] damageTypes, int[] damageTypePercentage)
+            : this(name, MPCost, damageMod)
         {
             if (damageTypes.Length != damageTypePercentage.Length)
             {
@@ -127,7 +90,7 @@ namespace GameClient
         {
             int chance = calculateChance(user, target);
 
-            int hit = (Client.RANDOM.Next(100) + 1);
+            int hit = (ConstantLib.RANDOM.Next(100) + 1);
 
             if (!(chance < hit))
             {
@@ -160,7 +123,7 @@ namespace GameClient
                     hit = 1;
                 }
 
-                damage = (int)(damage * damageMod + user.getSecondAttr("DamageModMelee")) * hit;
+                damage = (int)(damage * damageMod + user.Stats.DamageModMelee) * hit;
 
                 foreach (var item in this.damageTypes)
                 {
@@ -189,7 +152,7 @@ namespace GameClient
                 else
                 {
                     resultMessage = "Hit " + damage;
-                    target.setSecondAttr("HP", target.getSecondAttr("HP") - damage);
+                    target.Stats.HP -= damage;
                 }
             }
 
@@ -205,18 +168,156 @@ namespace GameClient
             {
                 if (target.getEquip("Off-Hand").GetType() == typeof(ItemShield))
                 {
-                    defenderAttr = target.getPrimaryAttr("Str") * (100 + ((ItemShield)target.getEquip("Off-Hand")).getBlock()) / 100;
+                    defenderAttr = target.Stats.Strength * (100 + ((ItemShield)target.getEquip("Off-Hand")).getBlock()) / 100;
                     resultMessage = "Block";
                     skip = false;
                 }
             }
             if (skip)
             {
-                defenderAttr = target.getPrimaryAttr("Dex");
+                defenderAttr = target.Stats.Dexterity;
                 resultMessage = "Dodge";
             }
 
-            chance = user.getPrimaryAttr(this.attributeAttack) * 100 / 2 / defenderAttr;
+            chance = user.Stats.Strength * 100 / 2 / defenderAttr;
+            
+            if (chance > 99)
+            {
+                chance = 99;
+            }
+            else if (chance < 1)
+            {
+                chance = 1;
+            }
+
+            return chance;
+        }
+    }
+
+    public class AttackMeleeSharp : Ability
+    {
+        private float damageMod;
+        private Dictionary<string, int> damageTypes = new Dictionary<string, int>();
+
+        //Do not set, used in calculations
+        private int defenderAttr;
+        private string resultMessage;
+        //END
+
+        public AttackMeleeSharp(string name, int MPCost, float damageMod)
+            : base(name, "Enemy", MPCost)
+        {
+            this.damageMod = damageMod;
+            this.damageTypes.Add("Physical", 100);
+        }
+
+        public AttackMeleeSharp(string name, int MPCost, float damageMod, string[] damageTypes, int[] damageTypePercentage)
+            : this(name, MPCost, damageMod)
+        {
+            if (damageTypes.Length != damageTypePercentage.Length)
+            {
+                throw new FORException("Length of arrays in method not the same");
+            }
+            for (int i = 0; i < damageTypes.Length; i++)
+            {
+                this.damageTypes.Add(damageTypes[i], damageTypePercentage[i]);
+            }
+        }
+
+        public override Result runAbility(Creature user, Creature target)
+        {
+            int chance = calculateChance(user, target);
+
+            int hit = (ConstantLib.RANDOM.Next(100) + 1);
+
+            if (!(chance < hit))
+            {
+                int damage;
+                bool equipNull = false;
+
+                if (user.getEquip("Main-Hand") == null)
+                {
+                    damage = 1;
+                    equipNull = true;
+                }
+                else
+                {
+                    damage = ((ItemWeapon)user.getEquip("Main-Hand")).getDamage();
+                }
+
+                if (hit == 1)
+                {
+                    if (equipNull)
+                    {
+                        hit = 2;
+                    }
+                    else
+                    {
+                        hit = ((ItemWeapon)user.getEquip("Main-Hand")).getCritMod();
+                    }
+                }
+                else
+                {
+                    hit = 1;
+                }
+
+                damage = (int)(damage * damageMod + user.Stats.DamageModMelee) * hit;
+
+                foreach (var item in this.damageTypes)
+                {
+                    if (target.getResistance().ContainsKey(item.Key))
+                    {
+                        damage -= damage * item.Value * target.getResistance()[item.Key] / 10000;
+                    }
+                }
+
+                //Needs to figure out how to implement damage type on weapon into damage resistance
+                /*if (user.getEquip("RightArm") != null)
+                {
+                    foreach (var item in ((ItemWeapon)user.getEquip("RightArm")).getDamageType())
+                    {
+                        if (target.getResistance().ContainsKey(item))
+                        {
+                            damage = damage * (100-target.getResistance()[item]) / 100;
+                        }
+                    }
+                }*/
+
+                if (damage < 1)
+                {
+                    resultMessage = "Immune";
+                }
+                else
+                {
+                    resultMessage = "Hit " + damage;
+                    target.Stats.HP -= damage;
+                }
+            }
+
+            return new Result(user, resultMessage, target);
+        }
+
+        public override int calculateChance(Creature user, Creature target)
+        {
+            int chance;
+
+            bool skip = true;
+            if (target.getEquip("Off-Hand") != null)
+            {
+                if (target.getEquip("Off-Hand").GetType() == typeof(ItemShield))
+                {
+                    defenderAttr = target.Stats.Strength * (100 + ((ItemShield)target.getEquip("Off-Hand")).getBlock()) / 100;
+                    resultMessage = "Block";
+                    skip = false;
+                }
+            }
+            if (skip)
+            {
+                defenderAttr = target.Stats.Dexterity;
+                resultMessage = "Dodge";
+            }
+
+            chance = user.Stats.Dexterity * 100 / 2 / defenderAttr;
 
             if (chance > 99)
             {
@@ -314,7 +415,7 @@ namespace GameClient
 
                 //For console Test
                 System.Threading.Thread.Sleep(800);
-                Message.sendMessageDev("Health 1: " + creatures[0].getSecondAttr("HP") + " Health 2: " + creatures[1].getSecondAttr("HP"));
+                Message.sendMessageDev("Health 1: " + creatures[0].Stats.HP + " Health 2: " + creatures[1].Stats.HP);
             }
 
             return 0;
@@ -331,7 +432,7 @@ namespace GameClient
                 order[start] = item;
                 start++;
             }
-            Array.Sort(order, delegate(Creature x, Creature y) { return y.getPrimaryAttr("Dex").CompareTo(x.getPrimaryAttr("Dex")); });
+            Array.Sort(order, delegate(Creature x, Creature y) { return y.Stats.Dexterity.CompareTo(x.Stats.Dexterity); });
             return order;
         }
 
@@ -388,7 +489,7 @@ namespace GameClient
 
                 foreach (var creature in give)
                 {
-                    creature.giveExp(rewardEXP);
+                    creature.Stats.Exp += rewardEXP;
                     if (creature is Player)
                     {
                         creature.inventory.addGold(rewardGold);
@@ -406,7 +507,7 @@ namespace GameClient
 
             foreach (var creature in creatures)
             {
-                if (creature.getSecondAttr("HP") > 0)
+                if (creature.Stats.HP > 0)
                 {
                     if (creature.currentTeam == 1)
                     {

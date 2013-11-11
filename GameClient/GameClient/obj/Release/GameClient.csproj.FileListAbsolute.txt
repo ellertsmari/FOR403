@@ -1,5 +1,0 @@
-E:\Programming\Projects\C#\FOR403\GameClient\GameClient\bin\Release\GameClient.dll
-E:\Programming\Projects\C#\FOR403\GameClient\GameClient\bin\Release\GameClient.pdb
-E:\Programming\Projects\C#\FOR403\GameClient\GameClient\obj\Release\GameClient.dll
-E:\Programming\Projects\C#\FOR403\GameClient\GameClient\obj\Release\GameClient.pdb
-E:\Programming\Projects\C#\FOR403\GameClient\GameClient\obj\Release\GameClient.csprojResolveAssemblyReference.cache

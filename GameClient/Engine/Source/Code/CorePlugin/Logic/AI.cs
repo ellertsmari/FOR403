@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Engine.Constants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameClient
+namespace Engine
 {
     public abstract class AI
     {
@@ -33,13 +34,13 @@ namespace GameClient
         public override void generateActionCombat(Creature user, Creature[] creatures, int myPlaceInCreature)
         {
             //Defult Action code
-            nextAbility = AbilityStorage.MELEE["Punch"];
+            nextAbility = AbilityStorage.Punch;
 
             //Defult Targeting code
             while (true)
             {
-                int target = Client.RANDOM.Next(creatures.Length);
-                if ((creatures[target].getSecondAttr("HP") > 0) && (target != myPlaceInCreature) && (creatures[target].currentTeam != user.currentTeam))
+                int target = ConstantLib.RANDOM.Next(creatures.Length);
+                if ((creatures[target].Stats.HP > 0) && (target != myPlaceInCreature) && (creatures[target].currentTeam != user.currentTeam))
                 {
                     nextTarget = target;
                     break;
@@ -63,13 +64,13 @@ namespace GameClient
         public override void generateActionCombat(Creature user, Creature[] creatures, int myPlaceInCreature)
         {
             //Defult Action code
-            nextAbility = AbilityStorage.MELEE["Punch"];
+            nextAbility = AbilityStorage.Punch;
 
             //Defult Targeting code
             while (true)
             {
-                int target = Client.RANDOM.Next(creatures.Length);
-                if ((creatures[target].getSecondAttr("HP") > 0) && (target != myPlaceInCreature) && (creatures[target].currentTeam != user.currentTeam))
+                int target = ConstantLib.RANDOM.Next(creatures.Length);
+                if ((creatures[target].Stats.HP > 0) && (target != myPlaceInCreature) && (creatures[target].currentTeam != user.currentTeam))
                 {
                     nextTarget = target;
                     break;

@@ -17,11 +17,11 @@ namespace Engine
     [RequiredComponent(typeof(AnimSpriteRenderer))]
     public class PlayerComponent : Component, ICmpUpdatable
     {
-        private GameClient.Player player;
+        private Player player;
 
         public PlayerComponent()
         {
-            player = new GameClient.Player("Player One");
+            player = new Player("Player One");
             Console.Out.WriteLine("Stop");
 
         }
@@ -30,7 +30,7 @@ namespace Engine
         {
             RigidBody body = this.GameObj.RigidBody;
             AnimSpriteRenderer sprite = this.GameObj.GetComponent<AnimSpriteRenderer>();
-            int maxSpeed = player.getSecondAttr("Speed");
+            int maxSpeed = player.Stats.Speed;
 
             if (DualityApp.Keyboard[Key.Left] && DualityApp.Keyboard[Key.Up])
             {

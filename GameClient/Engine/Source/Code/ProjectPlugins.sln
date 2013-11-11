@@ -1,9 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorePlugin", "CorePlugin\CorePlugin.csproj", "{AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameClient", "..\..\..\GameClient\GameClient.csproj", "{0EC1E19C-833F-41A3-8E13-22DD2D81B5CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorPlugin", "EditorPlugin\EditorPlugin.csproj", "{78DBC94D-EE9D-4AC0-95ED-91A0AE2F6652}"
 EndProject
@@ -29,16 +27,6 @@ Global
 		{AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E}.Release|Mixed Platforms.Build.0 = Release|x86
 		{AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E}.Release|x86.ActiveCfg = Release|x86
 		{AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E}.Release|x86.Build.0 = Release|x86
-		{0EC1E19C-833F-41A3-8E13-22DD2D81B5CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0EC1E19C-833F-41A3-8E13-22DD2D81B5CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0EC1E19C-833F-41A3-8E13-22DD2D81B5CD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{0EC1E19C-833F-41A3-8E13-22DD2D81B5CD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{0EC1E19C-833F-41A3-8E13-22DD2D81B5CD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0EC1E19C-833F-41A3-8E13-22DD2D81B5CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0EC1E19C-833F-41A3-8E13-22DD2D81B5CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0EC1E19C-833F-41A3-8E13-22DD2D81B5CD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{0EC1E19C-833F-41A3-8E13-22DD2D81B5CD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{0EC1E19C-833F-41A3-8E13-22DD2D81B5CD}.Release|x86.ActiveCfg = Release|Any CPU
 		{78DBC94D-EE9D-4AC0-95ED-91A0AE2F6652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{78DBC94D-EE9D-4AC0-95ED-91A0AE2F6652}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{78DBC94D-EE9D-4AC0-95ED-91A0AE2F6652}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
