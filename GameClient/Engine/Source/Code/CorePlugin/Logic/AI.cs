@@ -9,8 +9,18 @@ namespace Engine
 {
     public abstract class AI
     {
-        public Ability nextAbility;
-        public int nextTarget;
+        protected Ability nextAbility;
+        protected int nextTarget;
+
+        public Ability NextAbility
+        {
+            get { return this.nextAbility; }
+        }
+
+        public int NextTarget
+        {
+            get { return this.nextTarget; }
+        }
 
         public AI()
         {
@@ -18,7 +28,7 @@ namespace Engine
         }
 
         //This method should se nextAbility and nextTarget accordingly
-        public abstract void generateActionCombat(Creature user, Creature[] creatures, int myPlaceInCreature);
+        public abstract void generateActionCombat(Creature user, Creature[] creatures);
 
         //This method should be used to move the user through the World
         public abstract void moveWorld(Creature user);
@@ -31,18 +41,18 @@ namespace Engine
             
         }
 
-        public override void generateActionCombat(Creature user, Creature[] creatures, int myPlaceInCreature)
+        public override void generateActionCombat(Creature user, Creature[] creatures)
         {
             //Defult Action code
-            nextAbility = AbilityStorage.Punch;
+            this.nextAbility = AbilityStorage.Punch;
 
             //Defult Targeting code
             while (true)
             {
                 int target = ConstantLib.RANDOM.Next(creatures.Length);
-                if ((creatures[target].Stats.HP > 0) && (target != myPlaceInCreature) && (creatures[target].currentTeam != user.currentTeam))
+                if ((creatures[target].Stats.HP > 0) && (!user.compareCreature(creatures[target])) && (creatures[target].currentTeam != user.currentTeam))
                 {
-                    nextTarget = target;
+                    this.nextTarget = target;
                     break;
                 }
             }
@@ -61,18 +71,18 @@ namespace Engine
             
         }
 
-        public override void generateActionCombat(Creature user, Creature[] creatures, int myPlaceInCreature)
+        public override void generateActionCombat(Creature user, Creature[] creatures)
         {
             //Defult Action code
-            nextAbility = AbilityStorage.Punch;
+            this.nextAbility = AbilityStorage.Punch;
 
             //Defult Targeting code
             while (true)
             {
                 int target = ConstantLib.RANDOM.Next(creatures.Length);
-                if ((creatures[target].Stats.HP > 0) && (target != myPlaceInCreature) && (creatures[target].currentTeam != user.currentTeam))
+                if ((creatures[target].Stats.HP > 0) && (!user.compareCreature(creatures[target])) && (creatures[target].currentTeam != user.currentTeam))
                 {
-                    nextTarget = target;
+                    this.nextTarget = target;
                     break;
                 }
             }

@@ -20,21 +20,19 @@ namespace Engine.Components
 
         public AI AI
         {
-            get {  }
-            set { this.ai = new defaultAi(); }
+            get { return this.ai; }
+            set { this.ai = new defultAI(); }
         }
 
         void ICmpUpdatable.OnUpdate()
         {
-            ((EnemyComponent)this.GameObj.GetComponent(typeof(EnemyComponent))).Enemy.ai.
-            RigidBody body = this.GameObj.RigidBody;
             //this.enemy.ai.moveWorld(this.enemy);
             //this.GameObj.Transform.Pos = new Vector3(this.enemy.position.x, this.enemy.position.y, this.GameObj.Transform.Pos.Z);
         }
 
-        /*public void generateActionCombat(this, Creature[] creatures, int myPlaceInCreature)
+        public void generateActionCombat(Creature user, Creature[] creatures)
         {
-
-        }*/
+            this.AI.generateActionCombat(user, creatures);
+        }
     }
 }

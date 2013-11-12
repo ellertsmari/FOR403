@@ -248,6 +248,9 @@ namespace Engine
 
     public abstract class Creature
     {
+        private static int registeredCreature = 0;
+
+        private int creatureID;
         public string name;
         public int currentTeam;
         public Position position;
@@ -295,6 +298,9 @@ namespace Engine
             this.stats.Intelligence = i;
             this.stats.Level = 1;
             this.Stats.updateSecondaryAttributes();
+
+            this.creatureID = registeredCreature;
+            registeredCreature++;
         }
 
         public Creature(string name, int s, int d, int i, int v, Dictionary<string, int> resistance) : this(name, s, d, i, v)
@@ -303,6 +309,15 @@ namespace Engine
             {
                 setResistance(item.Key, item.Value);
             }
+        }
+
+        public bool compareCreature(Creature compared)
+        {
+            if (this.creatureID == compared.creatureID)
+            {
+                return true;
+            }
+            return false;
         }
 
         public Stats Stats
@@ -499,7 +514,7 @@ namespace Engine
         }
 
         //Needs to be implemented for diffrent creatures, remember to put a check on Manapoints for attacks
-        public abstract void generateAction(out Ability value1AI, out int value2AI, Creature[] creatures, int myPlaceInCreature);
+        public abstract void generateAction(out Ability value1AI, out int value2AI, Creature[] creatures);
     }
 
     [Serializable]
@@ -515,7 +530,7 @@ namespace Engine
         {
         }
 
-        public override void generateAction(out Ability value1AI, out int value2AI, Creature[] creatures, int myPlaceInCreature)
+        public override void generateAction(out Ability value1AI, out int value2AI, Creature[] creatures)
         {
             throw new NotImplementedException();
         }
@@ -538,11 +553,11 @@ namespace Engine
         {
         }
 
-        public override void generateAction(out Ability nextAbility, out int nextTarget, Creature[] creatures, int myPlaceInCreature)
+        public override void generateAction(out Ability nextAbility, out int nextTarget, Creature[] creatures)
         {
-            ai.generateActionCombat(this, creatures, myPlaceInCreature);
-            nextAbility = ai.nextAbility;
-            nextTarget = ai.nextTarget;
+            ai.generateActionCombat(this, creatures);
+            nextAbility = ai.NextAbility;
+            nextTarget = ai.NextTarget;
         }
     }
 
@@ -569,11 +584,11 @@ namespace Engine
             ai = new defultAI();
         }
 
-        public override void generateAction(out Ability nextAbility, out int nextTarget, Creature[] creatures, int myPlaceInCreature)
+        public override void generateAction(out Ability nextAbility, out int nextTarget, Creature[] creatures)
         {
-            ai.generateActionCombat(this, creatures, myPlaceInCreature);
-            nextAbility = ai.nextAbility;
-            nextTarget = ai.nextTarget;
+            ai.generateActionCombat(this, creatures);
+            nextAbility = ai.NextAbility;
+            nextTarget = ai.NextTarget;
         }
     }
 }

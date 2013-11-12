@@ -383,7 +383,7 @@ namespace Engine
             {
                 Ability ability;
                 int target;
-                creatures[cycle].generateAction(out ability, out target, creatures, cycle);
+                creatures[cycle].generateAction(out ability, out target, creatures);
 
                 Result result = ability.runAbility(creatures[cycle], creatures[target]);
                 creatures[cycle] = result.user;

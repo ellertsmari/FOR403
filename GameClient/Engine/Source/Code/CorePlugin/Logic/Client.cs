@@ -12,13 +12,9 @@ namespace Engine
     {
         public Player player;
 
-        public void loop()
+        public void updateScene()
         {
-            while (true)
-            {
-                ConstantLib.GAME.update();
-                ConstantLib.GAME.render();
-            }
+
         }
 
         public void update()
