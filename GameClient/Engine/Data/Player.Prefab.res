@@ -235,10 +235,10 @@
               <shapes dataType="Class" type="System.Collections.Generic.List`1[[Duality.Components.Physics.ShapeInfo]]" id="459104483">
                 <_items dataType="Array" type="Duality.Components.Physics.ShapeInfo[]" id="34401506" length="4">
                   <object dataType="Class" type="Duality.Components.Physics.CircleShapeInfo" id="597833044">
-                    <radius dataType="Float">128</radius>
+                    <radius dataType="Float">5.76394749</radius>
                     <position dataType="Struct" type="OpenTK.Vector2">
                       <X dataType="Float">0</X>
-                      <Y dataType="Float">0</Y>
+                      <Y dataType="Float">7.90286255</Y>
                     </position>
                     <parent dataType="ObjectRef">240105403</parent>
                     <density dataType="Float">1</density>

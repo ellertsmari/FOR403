@@ -9,13 +9,14 @@ using Duality.Components.Physics;
 using OpenTK;
 using OpenTK.Input;
 using Duality.Components.Renderers;
+using Duality.Resources;
 
 namespace Engine
 {
     [Serializable]
     [RequiredComponent(typeof(RigidBody))]
     [RequiredComponent(typeof(AnimSpriteRenderer))]
-    public class PlayerComponent : Component, ICmpUpdatable
+    public class PlayerComponent : Component, ICmpUpdatable, ICmpCollisionListener
     {
         private Player player;
 
@@ -97,6 +98,24 @@ namespace Engine
                 body.LinearVelocity = body.LinearVelocity = new Vector2(0, body.LinearVelocity.Y);
                 sprite.AnimTime = 0;
                 sprite.AnimPaused = true;
+            }
+        }
+
+        void ICmpCollisionListener.OnCollisionBegin(Component sender, CollisionEventArgs args)
+        {
+            
+        }
+
+        void ICmpCollisionListener.OnCollisionEnd(Component sender, CollisionEventArgs args)
+        {
+
+        }
+
+        void ICmpCollisionListener.OnCollisionSolve(Component sender, CollisionEventArgs args)
+        {
+            if (args.CollideWith.GetComponent(typeof(EnemyComponent)) != null)
+            {
+                Scene.Current = GameRes.Data.Levels.Combat_Scene.Res;
             }
         }
     }
