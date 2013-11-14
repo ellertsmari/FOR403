@@ -4,9 +4,9 @@
     <appName dataType="String">Engine</appName>
     <authorName dataType="String">Wolf</authorName>
     <websiteUrl dataType="String">http://www.fetzenet.de</websiteUrl>
-    <version dataType="UInt">341</version>
+    <version dataType="UInt">376</version>
     <startScene dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Scene]]">
-      <contentPath dataType="String">Data\Levels\StartingPlace.Scene.res</contentPath>
+      <contentPath dataType="String">Data\Levels\Level1.Scene.res</contentPath>
     </startScene>
     <speedOfSound dataType="Float">360</speedOfSound>
     <soundDopplerFactor dataType="Float">1</soundDopplerFactor>

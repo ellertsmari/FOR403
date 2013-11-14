@@ -177,13 +177,14 @@
       <compMap dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.Type],[Duality.Component]]" id="2484056288" surrogate="true">
         <header />
         <body>
-          <keys dataType="Array" type="System.Type[]" id="3144599472" length="4">
+          <keys dataType="Array" type="System.Type[]" id="3144599472" length="5">
             <object dataType="ObjectRef">534405576</object>
             <object dataType="Type" id="2082581792" value="Duality.Components.Renderers.AnimSpriteRenderer" />
             <object dataType="Type" id="275042752" value="Duality.Components.Physics.RigidBody" />
             <object dataType="Type" id="4221252832" value="Engine.PlayerComponent" />
+            <object dataType="Type" id="2822921088" value="Duality.Components.Renderers.TextRenderer" />
           </keys>
-          <values dataType="Array" type="Duality.Component[]" id="971002464" length="4">
+          <values dataType="Array" type="Duality.Component[]" id="971002464" length="5">
             <object dataType="ObjectRef">3832611107</object>
             <object dataType="Class" type="Duality.Components.Renderers.AnimSpriteRenderer" id="1179731556">
               <animFirstFrame dataType="Int">25</animFirstFrame>
@@ -219,10 +220,10 @@
             <object dataType="Class" type="Duality.Components.Physics.RigidBody" id="240105403">
               <bodyType dataType="Enum" type="Duality.Components.Physics.BodyType" name="Dynamic" value="1" />
               <linearDamp dataType="Float">0.3</linearDamp>
-              <angularDamp dataType="Float">0.3</angularDamp>
-              <fixedAngle dataType="Bool">false</fixedAngle>
+              <angularDamp dataType="Float">0</angularDamp>
+              <fixedAngle dataType="Bool">true</fixedAngle>
               <ignoreGravity dataType="Bool">false</ignoreGravity>
-              <continous dataType="Bool">false</continous>
+              <continous dataType="Bool">true</continous>
               <linearVel dataType="Struct" type="OpenTK.Vector2">
                 <X dataType="Float">0</X>
                 <Y dataType="Float">0</Y>
@@ -237,8 +238,8 @@
                   <object dataType="Class" type="Duality.Components.Physics.CircleShapeInfo" id="597833044">
                     <radius dataType="Float">5.76394749</radius>
                     <position dataType="Struct" type="OpenTK.Vector2">
-                      <X dataType="Float">0</X>
-                      <Y dataType="Float">7.90286255</Y>
+                      <X dataType="Float">0.171785474</X>
+                      <Y dataType="Float">6.75168133</Y>
                     </position>
                     <parent dataType="ObjectRef">240105403</parent>
                     <density dataType="Float">1</density>
@@ -318,18 +319,63 @@
               <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
               <active dataType="Bool">true</active>
             </object>
+            <object dataType="Class" type="Duality.Components.Renderers.TextRenderer" id="3214924997">
+              <blockAlign dataType="Enum" type="Duality.Alignment" name="Center" value="0" />
+              <text dataType="Class" type="Duality.FormattedText" id="2734497437">
+                <sourceText dataType="String">Hello World</sourceText>
+                <icons />
+                <flowAreas />
+                <fonts dataType="Array" type="Duality.ContentRef`1[[Duality.Resources.Font]][]" id="1634216674" length="1">
+                  <object dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Font]]">
+                    <contentPath dataType="String">Default:Font:GenericMonospace10</contentPath>
+                  </object>
+                </fonts>
+                <maxWidth dataType="Int">0</maxWidth>
+                <maxHeight dataType="Int">0</maxHeight>
+                <wrapMode dataType="Enum" type="Duality.FormattedText+WrapMode" name="Word" value="1" />
+                <lineAlign dataType="Enum" type="Duality.Alignment" name="Left" value="1" />
+                <displayedText dataType="String">Hello World</displayedText>
+                <fontGlyphCount dataType="Array" type="System.Int32[]" id="1911360988" length="1">
+                  <object dataType="Int">11</object>
+                </fontGlyphCount>
+                <iconCount dataType="Int">0</iconCount>
+                <elements dataType="Array" type="Duality.FormattedText+Element[]" id="3653146814" length="1">
+                  <object dataType="Class" type="Duality.FormattedText+TextElement" id="1074958504">
+                    <text dataType="String">Hello World</text>
+                  </object>
+                </elements>
+              </text>
+              <customMat />
+              <colorTint dataType="Struct" type="Duality.ColorFormat.ColorRgba">
+                <R dataType="Byte">255</R>
+                <G dataType="Byte">255</G>
+                <B dataType="Byte">255</B>
+                <A dataType="Byte">255</A>
+              </colorTint>
+              <iconMat dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Material]]">
+                <contentPath />
+              </iconMat>
+              <visibilityGroup dataType="Enum" type="Duality.VisibilityFlag" name="Group0" value="1" />
+              <gameobj dataType="ObjectRef">1472296175</gameobj>
+              <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
+              <active dataType="Bool">true</active>
+            </object>
           </values>
         </body>
       </compMap>
       <compList dataType="Class" type="System.Collections.Generic.List`1[[Duality.Component]]" id="140355472">
-        <_items dataType="Array" type="Duality.Component[]" id="3218306368" length="4">
+        <_items dataType="Array" type="Duality.Component[]" id="3218306368" length="8">
           <object dataType="ObjectRef">3832611107</object>
           <object dataType="ObjectRef">1179731556</object>
           <object dataType="ObjectRef">240105403</object>
           <object dataType="ObjectRef">3484477809</object>
+          <object dataType="ObjectRef">3214924997</object>
+          <object />
+          <object />
+          <object />
         </_items>
-        <_size dataType="Int">4</_size>
-        <_version dataType="Int">4</_version>
+        <_size dataType="Int">5</_size>
+        <_version dataType="Int">5</_version>
       </compList>
       <name dataType="String">Player</name>
       <active dataType="Bool">true</active>

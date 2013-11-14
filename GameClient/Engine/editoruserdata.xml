@@ -26,7 +26,7 @@
       </layers>
     </CamView_0>
     <ObjInspector_0 autoRefresh="False" locked="False" titleText="Object Inspector" debug="False" />
-    <LogView_0 showMessages="False" showWarnings="True" showErrors="True" showCore="True" showEditor="True" showGame="True" autoClear="True" pauseOnError="True" />
+    <LogView_0 showMessages="True" showWarnings="True" showErrors="True" showCore="True" showEditor="True" showGame="True" autoClear="True" pauseOnError="True" />
     <SceneView_0 showComponents="True" />
   </Plugin_EditorBase>
   <Plugin_EngineEditorPlugin />

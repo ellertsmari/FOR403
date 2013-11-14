@@ -16,6 +16,7 @@ namespace Engine
     [Serializable]
     [RequiredComponent(typeof(RigidBody))]
     [RequiredComponent(typeof(AnimSpriteRenderer))]
+    [RequiredComponent(typeof(TextRenderer))]
     public class PlayerComponent : Component, ICmpUpdatable, ICmpCollisionListener
     {
         private Player player;
@@ -103,20 +104,30 @@ namespace Engine
 
         void ICmpCollisionListener.OnCollisionBegin(Component sender, CollisionEventArgs args)
         {
-            
+            RigidBodyCollisionEventArgs bodyCollision = args as RigidBodyCollisionEventArgs;
+
+            throw new FORException();
+
+            ((TextRenderer)this.GameObj.GetComponent(typeof(TextRenderer))).Text.SourceText = "1";
+
+            /*((TextRenderer)this.GameObj.GetComponent(typeof(TextRenderer))).Text.SourceText = "" + bodyCollision.OtherShape.Parent.GameObj.GetComponent(typeof(EnemyComponent));
+
+            if (bodyCollision == null) return;
+
+            if (bodyCollision.OtherShape.Parent.GameObj.GetComponent(typeof(EnemyComponent)) != null)
+            {
+                Scene.Current = GameRes.Data.Levels.Combat_Scene.Res;
+            }*/
         }
 
         void ICmpCollisionListener.OnCollisionEnd(Component sender, CollisionEventArgs args)
         {
-
+            ((TextRenderer)this.GameObj.GetComponent(typeof(TextRenderer))).Text.SourceText = "2";
         }
 
         void ICmpCollisionListener.OnCollisionSolve(Component sender, CollisionEventArgs args)
         {
-            if (args.CollideWith.GetComponent(typeof(EnemyComponent)) != null)
-            {
-                Scene.Current = GameRes.Data.Levels.Combat_Scene.Res;
-            }
+            
         }
     }
 }
