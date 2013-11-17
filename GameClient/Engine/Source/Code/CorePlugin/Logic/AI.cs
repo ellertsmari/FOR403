@@ -1,11 +1,13 @@
-﻿using Engine.Constants;
+﻿using Engine.Components;
+using Engine.Constants;
+using Engine.CustomObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine
+namespace Engine.Logic
 {
     public abstract class AI
     {
@@ -28,12 +30,13 @@ namespace Engine
         }
 
         //This method should se nextAbility and nextTarget accordingly
-        public abstract void generateActionCombat(Creature user, Creature[] creatures);
+        public abstract void generateActionCombat(Creature user, List<CreatureContainer> creatures);
 
         //This method should be used to move the user through the World
         public abstract void moveWorld(Creature user);
     }
 
+    [Serializable]
     public class defultAI : AI
     {
         public defultAI() : base()
@@ -41,7 +44,7 @@ namespace Engine
             
         }
 
-        public override void generateActionCombat(Creature user, Creature[] creatures)
+        public override void generateActionCombat(Creature user, List<CreatureContainer> creatures)
         {
             //Defult Action code
             this.nextAbility = AbilityStorage.Punch;
@@ -49,8 +52,8 @@ namespace Engine
             //Defult Targeting code
             while (true)
             {
-                int target = ConstantLib.RANDOM.Next(creatures.Length);
-                if ((creatures[target].Stats.HP > 0) && (!user.compareCreature(creatures[target])) && (creatures[target].currentTeam != user.currentTeam))
+                int target = ConstantLib.RANDOM.Next(creatures.Count);
+                if ((creatures[target].Stats.HP > 0) && (!user.compareCreature(creatures[target].Creature)) && (creatures[target].Creature.currentTeam != user.currentTeam))
                 {
                     this.nextTarget = target;
                     break;
@@ -64,6 +67,7 @@ namespace Engine
         }
     }
 
+    [Serializable]
     public class basicEnemyAI : AI
     {
         public basicEnemyAI() : base()
@@ -71,7 +75,7 @@ namespace Engine
             
         }
 
-        public override void generateActionCombat(Creature user, Creature[] creatures)
+        public override void generateActionCombat(Creature user, List<CreatureContainer> creatures)
         {
             //Defult Action code
             this.nextAbility = AbilityStorage.Punch;
@@ -79,8 +83,8 @@ namespace Engine
             //Defult Targeting code
             while (true)
             {
-                int target = ConstantLib.RANDOM.Next(creatures.Length);
-                if ((creatures[target].Stats.HP > 0) && (!user.compareCreature(creatures[target])) && (creatures[target].currentTeam != user.currentTeam))
+                int target = ConstantLib.RANDOM.Next(creatures.Count);
+                if ((creatures[target].Stats.HP > 0) && (!user.compareCreature(creatures[target].Creature)) && (creatures[target].Creature.currentTeam != user.currentTeam))
                 {
                     this.nextTarget = target;
                     break;

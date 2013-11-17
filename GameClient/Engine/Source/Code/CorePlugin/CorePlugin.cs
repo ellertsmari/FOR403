@@ -12,7 +12,6 @@ namespace Engine
 	/// </summary>
     public class EngineCorePlugin : CorePlugin
     {
-        
 		// Override methods here for global logic
     }
 }

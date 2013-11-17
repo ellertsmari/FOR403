@@ -10,29 +10,35 @@ using OpenTK;
 using OpenTK.Input;
 using Duality.Components.Renderers;
 using Duality.Resources;
+using Engine.CustomObjects;
+using Engine.Logic;
+using Engine.Constants;
 
-namespace Engine
+namespace Engine.Components
 {
     [Serializable]
     [RequiredComponent(typeof(RigidBody))]
     [RequiredComponent(typeof(AnimSpriteRenderer))]
-    [RequiredComponent(typeof(TextRenderer))]
     public class PlayerComponent : Component, ICmpUpdatable, ICmpCollisionListener
     {
-        private Player player;
+        private List<CreatureContainer> party;
+
+        public List<CreatureContainer> PlayerParty
+        {
+            get { return this.party; }
+            set { this.party = value; }
+        }
 
         public PlayerComponent()
         {
-            player = new Player("Player One");
-            Console.Out.WriteLine("Stop");
-
+            party = new List<CreatureContainer>() { new CreatureContainer(CreatureType.Player, NameOfAbility.Punch, NameOfAbility.Kick) };
         }
 
         void ICmpUpdatable.OnUpdate()
         {
             RigidBody body = this.GameObj.RigidBody;
             AnimSpriteRenderer sprite = this.GameObj.GetComponent<AnimSpriteRenderer>();
-            int maxSpeed = player.Stats.Speed;
+            int maxSpeed = PlayerParty[0].Stats.Speed;
 
             if (DualityApp.Keyboard[Key.Left] && DualityApp.Keyboard[Key.Up])
             {
@@ -104,30 +110,31 @@ namespace Engine
 
         void ICmpCollisionListener.OnCollisionBegin(Component sender, CollisionEventArgs args)
         {
-            RigidBodyCollisionEventArgs bodyCollision = args as RigidBodyCollisionEventArgs;
+            // We'll watch for RigidBody collisions
+            RigidBodyCollisionEventArgs bodyArgs = args as RigidBodyCollisionEventArgs;
+            if (bodyArgs == null) return;
 
-            throw new FORException();
-
-            ((TextRenderer)this.GameObj.GetComponent(typeof(TextRenderer))).Text.SourceText = "1";
-
-            /*((TextRenderer)this.GameObj.GetComponent(typeof(TextRenderer))).Text.SourceText = "" + bodyCollision.OtherShape.Parent.GameObj.GetComponent(typeof(EnemyComponent));
-
-            if (bodyCollision == null) return;
-
-            if (bodyCollision.OtherShape.Parent.GameObj.GetComponent(typeof(EnemyComponent)) != null)
+            if (bodyArgs.CollideWith.GetComponent<EnemyComponent>() != null)
             {
-                Scene.Current = GameRes.Data.Levels.Combat_Scene.Res;
+                Client.combatScene(GameRes.Data.Sprites.Desert_Material, this.PlayerParty, bodyArgs.CollideWith.GetComponent<EnemyComponent>().Creatures);
+            }
+            /*else if (bodyArgs.CollideWith.GetComponent<NPCComponent>() != null)
+            {
+                Client.combatScene(GameRes.Data.Sprites.Desert_Material, this.PlayerParty, bodyArgs.CollideWith.GetComponent<NPCComponent>().Creatures);
             }*/
-        }
+            else
+            {
+                return;
+            }
 
+            bodyArgs.CollideWith.Active = false;
+            bodyArgs.CollideWith.DisposeLater();
+        }
         void ICmpCollisionListener.OnCollisionEnd(Component sender, CollisionEventArgs args)
         {
-            ((TextRenderer)this.GameObj.GetComponent(typeof(TextRenderer))).Text.SourceText = "2";
+
         }
 
-        void ICmpCollisionListener.OnCollisionSolve(Component sender, CollisionEventArgs args)
-        {
-            
-        }
+        void ICmpCollisionListener.OnCollisionSolve(Component sender, CollisionEventArgs args) { }
     }
 }

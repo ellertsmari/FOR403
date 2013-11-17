@@ -4,16 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Engine.CustomObjects;
+using Engine.Constants;
+using Engine.Components;
 
-namespace Engine
+namespace Engine.Logic
 {
     public class Result
     {
         public string result;
-        public Creature user;
-        public Creature target;
+        public CreatureContainer user;
+        public CreatureContainer target;
 
-        public Result(Creature user, string result, Creature target)
+        public Result(CreatureContainer user, string result, CreatureContainer target)
         {
             this.result = result;
             this.user = user;
@@ -45,10 +48,10 @@ namespace Engine
         }
 
         //Here you code what the ability does
-        public abstract Result runAbility(Creature user, Creature target);
+        public abstract Result runAbility(CreatureContainer user, CreatureContainer target);
 
         //Here you code the chance to hit
-        public abstract int calculateChance(Creature user, Creature target);
+        public abstract int calculateChance(CreatureContainer user, CreatureContainer target);
 
         public override string ToString()
         {
@@ -57,6 +60,8 @@ namespace Engine
     }
 
     //Class for basic melee attack abilities
+
+    [Serializable]
     public class AttackMeleeBlunt : Ability
     {
         private float damageMod;
@@ -86,7 +91,7 @@ namespace Engine
             }
         }
 
-        public override Result runAbility(Creature user, Creature target)
+        public override Result runAbility(CreatureContainer user, CreatureContainer target)
         {
             int chance = calculateChance(user, target);
 
@@ -97,14 +102,14 @@ namespace Engine
                 int damage;
                 bool equipNull = false;
 
-                if (user.getEquip("Main-Hand") == null)
+                if (user.Creature.getEquip("Main-Hand") == null)
                 {
                     damage = 1;
                     equipNull = true;
                 }
                 else
                 {
-                    damage = ((ItemWeapon)user.getEquip("Main-Hand")).getDamage();
+                    damage = ((ItemWeapon)user.Creature.getEquip("Main-Hand")).getDamage();
                 }
 
                 if (hit == 1)
@@ -115,7 +120,7 @@ namespace Engine
                     }
                     else
                     {
-                        hit = ((ItemWeapon)user.getEquip("Main-Hand")).getCritMod();
+                        hit = ((ItemWeapon)user.Creature.getEquip("Main-Hand")).getCritMod();
                     }
                 }
                 else
@@ -127,9 +132,9 @@ namespace Engine
 
                 foreach (var item in this.damageTypes)
                 {
-                    if (target.getResistance().ContainsKey(item.Key))
+                    if (target.Creature.getResistance().ContainsKey(item.Key))
                     {
-                        damage -= damage * item.Value * target.getResistance()[item.Key] / 10000;
+                        damage -= damage * item.Value * target.Creature.getResistance()[item.Key] / 10000;
                     }
                 }
 
@@ -159,16 +164,16 @@ namespace Engine
             return new Result(user, resultMessage, target);
         }
 
-        public override int calculateChance(Creature user, Creature target)
+        public override int calculateChance(CreatureContainer user, CreatureContainer target)
         {
             int chance;
 
             bool skip = true;
-            if (target.getEquip("Off-Hand") != null)
+            if (target.Creature.getEquip("Off-Hand") != null)
             {
-                if (target.getEquip("Off-Hand").GetType() == typeof(ItemShield))
+                if (target.Creature.getEquip("Off-Hand").GetType() == typeof(ItemShield))
                 {
-                    defenderAttr = target.Stats.Strength * (100 + ((ItemShield)target.getEquip("Off-Hand")).getBlock()) / 100;
+                    defenderAttr = target.Stats.Strength * (100 + ((ItemShield)target.Creature.getEquip("Off-Hand")).getBlock()) / 100;
                     resultMessage = "Block";
                     skip = false;
                 }
@@ -194,6 +199,7 @@ namespace Engine
         }
     }
 
+    [Serializable]
     public class AttackMeleeSharp : Ability
     {
         private float damageMod;
@@ -224,7 +230,7 @@ namespace Engine
             }
         }
 
-        public override Result runAbility(Creature user, Creature target)
+        public override Result runAbility(CreatureContainer user, CreatureContainer target)
         {
             int chance = calculateChance(user, target);
 
@@ -235,14 +241,14 @@ namespace Engine
                 int damage;
                 bool equipNull = false;
 
-                if (user.getEquip("Main-Hand") == null)
+                if (user.Creature.getEquip("Main-Hand") == null)
                 {
                     damage = 1;
                     equipNull = true;
                 }
                 else
                 {
-                    damage = ((ItemWeapon)user.getEquip("Main-Hand")).getDamage();
+                    damage = ((ItemWeapon)user.Creature.getEquip("Main-Hand")).getDamage();
                 }
 
                 if (hit == 1)
@@ -253,7 +259,7 @@ namespace Engine
                     }
                     else
                     {
-                        hit = ((ItemWeapon)user.getEquip("Main-Hand")).getCritMod();
+                        hit = ((ItemWeapon)user.Creature.getEquip("Main-Hand")).getCritMod();
                     }
                 }
                 else
@@ -265,9 +271,9 @@ namespace Engine
 
                 foreach (var item in this.damageTypes)
                 {
-                    if (target.getResistance().ContainsKey(item.Key))
+                    if (target.Creature.getResistance().ContainsKey(item.Key))
                     {
-                        damage -= damage * item.Value * target.getResistance()[item.Key] / 10000;
+                        damage -= damage * item.Value * target.Creature.getResistance()[item.Key] / 10000;
                     }
                 }
 
@@ -297,16 +303,16 @@ namespace Engine
             return new Result(user, resultMessage, target);
         }
 
-        public override int calculateChance(Creature user, Creature target)
+        public override int calculateChance(CreatureContainer user, CreatureContainer target)
         {
             int chance;
 
             bool skip = true;
-            if (target.getEquip("Off-Hand") != null)
+            if (target.Creature.getEquip("Off-Hand") != null)
             {
-                if (target.getEquip("Off-Hand").GetType() == typeof(ItemShield))
+                if (target.Creature.getEquip("Off-Hand").GetType() == typeof(ItemShield))
                 {
-                    defenderAttr = target.Stats.Strength * (100 + ((ItemShield)target.getEquip("Off-Hand")).getBlock()) / 100;
+                    defenderAttr = target.Stats.Strength * (100 + ((ItemShield)target.Creature.getEquip("Off-Hand")).getBlock()) / 100;
                     resultMessage = "Block";
                     skip = false;
                 }
@@ -334,44 +340,98 @@ namespace Engine
 
     public class Combat
     {
-        private Creature[] team1;
-        private Creature[] team2;
-        private Creature[] creatures;
-        private int winningTeam;
+        private List<CreatureContainer> teamOne;
+        private List<CreatureContainer> teamTwo;
+        private List<CreatureContainer> creatures;
         private bool isReward;
+        private int nextCreature = 0;
+        private int winningTeam = 0;
 
-        public Combat(Creature[] team1, Creature[] team2) : this(team1, team2, true) {}
-
-        public Combat(Creature[] team1, Creature[] team2, bool reward)
+        public int NextCreature 
         {
-            this.team1 = team1;
-            this.team2 = team2;
+            get { return this.nextCreature; }
+            set { this.nextCreature = value; }
+        }
+
+        public List<CreatureContainer> TeamOne
+        {
+            get { return this.teamOne; }
+        }
+
+        public List<CreatureContainer> TeamTwo
+        {
+            get { return this.teamTwo; }
+        }
+
+        public List<CreatureContainer> Creatures
+        {
+            get { return creatures; }
+        }
+
+        public Combat(List<CreatureContainer> TeamOne, List<CreatureContainer> TeamTwo) : this(TeamOne, TeamTwo, true) { }
+
+        public Combat(List<CreatureContainer> TeamOne, List<CreatureContainer> TeamTwo, bool reward)
+        {
+            this.teamOne = TeamOne;
+            this.teamTwo = TeamTwo;
             this.isReward = reward;
             initCombat();
-            this.winningTeam = runCombat();
         }
 
         //initializes combat, always run before runCombat
         private void initCombat()
         {
-            foreach (var item in team1)
+            foreach (var item in teamOne)
             {
-                item.currentTeam = 1;
+                item.Creature.currentTeam = 1;
             }
 
-            foreach (var item in team2)
+            foreach (var item in teamTwo)
             {
-                item.currentTeam = 2;
+                item.Creature.currentTeam = 2;
             }
 
             //Determine order of attack by Dex
-            creatures = new Creature[team1.Length + team2.Length];
-            Array.Copy(team1, creatures, team1.Length);
-            Array.Copy(team2, 0, creatures, team1.Length, team2.Length);
+            creatures = new List<CreatureContainer>();
+            creatures.AddRange(teamOne);
+            creatures.AddRange(teamTwo);
             creatures = determineOrder(creatures);
         }
 
-        //Starts the combat loop
+        public int runCombatCycle()
+        {
+            if (winningTeam != 0) return winningTeam;
+
+            Ability ability;
+            int target;
+            creatures[nextCreature].Creature.generateAction(out ability, out target, creatures);
+
+            Result result = ability.runAbility(creatures[nextCreature], creatures[target]);
+            creatures[nextCreature] = result.user;
+            creatures[target] = result.target;
+            Message.sendMessageDev(result.result);
+
+            //Updates and checks for winner
+            int won = this.update();
+            if (won == 1)
+            {
+                winningTeam = 1;
+                Message.sendMessageDev("Team 1 won");
+                checkReward();
+            }
+            else if (won == 2)
+            {
+                winningTeam = 2;
+                Message.sendMessageDev("Team 2 won");
+                checkReward();
+            }
+
+            if (NextCreature == creatures.Count) nextCreature = 0;
+
+            return winningTeam;
+        }
+
+        /*//Starts the combat loop
         public int runCombat()
         {
             //end
@@ -383,7 +443,7 @@ namespace Engine
             {
                 Ability ability;
                 int target;
-                creatures[cycle].generateAction(out ability, out target, creatures);
+                creatures[cycle].Creature.generateAction(out ability, out target, creatures);
 
                 Result result = ability.runAbility(creatures[cycle], creatures[target]);
                 creatures[cycle] = result.user;
@@ -408,7 +468,7 @@ namespace Engine
 
                 //Gets the next creature in the cycle
                 cycle++;
-                if (cycle == creatures.Length)
+                if (cycle == creatures.Count)
                 {
                     cycle = 0;
                 }
@@ -417,23 +477,29 @@ namespace Engine
                 System.Threading.Thread.Sleep(800);
                 Message.sendMessageDev("Health 1: " + creatures[0].Stats.HP + " Health 2: " + creatures[1].Stats.HP);
             }
-
             return 0;
+        }*/
+
+        //Determines order of attack by the dex variable of every creature in the args argument
+        //COMPLETE
+        private List<CreatureContainer> determineOrder(params CreatureContainer[] args)
+        {
+            return determineOrder(new List<CreatureContainer>(args));
         }
 
         //Determines order of attack by the dex variable of every creature in the args argument
         //COMPLETE
-        private Creature[] determineOrder(params Creature[] args)
+        private List<CreatureContainer> determineOrder(List<CreatureContainer> args)
         {
-            Creature[] order = new Creature[args.Length];
+            CreatureContainer[] order = new CreatureContainer[args.Count];
             int start = 0;
             foreach (var item in args)
             {
                 order[start] = item;
                 start++;
             }
-            Array.Sort(order, delegate(Creature x, Creature y) { return y.Stats.Dexterity.CompareTo(x.Stats.Dexterity); });
-            return order;
+            Array.Sort(order, delegate(CreatureContainer x, CreatureContainer y) { return y.Stats.Dexterity.CompareTo(x.Stats.Dexterity); });
+            return new List<CreatureContainer>(order);
         }
 
         //Checks for reward and gives it
@@ -441,36 +507,36 @@ namespace Engine
         {
             if (this.isReward)
             {
-                Creature[] give;
-                Creature[] take;
+                List<CreatureContainer> give;
+                List<CreatureContainer> take;
                 Item[] rewardItems;
                 int rewardGold = 0;
                 int rewardEXP = 0;
 
                 if (winningTeam == 1)
                 {
-                    give = this.team1;
-                    take = this.team2;
+                    give = this.teamOne;
+                    take = this.teamTwo;
                 }
                 else
                 {
-                    give = this.team2;
-                    take = this.team1;
+                    give = this.teamTwo;
+                    take = this.teamOne;
                 }
 
                 List<Item> list = new List<Item>();
                 foreach (var creature in take)
                 {
-                    if (creature.reward != null)
+                    if (creature.Creature.reward != null)
                     {
-                        foreach (var item in creature.reward)
+                        foreach (var item in creature.Creature.reward)
                         {
                             list.Add(item.Value);
                         }
                     }
-                    if (creature.rewardNum != null)
+                    if (creature.Creature.rewardNum != null)
                     {
-                        foreach (var item in creature.rewardNum)
+                        foreach (var item in creature.Creature.rewardNum)
                         {
                             if (item.Key == "EXP")
                             {
@@ -490,11 +556,22 @@ namespace Engine
                 foreach (var creature in give)
                 {
                     creature.Stats.Exp += rewardEXP;
-                    if (creature is Player)
+                    if (creature.Creature is Player)
                     {
-                        creature.inventory.addGold(rewardGold);
-                        creature.inventory.openInvWindow(new Inventory(rewardItems));
+                        creature.Creature.inventory.addGold(rewardGold);
+                        creature.Creature.inventory.openInvWindow(new Inventory(rewardItems));
                     }
+                }
+
+                if (winningTeam == 1)
+                {
+                    this.teamOne = give;
+                    this.teamTwo = take;
+                }
+                else
+                {
+                    this.teamTwo = give;
+                    this.teamOne = take;
                 }
             }
         }
@@ -509,7 +586,7 @@ namespace Engine
             {
                 if (creature.Stats.HP > 0)
                 {
-                    if (creature.currentTeam == 1)
+                    if (creature.Creature.currentTeam == 1)
                     {
                         t1++;
                     }
@@ -530,12 +607,6 @@ namespace Engine
             }
 
             return 0;
-        }
-
-        //renders the battlefield and creatures if they are alive.
-        private void render()
-        {
-
         }
     }
 }

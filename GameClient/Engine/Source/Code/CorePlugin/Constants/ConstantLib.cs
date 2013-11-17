@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Engine.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Engine
+namespace Engine.Constants
 {
     public class ConstantLib
     {

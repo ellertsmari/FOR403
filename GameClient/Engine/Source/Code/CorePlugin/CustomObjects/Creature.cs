@@ -1,11 +1,13 @@
 ﻿using Duality.EditorHints;
+using Engine.Components;
+using Engine.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine
+namespace Engine.CustomObjects
 {
     public class Position
     {
@@ -514,7 +516,7 @@ namespace Engine
         }
 
         //Needs to be implemented for diffrent creatures, remember to put a check on Manapoints for attacks
-        public abstract void generateAction(out Ability value1AI, out int value2AI, Creature[] creatures);
+        public abstract void generateAction(out Ability value1AI, out int value2AI, List<CreatureContainer> creatures);
     }
 
     [Serializable]
@@ -530,7 +532,7 @@ namespace Engine
         {
         }
 
-        public override void generateAction(out Ability value1AI, out int value2AI, Creature[] creatures)
+        public override void generateAction(out Ability value1AI, out int value2AI, List<CreatureContainer> creatures)
         {
             throw new NotImplementedException();
         }
@@ -553,7 +555,7 @@ namespace Engine
         {
         }
 
-        public override void generateAction(out Ability nextAbility, out int nextTarget, Creature[] creatures)
+        public override void generateAction(out Ability nextAbility, out int nextTarget, List<CreatureContainer> creatures)
         {
             ai.generateActionCombat(this, creatures);
             nextAbility = ai.NextAbility;
@@ -584,7 +586,7 @@ namespace Engine
             ai = new defultAI();
         }
 
-        public override void generateAction(out Ability nextAbility, out int nextTarget, Creature[] creatures)
+        public override void generateAction(out Ability nextAbility, out int nextTarget, List<CreatureContainer> creatures)
         {
             ai.generateActionCombat(this, creatures);
             nextAbility = ai.NextAbility;

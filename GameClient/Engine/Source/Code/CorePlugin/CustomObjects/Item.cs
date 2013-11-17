@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Engine.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine
+namespace Engine.CustomObjects
 {
     public abstract class Item
     {
