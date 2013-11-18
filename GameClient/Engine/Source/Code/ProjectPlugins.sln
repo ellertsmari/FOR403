@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorePlugin", "CorePlugin\CorePlugin.csproj", "{AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorPlugin", "EditorPlugin\EditorPlugin.csproj", "{78DBC94D-EE9D-4AC0-95ED-91A0AE2F6652}"
@@ -47,12 +47,12 @@ Global
 		{78DBC94D-EE9D-4AC0-95ED-91A0AE2F6652}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{78DBC94D-EE9D-4AC0-95ED-91A0AE2F6652}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{78DBC94D-EE9D-4AC0-95ED-91A0AE2F6652}.Release|x86.ActiveCfg = Release|Any CPU
-		{542B4A97-9ABF-4739-9858-6DD66714F135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{542B4A97-9ABF-4739-9858-6DD66714F135}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{542B4A97-9ABF-4739-9858-6DD66714F135}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{542B4A97-9ABF-4739-9858-6DD66714F135}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{542B4A97-9ABF-4739-9858-6DD66714F135}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{542B4A97-9ABF-4739-9858-6DD66714F135}.Release|x86.ActiveCfg = Debug|Any CPU
+		{542B4A97-9ABF-4739-9858-6DD66714F135}.Debug|Any CPU.ActiveCfg = Debug
+		{542B4A97-9ABF-4739-9858-6DD66714F135}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{542B4A97-9ABF-4739-9858-6DD66714F135}.Debug|x86.ActiveCfg = Debug
+		{542B4A97-9ABF-4739-9858-6DD66714F135}.Release|Any CPU.ActiveCfg = Debug
+		{542B4A97-9ABF-4739-9858-6DD66714F135}.Release|Mixed Platforms.ActiveCfg = Debug
+		{542B4A97-9ABF-4739-9858-6DD66714F135}.Release|x86.ActiveCfg = Debug
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -119,37 +119,49 @@ namespace Engine.Logic
             //SelectionList()
             if (!setup)
             {
-                GameObject Object1 = new GameObject();
-                Object1.AddComponent<Transform>();
-                Object1.AddComponent<SpriteRenderer>();
-                Object1.AddComponent(new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(-26, 260, -1), new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(91, 260, -3))));
+                for (int i = 0; i < 3; i++)
+                {
+                    GameObject Obj = new GameObject();
+                    Obj.AddComponent<Transform>();
+                    Obj.AddComponent<SpriteRenderer>();
+                    Obj.AddComponent(new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(-26 + 117*i, 260, -1)));
 
-                Object1.GetComponent<SelectionListComponent>().addAllListObjects(Scene.Current);
+                    Scene.Current.AddObject(Obj);
 
-                GameObject Object2 = new GameObject();
-                Object2.AddComponent<Transform>();
-                Object2.AddComponent<SpriteRenderer>();
-                Object2.AddComponent(new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(91, 260, -1), new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(91, 260, -3))));
-
-                Object2.GetComponent<SelectionListComponent>().addAllListObjects(Scene.Current);
-
-                GameObject Object3 = new GameObject();
-                Object3.AddComponent<Transform>();
-                Object3.AddComponent<SpriteRenderer>();
-                Object3.AddComponent(new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(208, 260, -1), new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(91, 260, -3))));
+                    foreach (var item in Scene.Current.AllObjects.ToList())
+                    {
+                        if (item.Name == "PlayerMenuBackground")
+                        {
+                            Obj.Parent = item;
+                            break;
+                        }
+                    }
+                }
 
                 foreach (var item in Scene.Current.AllObjects.ToList())
                 {
                     if (item.Name == "PlayerMenuBackground")
                     {
-                        Object1.Parent = item;
-                        Object2.Parent = item;
-                        Object3.Parent = item;
+                        foreach (var parent in item.Children.ToList())
+                        {
+                            for (int i = 0; i < 3; i++)
+                            {
+                                GameObject TextObject = new GameObject();
+                                TextObject.Parent = parent;
+
+                                TextObject.AddComponent<Transform>();
+                                TextObject.AddComponent<TextRenderer>();
+
+                                TextObject.Transform.Pos = new OpenTK.Vector3(TextObject.Parent.Transform.Pos.X + TextObject.Parent.GetComponent<SpriteRenderer>().Rect.W / 2, TextObject.Parent.Transform.Pos.Y - TextObject.Parent.GetComponent<SpriteRenderer>().Rect.H*i/3, TextObject.Parent.Transform.Pos.Z-1);
+                                TextObject.GetComponent<TextRenderer>().Text.SourceText = "Test " + i;
+                                
+                                Scene.Current.AddObject(TextObject);
+                            }
+                        }
                         break;
                     }
                 }
-
-                Object3.GetComponent<SelectionListComponent>().addAllListObjects(Scene.Current);
+                
 
                 setup = true;
             }

@@ -10,47 +10,29 @@ using System.Text;
 
 namespace Engine.Components
 {
-
     public interface CombatUI
     {
+
         string menuName();
     }
 
     [Serializable]
     [RequiredComponent(typeof(SpriteRenderer))]
     [RequiredComponent(typeof(TextRenderer))]
-    public class SelectableAbilityComponent : Component, CombatUI
+    public class SelectionListComponent : Component, CombatUI, ICmpInitializable, ICmpUpdatable
     {
-        private Ability ability;
-
-        public Ability Ability
-        {
-            get { return ability; }
-            set { ability = value; }
-        }
-
-        public SelectableAbilityComponent(Ability ability)
-        {
-
-        }
-
-        string CombatUI.menuName()
-        {
-            return ability.ToString();
-        }
-    }
-
-    [Serializable]
-    [RequiredComponent(typeof(SpriteRenderer))]
-    [RequiredComponent(typeof(TextRenderer))]
-    public class SelectionListComponent : Component, CombatUI, ICmpInitializable
-    {
-        private List<GameObject> listObjects;
+        private List<Object> listObjects;
         private int selected;
         private String name;
         private Rect rT;
         private ContentRef<Material> Background;
         OpenTK.Vector3 tempPos;
+        public bool currentlySelected = false;
+        private ContentRef<Material> contentRef;
+        private Rect rect;
+        private string p;
+        private OpenTK.Vector3 vector3;
+        private SelectionListComponent selectionListComponent;
 
         public String Name
         {
@@ -58,7 +40,7 @@ namespace Engine.Components
             set { name = value; }
         }
 
-        public List<GameObject> ListObjects
+        public List<Object> ListObjects
         {
             get { return listObjects; }
             set { listObjects = value; }
@@ -73,64 +55,7 @@ namespace Engine.Components
             Background = background;
             rT = rect;
             tempPos = pos;
-            listObjects = new List<GameObject>();
-        }
-
-        //This used to make a double list
-        public SelectionListComponent(ContentRef<Material> background, Rect rect, string name, OpenTK.Vector3 pos, params SelectionListComponent[] args)
-            : this(background, rect, name, pos)
-        {
-            foreach (var item in args)
-            {
-                GameObject obj = new GameObject();
-                obj.AddComponent<Transform>();
-                obj.AddComponent<SpriteRenderer>();
-                obj.AddComponent<TextRenderer>();
-                obj.AddComponent(item);
-                obj.Active = false;
-
-                listObjects.Add(obj);
-            }
-        }
-
-        //This used for SelectableAbilityComponent list
-        public SelectionListComponent(ContentRef<Material> background, Rect rect, string name, OpenTK.Vector3 pos, params Ability[] args)
-            : this(background, rect, name, pos)
-        {
-            foreach (var item in args)
-            {
-                GameObject obj = new GameObject();
-                obj.AddComponent<Transform>();
-                obj.AddComponent<SpriteRenderer>();
-                obj.AddComponent<TextRenderer>();
-                obj.AddComponent(new SelectableAbilityComponent(item));
-                obj.Transform.Pos = new OpenTK.Vector3(pos.Xy, pos.Z - 1);
-                obj.Active = false;
-
-                listObjects.Add(obj);
-            }
-        }
-
-        public void listObjectPos(int x, int y, int z)
-        {
-            foreach (var item in listObjects)
-            {
-                if (item.Transform != null)
-                {
-                    item.Transform.Pos = new OpenTK.Vector3(x, y, z);
-                }
-            }
-        }
-
-        public void listObjectRect(Rect rect)
-        {
-            foreach (var item in listObjects)
-            {
-                if (item.GetComponent<SpriteRenderer>() != null)
-                {
-                    item.GetComponent<SpriteRenderer>().Rect = rect;
-                }
-            }
+            listObjects = new List<Object>();
         }
 
         public void select(int selected)
@@ -138,31 +63,7 @@ namespace Engine.Components
             this.selected = selected;
             for (int i = 0; i < this.listObjects.Count; i++)
             {
-                if (i == selected)
-                {
-                    listObjects[i].Active = true;
-                }
-                else
-                {
-                    listObjects[i].Active = false;
-                }
-            }
-        }
-
-        public void addAllListObjects(Scene scene)
-        {
-            scene.AddObject(this.GameObj);
-            if (listObjects == null) return;
-            foreach (var item in listObjects)
-            {
-                if (item.GetComponent<SelectionListComponent>() != null)
-                {
-                    item.GetComponent<SelectionListComponent>().addAllListObjects(scene);
-                }
-                else
-                {
-                    scene.AddObject(ListObjects);
-                }
+                
             }
         }
 
@@ -184,6 +85,31 @@ namespace Engine.Components
         void ICmpInitializable.OnShutdown(Component.ShutdownContext context)
         {
             
+        }
+
+        void ICmpUpdatable.OnUpdate()
+        {
+            if (currentlySelected)
+            {
+                if (DualityApp.Keyboard.KeyPressed(OpenTK.Input.Key.Up))
+                {
+                    if (selected == 0) return;
+
+                    selected++;
+                    
+                }
+                else if (DualityApp.Keyboard.KeyPressed(OpenTK.Input.Key.Down))
+                {
+                    if (selected == ListObjects.Count - 1) return;
+
+                    selected++;
+                }
+                else if (DualityApp.Keyboard.KeyPressed(OpenTK.Input.Key.Enter))
+                {
+                    this.currentlySelected = false;
+
+                }
+            }
         }
     }
 }
