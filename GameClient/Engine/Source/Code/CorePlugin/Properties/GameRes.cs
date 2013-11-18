@@ -21,7 +21,13 @@ namespace GameRes
 			}
 		}
 		public static class MenuTextures {
+			public static Duality.ContentRef<Duality.Resources.Material> PlayerMenu_Material { get { return Duality.ContentProvider.RequestContent<Duality.Resources.Material>(@"Data\MenuTextures\PlayerMenu.Material.res"); }}
+			public static Duality.ContentRef<Duality.Resources.Pixmap> PlayerMenu_Pixmap { get { return Duality.ContentProvider.RequestContent<Duality.Resources.Pixmap>(@"Data\MenuTextures\PlayerMenu.Pixmap.res"); }}
+			public static Duality.ContentRef<Duality.Resources.Texture> PlayerMenu_Texture { get { return Duality.ContentProvider.RequestContent<Duality.Resources.Texture>(@"Data\MenuTextures\PlayerMenu.Texture.res"); }}
 			public static void LoadAll() {
+				PlayerMenu_Material.MakeAvailable();
+				PlayerMenu_Pixmap.MakeAvailable();
+				PlayerMenu_Texture.MakeAvailable();
 			}
 		}
 		public static class Prefabs {

@@ -270,12 +270,36 @@
                     <object dataType="Class" type="Engine.Components.CreatureContainer" id="1296670880">
                       <forwardOnSpecial dataType="Bool">false</forwardOnSpecial>
                       <creature dataType="Class" type="Engine.CustomObjects.Player" id="2413099584">
+                        <ai dataType="Class" type="Engine.Logic.playerAI" id="1559552640">
+                          <setup dataType="Bool">false</setup>
+                          <nextAbility />
+                          <nextTarget dataType="Int">0</nextTarget>
+                        </ai>
                         <creatureID dataType="Int">0</creatureID>
                         <name dataType="String">PlayerOne</name>
                         <currentTeam dataType="Int">0</currentTeam>
-                        <position />
-                        <inventory />
-                        <stats dataType="Class" type="Engine.CustomObjects.Stats" id="1559552640">
+                        <inventory dataType="Class" type="Engine.CustomObjects.Inventory" id="3878736640">
+                          <gold dataType="Int">0</gold>
+                          <inv dataType="Array" type="Engine.CustomObjects.Item[]" id="3321275520" length="16">
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                          </inv>
+                        </inventory>
+                        <stats dataType="Class" type="Engine.CustomObjects.Stats" id="503814528">
                           <_level dataType="Int">1</_level>
                           <_exp dataType="Int">0</_exp>
                           <_skillPoints dataType="Int">0</_skillPoints>
@@ -295,7 +319,7 @@
                         </stats>
                         <reward />
                         <rewardNum />
-                        <itemsEquipped dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[Engine.CustomObjects.Item]]" id="3878736640" surrogate="true">
+                        <itemsEquipped dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[Engine.CustomObjects.Item]]" id="819777024" surrogate="true">
                           <header />
                           <body>
                             <Head />
@@ -306,11 +330,11 @@
                             <LeftLeg />
                           </body>
                         </itemsEquipped>
-                        <abilities dataType="Class" type="System.Collections.Generic.List`1[[Engine.Logic.Ability]]" id="503814528">
-                          <_items dataType="Array" type="Engine.Logic.Ability[]" id="3952626176" length="4">
-                            <object dataType="Class" type="Engine.Logic.AttackMeleeBlunt" id="2650940416">
+                        <abilities dataType="Class" type="System.Collections.Generic.List`1[[Engine.Logic.Ability]]" id="4181647488">
+                          <_items dataType="Array" type="Engine.Logic.Ability[]" id="4185324288" length="4">
+                            <object dataType="Class" type="Engine.Logic.AttackMeleeBlunt" id="2733625856">
                               <damageMod dataType="Float">1</damageMod>
-                              <damageTypes dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="66070528" surrogate="true">
+                              <damageTypes dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="3799454720" surrogate="true">
                                 <header />
                                 <body>
                                   <Physical dataType="Int">100</Physical>
@@ -323,9 +347,9 @@
                               <MaxNumTargets dataType="Int">1</MaxNumTargets>
                               <victimType dataType="String">Enemy</victimType>
                             </object>
-                            <object dataType="Class" type="Engine.Logic.AttackMeleeBlunt" id="2366126080">
+                            <object dataType="Class" type="Engine.Logic.AttackMeleeBlunt" id="4016643072">
                               <damageMod dataType="Float">2</damageMod>
-                              <damageTypes dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="1245123584" surrogate="true">
+                              <damageTypes dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="1406716416" surrogate="true">
                                 <header />
                                 <body>
                                   <Physical dataType="Int">100</Physical>
@@ -344,7 +368,7 @@
                           <_size dataType="Int">2</_size>
                           <_version dataType="Int">2</_version>
                         </abilities>
-                        <resistance dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="819777024" surrogate="true">
+                        <resistance dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="2578839808" surrogate="true">
                           <header />
                           <body>
                             <Physical dataType="Int">0</Physical>
@@ -376,6 +400,8 @@
                         <W dataType="Float">74</W>
                         <H dataType="Float">45</H>
                       </combatRenderBox>
+                      <nextTarget dataType="Int">0</nextTarget>
+                      <nextAbility />
                     </object>
                     <object />
                     <object />
@@ -540,7 +566,7 @@
               <object dataType="Class" type="Engine.Components.EnemyComponent" id="88778577">
                 <groupName dataType="String">Wolf</groupName>
                 <creatures dataType="Class" type="System.Collections.Generic.List`1[[Engine.Components.CreatureContainer]]" id="2637141733">
-                  <_items dataType="Array" type="Engine.Components.CreatureContainer[]" id="4086408466" length="8">
+                  <_items dataType="Array" type="Engine.Components.CreatureContainer[]" id="4086408466" length="4">
                     <object dataType="Class" type="Engine.Components.CreatureContainer" id="3000903700">
                       <forwardOnSpecial dataType="Bool">false</forwardOnSpecial>
                       <creature dataType="Class" type="Engine.CustomObjects.Enemy" id="959049544">
@@ -551,7 +577,6 @@
                         <creatureID dataType="Int">4</creatureID>
                         <name dataType="String">Wolf</name>
                         <currentTeam dataType="Int">0</currentTeam>
-                        <position />
                         <inventory />
                         <stats dataType="Class" type="Engine.CustomObjects.Stats" id="3105659488">
                           <_level dataType="Int">1</_level>
@@ -639,253 +664,15 @@
                         <W dataType="Float">74</W>
                         <H dataType="Float">45</H>
                       </combatRenderBox>
-                    </object>
-                    <object dataType="Class" type="Engine.Components.CreatureContainer" id="2010316952">
-                      <forwardOnSpecial dataType="Bool">false</forwardOnSpecial>
-                      <creature dataType="Class" type="Engine.CustomObjects.Enemy" id="238015012">
-                        <__sbo__ai__sbc__k__BackingField dataType="Class" type="Engine.Logic.defultAI" id="3848089640">
-                          <nextAbility />
-                          <nextTarget dataType="Int">0</nextTarget>
-                        </__sbo__ai__sbc__k__BackingField>
-                        <creatureID dataType="Int">4</creatureID>
-                        <name dataType="String">Wolf</name>
-                        <currentTeam dataType="Int">0</currentTeam>
-                        <position />
-                        <inventory />
-                        <stats dataType="Class" type="Engine.CustomObjects.Stats" id="269975856">
-                          <_level dataType="Int">1</_level>
-                          <_exp dataType="Int">0</_exp>
-                          <_skillPoints dataType="Int">0</_skillPoints>
-                          <_strength dataType="Int">12</_strength>
-                          <_dexterity dataType="Int">16</_dexterity>
-                          <_vitality dataType="Int">6</_vitality>
-                          <_intelligence dataType="Int">5</_intelligence>
-                          <_maxHP dataType="Int">24</_maxHP>
-                          <_maxMP dataType="Int">20</_maxMP>
-                          <_hp dataType="Int">24</_hp>
-                          <_mp dataType="Int">20</_mp>
-                          <_damageModMelee dataType="Int">1</_damageModMelee>
-                          <_damageModRange dataType="Int">3</_damageModRange>
-                          <_damageModMagic dataType="Int">-2</_damageModMagic>
-                          <_damageReduction dataType="Int">0</_damageReduction>
-                          <_speed dataType="Int">16</_speed>
-                        </stats>
-                        <reward />
-                        <rewardNum />
-                        <itemsEquipped dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[Engine.CustomObjects.Item]]" id="3280336792" surrogate="true">
-                          <header />
-                          <body>
-                            <Head />
-                            <Main-Hand />
-                            <Off-Hand />
-                            <Chest />
-                            <RightLeg />
-                            <LeftLeg />
-                          </body>
-                        </itemsEquipped>
-                        <abilities dataType="Class" type="System.Collections.Generic.List`1[[Engine.Logic.Ability]]" id="4149029088">
-                          <_items dataType="Array" type="Engine.Logic.Ability[]" id="67512472" length="4">
-                            <object dataType="Class" type="Engine.Logic.AttackMeleeSharp" id="878384912">
-                              <damageMod dataType="Float">1</damageMod>
-                              <damageTypes dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="3759147680" surrogate="true">
-                                <header />
-                                <body>
-                                  <Physical dataType="Int">100</Physical>
-                                </body>
-                              </damageTypes>
-                              <defenderAttr dataType="Int">0</defenderAttr>
-                              <resultMessage />
-                              <name dataType="String">Claw</name>
-                              <MPCost dataType="Int">0</MPCost>
-                              <MaxNumTargets dataType="Int">1</MaxNumTargets>
-                              <victimType dataType="String">Enemy</victimType>
-                            </object>
-                            <object />
-                            <object />
-                            <object />
-                          </_items>
-                          <_size dataType="Int">1</_size>
-                          <_version dataType="Int">1</_version>
-                        </abilities>
-                        <resistance dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="1193473032" surrogate="true">
-                          <header />
-                          <body>
-                            <Physical dataType="Int">0</Physical>
-                            <Fire dataType="Int">0</Fire>
-                            <Earth dataType="Int">0</Earth>
-                            <Water dataType="Int">0</Water>
-                            <Wind dataType="Int">0</Wind>
-                            <Dark dataType="Int">0</Dark>
-                            <Light dataType="Int">0</Light>
-                            <Void dataType="Int">0</Void>
-                          </body>
-                        </resistance>
-                      </creature>
-                      <abilities dataType="Class" type="System.Collections.Generic.List`1[[Engine.Constants.NameOfAbility]]" id="1083623480">
-                        <_items dataType="Array" type="Engine.Constants.NameOfAbility[]" id="1780934420" length="1">
-                          <object dataType="Enum" type="Engine.Constants.NameOfAbility" name="Claw" value="2" />
-                        </_items>
-                        <_size dataType="Int">1</_size>
-                        <_version dataType="Int">0</_version>
-                      </abilities>
-                      <type dataType="Enum" type="Engine.Constants.CreatureType" name="Wolf" value="4" />
-                      <combatSprite dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Material]]">
-                        <contentPath dataType="String">Data\Sprites\Wolf.Material.res</contentPath>
-                      </combatSprite>
-                      <combatRenderBox dataType="Struct" type="Duality.Rect">
-                        <X dataType="Float">-37</X>
-                        <Y dataType="Float">-22.5</Y>
-                        <W dataType="Float">74</W>
-                        <H dataType="Float">45</H>
-                      </combatRenderBox>
-                    </object>
-                    <object dataType="Class" type="Engine.Components.CreatureContainer" id="3434466252">
-                      <forwardOnSpecial dataType="Bool">false</forwardOnSpecial>
-                      <creature dataType="Class" type="Engine.CustomObjects.Enemy" id="2837605456">
-                        <__sbo__ai__sbc__k__BackingField dataType="Class" type="Engine.Logic.defultAI" id="2616771872">
-                          <nextAbility />
-                          <nextTarget dataType="Int">0</nextTarget>
-                        </__sbo__ai__sbc__k__BackingField>
-                        <creatureID dataType="Int">4</creatureID>
-                        <name dataType="String">Wolf</name>
-                        <currentTeam dataType="Int">0</currentTeam>
-                        <position />
-                        <inventory />
-                        <stats dataType="Class" type="Engine.CustomObjects.Stats" id="376058304">
-                          <_level dataType="Int">1</_level>
-                          <_exp dataType="Int">0</_exp>
-                          <_skillPoints dataType="Int">0</_skillPoints>
-                          <_strength dataType="Int">12</_strength>
-                          <_dexterity dataType="Int">16</_dexterity>
-                          <_vitality dataType="Int">6</_vitality>
-                          <_intelligence dataType="Int">5</_intelligence>
-                          <_maxHP dataType="Int">24</_maxHP>
-                          <_maxMP dataType="Int">20</_maxMP>
-                          <_hp dataType="Int">24</_hp>
-                          <_mp dataType="Int">20</_mp>
-                          <_damageModMelee dataType="Int">1</_damageModMelee>
-                          <_damageModRange dataType="Int">3</_damageModRange>
-                          <_damageModMagic dataType="Int">-2</_damageModMagic>
-                          <_damageReduction dataType="Int">0</_damageReduction>
-                          <_speed dataType="Int">16</_speed>
-                        </stats>
-                        <reward />
-                        <rewardNum />
-                        <itemsEquipped dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[Engine.CustomObjects.Item]]" id="2335567072" surrogate="true">
-                          <header />
-                          <body>
-                            <Head />
-                            <Main-Hand />
-                            <Off-Hand />
-                            <Chest />
-                            <RightLeg />
-                            <LeftLeg />
-                          </body>
-                        </itemsEquipped>
-                        <abilities dataType="Class" type="System.Collections.Generic.List`1[[Engine.Logic.Ability]]" id="3542076288">
-                          <_items dataType="Array" type="Engine.Logic.Ability[]" id="1297093856" length="4">
-                            <object dataType="Class" type="Engine.Logic.AttackMeleeSharp" id="2978163008">
-                              <damageMod dataType="Float">1</damageMod>
-                              <damageTypes dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="3193406592" surrogate="true">
-                                <header />
-                                <body>
-                                  <Physical dataType="Int">100</Physical>
-                                </body>
-                              </damageTypes>
-                              <defenderAttr dataType="Int">0</defenderAttr>
-                              <resultMessage />
-                              <name dataType="String">Claw</name>
-                              <MPCost dataType="Int">0</MPCost>
-                              <MaxNumTargets dataType="Int">1</MaxNumTargets>
-                              <victimType dataType="String">Enemy</victimType>
-                            </object>
-                            <object />
-                            <object />
-                            <object />
-                          </_items>
-                          <_size dataType="Int">1</_size>
-                          <_version dataType="Int">1</_version>
-                        </abilities>
-                        <resistance dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="763896736" surrogate="true">
-                          <header />
-                          <body>
-                            <Physical dataType="Int">0</Physical>
-                            <Fire dataType="Int">0</Fire>
-                            <Earth dataType="Int">0</Earth>
-                            <Water dataType="Int">0</Water>
-                            <Wind dataType="Int">0</Wind>
-                            <Dark dataType="Int">0</Dark>
-                            <Light dataType="Int">0</Light>
-                            <Void dataType="Int">0</Void>
-                          </body>
-                        </resistance>
-                      </creature>
-                      <abilities dataType="Class" type="System.Collections.Generic.List`1[[Engine.Constants.NameOfAbility]]" id="1132190304">
-                        <_items dataType="Array" type="Engine.Constants.NameOfAbility[]" id="3067634832" length="1">
-                          <object dataType="Enum" type="Engine.Constants.NameOfAbility" name="Claw" value="2" />
-                        </_items>
-                        <_size dataType="Int">1</_size>
-                        <_version dataType="Int">0</_version>
-                      </abilities>
-                      <type dataType="Enum" type="Engine.Constants.CreatureType" name="Wolf" value="4" />
-                      <combatSprite dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Material]]">
-                        <contentPath dataType="String">Data\Sprites\Wolf.Material.res</contentPath>
-                      </combatSprite>
-                      <combatRenderBox dataType="Struct" type="Duality.Rect">
-                        <X dataType="Float">-37</X>
-                        <Y dataType="Float">-22.5</Y>
-                        <W dataType="Float">74</W>
-                        <H dataType="Float">45</H>
-                      </combatRenderBox>
-                    </object>
-                    <object dataType="Class" type="Engine.Components.CreatureContainer" id="492622960">
-                      <forwardOnSpecial dataType="Bool">false</forwardOnSpecial>
-                      <creature dataType="ObjectRef">2837605456</creature>
-                      <abilities dataType="Class" type="System.Collections.Generic.List`1[[Engine.Constants.NameOfAbility]]" id="2083054668">
-                        <_items dataType="Array" type="Engine.Constants.NameOfAbility[]" id="3563498376" length="1">
-                          <object dataType="Enum" type="Engine.Constants.NameOfAbility" name="Claw" value="2" />
-                        </_items>
-                        <_size dataType="Int">1</_size>
-                        <_version dataType="Int">0</_version>
-                      </abilities>
-                      <type dataType="Enum" type="Engine.Constants.CreatureType" name="Wolf" value="4" />
-                      <combatSprite dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Material]]">
-                        <contentPath dataType="String">Data\Sprites\Wolf.Material.res</contentPath>
-                      </combatSprite>
-                      <combatRenderBox dataType="Struct" type="Duality.Rect">
-                        <X dataType="Float">-37</X>
-                        <Y dataType="Float">-22.5</Y>
-                        <W dataType="Float">74</W>
-                        <H dataType="Float">45</H>
-                      </combatRenderBox>
-                    </object>
-                    <object dataType="Class" type="Engine.Components.CreatureContainer" id="3820382724">
-                      <forwardOnSpecial dataType="Bool">false</forwardOnSpecial>
-                      <creature dataType="ObjectRef">2837605456</creature>
-                      <abilities dataType="Class" type="System.Collections.Generic.List`1[[Engine.Constants.NameOfAbility]]" id="939042776">
-                        <_items dataType="Array" type="Engine.Constants.NameOfAbility[]" id="2382741136" length="1">
-                          <object dataType="Enum" type="Engine.Constants.NameOfAbility" name="Claw" value="2" />
-                        </_items>
-                        <_size dataType="Int">1</_size>
-                        <_version dataType="Int">0</_version>
-                      </abilities>
-                      <type dataType="Enum" type="Engine.Constants.CreatureType" name="Wolf" value="4" />
-                      <combatSprite dataType="Struct" type="Duality.ContentRef`1[[Duality.Resources.Material]]">
-                        <contentPath dataType="String">Data\Sprites\Wolf.Material.res</contentPath>
-                      </combatSprite>
-                      <combatRenderBox dataType="Struct" type="Duality.Rect">
-                        <X dataType="Float">-37</X>
-                        <Y dataType="Float">-22.5</Y>
-                        <W dataType="Float">74</W>
-                        <H dataType="Float">45</H>
-                      </combatRenderBox>
+                      <nextTarget dataType="Int">0</nextTarget>
+                      <nextAbility />
                     </object>
                     <object />
                     <object />
                     <object />
                   </_items>
-                  <_size dataType="Int">5</_size>
-                  <_version dataType="Int">10</_version>
+                  <_size dataType="Int">1</_size>
+                  <_version dataType="Int">2</_version>
                 </creatures>
                 <gameobj dataType="ObjectRef">2311454344</gameobj>
                 <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />

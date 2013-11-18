@@ -3,24 +3,9 @@ using Engine.Components;
 using Engine.Logic;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Engine.CustomObjects
 {
-    public class Position
-    {
-        public int x;
-        public int y;
-
-        public Position(int x, int y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-    }
-
     public class Inventory
     {
         private int gold;
@@ -31,9 +16,16 @@ namespace Engine.CustomObjects
             inv = new Item[size];
         }
 
-        public Inventory(params Item[] items)
+        public Inventory(int size, params Item[] items)
         {
-            inv = items;
+            inv = new Item[size];
+            foreach (var item in items)
+            {
+                if (!addToInv(item))
+                {
+                    throw new FORException("Inventory too small");
+                }
+            }
         }
 
         public void setInvSize(int size)
@@ -45,24 +37,15 @@ namespace Engine.CustomObjects
 
         public bool addToInv(Item item)
         {
-            bool added = false;
             for (int i = 0; i < this.inv.Length; i++)
             {
                 if (inv[i] == null)
                 {
                     inv[i] = item;
-                    added = true;
-                    break;
+                    return true;
                 }
             }
-            if (added)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public bool removeFromInv(int index)
@@ -255,7 +238,6 @@ namespace Engine.CustomObjects
         private int creatureID;
         public string name;
         public int currentTeam;
-        public Position position;
         public Inventory inventory;
         private Stats stats;
 
@@ -300,6 +282,7 @@ namespace Engine.CustomObjects
             this.stats.Intelligence = i;
             this.stats.Level = 1;
             this.Stats.updateSecondaryAttributes();
+            this.inventory = new Inventory(16);
 
             this.creatureID = registeredCreature;
             registeredCreature++;
@@ -516,12 +499,14 @@ namespace Engine.CustomObjects
         }
 
         //Needs to be implemented for diffrent creatures, remember to put a check on Manapoints for attacks
-        public abstract void generateAction(out Ability value1AI, out int value2AI, List<CreatureContainer> creatures);
+        public abstract void generateAction(out Ability nextAbility, out int nextTarget, List<CreatureContainer> creatures);
     }
 
     [Serializable]
     public class Player : Creature
     {
+        private AI ai = new playerAI();
+
         public Player(string name) : base(name) { }
 
         public Player(string name, int s, int d, int i, int v) : base(name, s, d, i, v) 
@@ -532,9 +517,11 @@ namespace Engine.CustomObjects
         {
         }
 
-        public override void generateAction(out Ability value1AI, out int value2AI, List<CreatureContainer> creatures)
+        public override void generateAction(out Ability nextAbility, out int nextTarget, List<CreatureContainer> creatures)
         {
-            throw new NotImplementedException();
+            ai.generateActionCombat(this, creatures);
+            nextAbility = ai.NextAbility;
+            nextTarget = ai.NextTarget;
         }
     }
 

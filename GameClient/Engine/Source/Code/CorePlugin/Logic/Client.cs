@@ -24,6 +24,16 @@ namespace Engine.Logic
         private static List<GameObject> Team1;
         private static List<GameObject> Team2;
 
+        public static void update()
+        {
+            DualityApp.Update();
+        }
+
+        public static void render()
+        {
+            DualityApp.Render();
+        }
+
         //Setup Combat
         public static void combatScene(ContentRef<Material> background, List<CreatureContainer> TeamOne, List<CreatureContainer> TeamTwo)
         {
@@ -51,23 +61,18 @@ namespace Engine.Logic
 
                 //Make changes
                 Object.Transform.Pos = new OpenTK.Vector3(0, 125 - 40 * TeamOne.Count + 40 * i, -1);
+                Object.Transform.Scale = 2;
                 Object.GetComponent<AnimSpriteRenderer>().SharedMaterial = TeamOne[i].CombatSprite;
                 Object.GetComponent<AnimSpriteRenderer>().AnimTime = 0;
                 Object.GetComponent<AnimSpriteRenderer>().AnimPaused = false;
-                Object.GetComponent<AnimSpriteRenderer>().AnimFirstFrame = Object.GetComponent<CombatCreatureComponent>().IDLEFRAME;
+                Object.GetComponent<CombatCreatureComponent>().setFirstFrame(Frames.IDLEFRAME);
                 Object.GetComponent<AnimSpriteRenderer>().AnimDuration = 1f;
                 Object.GetComponent<AnimSpriteRenderer>().AnimFrameCount = CreatureContainer.FRAMENUMBER;
                 Object.GetComponent<AnimSpriteRenderer>().Rect = TeamOne[i].CombatSpriteRect;
-                try
-                {
-                    Object.AddComponent<ResolutionUpdateComponent>();
-                    Object.GetComponent<ResolutionUpdateComponent>().FullWindow = false;
-                    Object.GetComponent<ResolutionUpdateComponent>().Scale = 2.0f;
-                }
-                catch (FORException e)
-                {
-                    Console.Out.WriteLine(e.Message);
-                }
+                /*
+                Object.AddComponent<ResolutionUpdateComponent>();
+                Object.GetComponent<ResolutionUpdateComponent>().FullWindow = false;
+                Object.GetComponent<ResolutionUpdateComponent>().Scale = 2.0f;*/
 
                 //Add to list
                 Team1.Add(Object);
@@ -82,41 +87,41 @@ namespace Engine.Logic
                 Object.AddComponent(new CombatCreatureComponent(TeamTwo[i]));
 
                 //Make changes
-                Object.Transform.Pos = new OpenTK.Vector3(300, 125 - (40 * TeamTwo.Count / 2) + 40 * i, -1);
+                Object.Transform.Pos = new OpenTK.Vector3(300, 125 - 40 * TeamOne.Count + 40 * i, -1);
+                Object.Transform.Scale = 2;
                 Object.GetComponent<CombatCreatureComponent>().offsetFrames(48);
                 ContentRef<Material> temp = TeamTwo[i].CombatSprite;
                 Object.GetComponent<AnimSpriteRenderer>().SharedMaterial = temp;
                 Object.GetComponent<AnimSpriteRenderer>().AnimTime = 0;
                 Object.GetComponent<AnimSpriteRenderer>().AnimPaused = false;
-                Object.GetComponent<AnimSpriteRenderer>().AnimFirstFrame = Object.GetComponent<CombatCreatureComponent>().IDLEFRAME;
+                Object.GetComponent<CombatCreatureComponent>().setFirstFrame(Frames.IDLEFRAME);
                 Object.GetComponent<AnimSpriteRenderer>().AnimDuration = 1f;
                 Object.GetComponent<AnimSpriteRenderer>().AnimFrameCount = CreatureContainer.FRAMENUMBER;
                 Object.GetComponent<AnimSpriteRenderer>().Rect = TeamTwo[i].CombatSpriteRect;
 
-                Object.AddComponent<ResolutionUpdateComponent>();
+                /*Object.AddComponent<ResolutionUpdateComponent>();
                 Object.GetComponent<ResolutionUpdateComponent>().FullWindow = false;
-                Object.GetComponent<ResolutionUpdateComponent>().Scale = 2.0f;
-
+                Object.GetComponent<ResolutionUpdateComponent>().Scale = 2.0f;*/
+                
                 //Add to list
                 Team2.Add(Object);
             }
 
+            GameObject PlayerMenuBackground = new GameObject("PlayerMenuBackground");
+            PlayerMenuBackground.AddComponent<Transform>();
+            PlayerMenuBackground.AddComponent<SpriteRenderer>();
+            PlayerMenuBackground.GetComponent<SpriteRenderer>().SharedMaterial = GameRes.Data.MenuTextures.PlayerMenu_Material;
+            PlayerMenuBackground.Transform.Pos = new OpenTK.Vector3(-50, 240, -1);
+            PlayerMenuBackground.GetComponent<SpriteRenderer>().Rect = new Rect(0, 0, 400, 180);
+
             //Adding all objects to scene
             Scene.Current.AddObject(Team1);
             Scene.Current.AddObject(Team2);
+            Scene.Current.AddObject(PlayerMenuBackground);
 
-            combat = new Combat(TeamOne, TeamTwo);
+            //Run this when the move is selected
+            PlayerMenuBackground.AddComponent(new LoopComponent(new Combat(TeamOne, TeamTwo)));
 
-            /*//Run this when the move is selected
-            nextRound(TeamOne, TeamTwo);*/
-        }
-
-        public static int nextRound(List<CreatureContainer> TeamOne, List<CreatureContainer> TeamTwo)
-        {
-            int temp = combat.runCombatCycle();
-            TeamOne = combat.TeamOne;
-            TeamTwo = combat.TeamTwo;
-            return temp;
         }
 
         public static void cleanupScene()

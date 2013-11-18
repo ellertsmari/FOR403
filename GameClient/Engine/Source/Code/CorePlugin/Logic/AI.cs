@@ -1,6 +1,11 @@
-﻿using Engine.Components;
+﻿using Duality;
+using Duality.Components;
+using Duality.Components.Renderers;
+using Duality.Resources;
+using Engine.Components;
 using Engine.Constants;
 using Engine.CustomObjects;
+using OpenTK.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,8 +100,85 @@ namespace Engine.Logic
         public override void moveWorld(Creature user)
         {
             //something something
-            user.position.x += 0;
-            user.position.y += 0;
+        }
+    }
+
+    [Serializable]
+    public class playerAI : AI
+    {
+        private bool setup = false;
+
+        public playerAI()
+            : base()
+        {
+
+        }
+
+        public override void generateActionCombat(Creature user, List<CreatureContainer> creatures)
+        {
+            //SelectionList()
+            if (!setup)
+            {
+                GameObject Object1 = new GameObject();
+                Object1.AddComponent<Transform>();
+                Object1.AddComponent<SpriteRenderer>();
+                Object1.AddComponent(new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(-26, 260, -1), new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(91, 260, -3))));
+
+                Object1.GetComponent<SelectionListComponent>().addAllListObjects(Scene.Current);
+
+                GameObject Object2 = new GameObject();
+                Object2.AddComponent<Transform>();
+                Object2.AddComponent<SpriteRenderer>();
+                Object2.AddComponent(new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(91, 260, -1), new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(91, 260, -3))));
+
+                Object2.GetComponent<SelectionListComponent>().addAllListObjects(Scene.Current);
+
+                GameObject Object3 = new GameObject();
+                Object3.AddComponent<Transform>();
+                Object3.AddComponent<SpriteRenderer>();
+                Object3.AddComponent(new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(208, 260, -1), new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(91, 260, -3))));
+
+                foreach (var item in Scene.Current.AllObjects.ToList())
+                {
+                    if (item.Name == "PlayerMenuBackground")
+                    {
+                        Object1.Parent = item;
+                        Object2.Parent = item;
+                        Object3.Parent = item;
+                        break;
+                    }
+                }
+
+                Object3.GetComponent<SelectionListComponent>().addAllListObjects(Scene.Current);
+
+                setup = true;
+            }
+
+            if (DualityApp.Mouse.ButtonPressed(MouseButton.Left))
+            {
+                if (DualityApp.Mouse.X == 0)
+                {
+
+                }
+            }
+
+            if (DualityApp.Keyboard[Key.Up])
+            {
+
+            }
+            else if (DualityApp.Keyboard[Key.Down])
+            {
+
+            }
+            else if (DualityApp.Keyboard[Key.Enter])
+            {
+
+            }
+        }
+
+        public override void moveWorld(Creature user)
+        {
+
         }
     }
 }

@@ -74,10 +74,12 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoBuilders\ListBoxMaker.cs" />
     <Compile Include="Components\AIComponent.cs" />
     <Compile Include="Components\CombatCreatureComponent.cs" />
     <Compile Include="Components\CreatureContainer.cs" />
     <Compile Include="Components\ResolutionUpdateComponent.cs" />
+    <Compile Include="Components\CombatUI.cs" />
     <Compile Include="Constants\AbilityStorage.cs" />
     <Compile Include="Constants\EnemyStorage.cs" />
     <Compile Include="Logic\AI.cs" />

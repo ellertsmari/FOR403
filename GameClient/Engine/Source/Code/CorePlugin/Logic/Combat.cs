@@ -7,6 +7,8 @@ using System.Diagnostics;
 using Engine.CustomObjects;
 using Engine.Constants;
 using Engine.Components;
+using Duality.Resources;
+using Duality;
 
 namespace Engine.Logic
 {
@@ -338,6 +340,32 @@ namespace Engine.Logic
         }
     }
 
+    [Serializable]
+    public class LoopComponent : Component, ICmpUpdatable
+    {
+        private Combat combat;
+
+        public Combat Combat
+        {
+            get { return this.combat; }
+            set { this.combat = value; }
+        }
+        
+        public LoopComponent(Combat combat)
+        {
+            this.Combat = combat;
+        }
+
+        void ICmpUpdatable.OnUpdate()
+        {
+            if (this.combat.Creatures[this.combat.NextCreature].combatAbility(this.combat.Creatures))
+            {
+                combat.runCombatCycle();
+            }
+        }
+    }
+
+    [Serializable]
     public class Combat
     {
         private List<CreatureContainer> teamOne;
@@ -402,9 +430,11 @@ namespace Engine.Logic
         {
             if (winningTeam != 0) return winningTeam;
 
-            Ability ability;
-            int target;
-            creatures[nextCreature].Creature.generateAction(out ability, out target, creatures);
+            Ability ability = creatures[nextCreature].nextAbility;
+            int target = creatures[nextCreature].nextTarget;
+
+            creatures[nextCreature].nextAbility = null;
+            creatures[nextCreature].nextTarget = -1;
 
             Result result = ability.runAbility(creatures[nextCreature], creatures[target]);
             creatures[nextCreature] = result.user;
@@ -426,6 +456,7 @@ namespace Engine.Logic
                 checkReward();
             }
 
+            nextCreature++;
             if (NextCreature == creatures.Count) nextCreature = 0;
 
             return winningTeam;
@@ -559,7 +590,7 @@ namespace Engine.Logic
                     if (creature.Creature is Player)
                     {
                         creature.Creature.inventory.addGold(rewardGold);
-                        creature.Creature.inventory.openInvWindow(new Inventory(rewardItems));
+                        creature.Creature.inventory.openInvWindow(new Inventory(rewardItems.Length, rewardItems));
                     }
                 }
 

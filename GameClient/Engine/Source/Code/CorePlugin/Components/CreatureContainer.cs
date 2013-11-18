@@ -16,8 +16,8 @@ namespace Engine.Components
     [Serializable]
     public class CreatureContainer
     {
-        public static readonly int FRAMENUMBER = 8;
-        public static readonly int MAXFORWARD = 50;
+        public const int FRAMENUMBER = 8;
+        public const int MAXFORWARD = 50;
 
         private bool forwardOnSpecial;
         Creature creature;
@@ -26,6 +26,9 @@ namespace Engine.Components
         private ContentRef<Material> combatSprite;
         private Rect combatRenderBox;
         //private ContentRef<Texture> prf = ContentProvider.RequestContent<Texture>(@"Data\MyShip");
+
+        public int nextTarget = 0;
+        public Ability nextAbility = null;
 
         public bool ForwardOnSpecial
         {
@@ -103,6 +106,22 @@ namespace Engine.Components
                     Abilities = null;
                 }
             }
+        }
+
+        public bool combatAbility(List<CreatureContainer> creatures)
+        {
+            int target = -1;
+            Ability ability = null;
+
+            Creature.generateAction(out ability, out target, creatures);
+
+            if (target != -1 && ability != null)
+            {
+                nextAbility = ability;
+                nextTarget = target;
+                return true;
+            }
+            return false;
         }
 
         [EditorHintFlags(MemberFlags.Invisible)]

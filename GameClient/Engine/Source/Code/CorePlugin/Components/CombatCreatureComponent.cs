@@ -7,25 +7,33 @@ using System.Text;
 
 namespace Engine.Components
 {
+    public enum Frames
+    {
+        IDLEFRAME = 0 * CreatureContainer.FRAMENUMBER,
+        MELEEFRAME = 1 * CreatureContainer.FRAMENUMBER,
+        RANGEDFRAME = 2 * CreatureContainer.FRAMENUMBER,
+        MAGICFRAME = 3 * CreatureContainer.FRAMENUMBER,
+        SPECIALFRAME = 4 * CreatureContainer.FRAMENUMBER,
+        DYINGFRAME = 5 * CreatureContainer.FRAMENUMBER
+    }
+
     [Serializable]
     [RequiredComponent(typeof(AnimSpriteRenderer))]
-    class CombatCreatureComponent : Component, ICmpUpdatable
+    public class CombatCreatureComponent : Component, ICmpUpdatable
     {
-        public int IDLEFRAME = 0 * CreatureContainer.FRAMENUMBER;
+        /*public int IDLEFRAME = 0 * CreatureContainer.FRAMENUMBER;
         public int MELEEFRAME = 1 * CreatureContainer.FRAMENUMBER;
         public int RANGEDFRAME = 2 * CreatureContainer.FRAMENUMBER;
         public int MAGICFRAME = 3 * CreatureContainer.FRAMENUMBER;
         public int SPECIALFRAME = 4 * CreatureContainer.FRAMENUMBER;
-        public int DYINGFRAME = 5 * CreatureContainer.FRAMENUMBER;
+        public int DYINGFRAME = 5 * CreatureContainer.FRAMENUMBER;*/
+        private int offset;
+
+        private bool runSingle;
 
         public void offsetFrames(int offset)
         {
-            IDLEFRAME += offset;
-            MELEEFRAME += offset;
-            RANGEDFRAME += offset;
-            MAGICFRAME += offset;
-            SPECIALFRAME += offset;
-            DYINGFRAME += offset;
+            this.offset = offset;
         }
 
         private CreatureContainer creature;
@@ -46,9 +54,33 @@ namespace Engine.Components
             this.creature = creature;
         }
 
+        public void setAnim(Frames FirstFrame)
+        {
+            runSingle = true;
+            this.GameObj.GetComponent<AnimSpriteRenderer>().AnimFirstFrame = (int)FirstFrame + offset;
+            this.GameObj.GetComponent<AnimSpriteRenderer>().AnimLoopMode = AnimSpriteRenderer.LoopMode.Once;
+        }
+
+        public void setFirstFrame(Frames FirstFrame)
+        {
+            this.GameObj.GetComponent<AnimSpriteRenderer>().AnimFirstFrame = (int)FirstFrame + offset;
+        }
+
         void ICmpUpdatable.OnUpdate()
         {
-            if ((this.GameObj.GetComponent<AnimSpriteRenderer>().AnimFirstFrame == this.MELEEFRAME) || ((this.GameObj.GetComponent<AnimSpriteRenderer>().AnimFirstFrame == this.SPECIALFRAME) && (this.Creature.ForwardOnSpecial)))
+            if ((this.GameObj.GetComponent<AnimSpriteRenderer>().AnimFirstFrame == (int)Frames.DYINGFRAME + offset)&&(this.GameObj.GetComponent<AnimSpriteRenderer>().CurrentFrame == this.GameObj.GetComponent<AnimSpriteRenderer>().AnimFrameCount-1))
+            {
+                return;
+            }
+
+            if (!this.GameObj.GetComponent<AnimSpriteRenderer>().IsAnimationRunning&&runSingle)
+            {
+                runSingle = false;
+                this.GameObj.GetComponent<AnimSpriteRenderer>().AnimFirstFrame = (int)Frames.IDLEFRAME + offset;
+                this.GameObj.GetComponent<AnimSpriteRenderer>().AnimLoopMode = AnimSpriteRenderer.LoopMode.Loop;
+            }
+
+            if ((this.GameObj.GetComponent<AnimSpriteRenderer>().AnimFirstFrame == (int)Frames.MELEEFRAME + offset) || ((this.GameObj.GetComponent<AnimSpriteRenderer>().AnimFirstFrame == (int)Frames.SPECIALFRAME + offset) && (this.Creature.ForwardOnSpecial)))
             {
 
                 if (this.GameObj.GetComponent<AnimSpriteRenderer>().CurrentFrame <= this.GameObj.GetComponent<AnimSpriteRenderer>().AnimFrameCount / 2)
