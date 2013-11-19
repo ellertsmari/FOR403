@@ -21,8 +21,8 @@ namespace Engine.Logic
         private static Combat combat;
         private static ContentRef<Scene> previousScene;
         private static ContentRef<Scene> BlankCombatScene = GameRes.Data.Levels.Combat_Scene;
-        private static List<GameObject> Team1;
-        private static List<GameObject> Team2;
+        public static List<GameObject> Team1;
+        public static List<GameObject> Team2;
 
         public static void update()
         {
@@ -114,10 +114,51 @@ namespace Engine.Logic
             PlayerMenuBackground.Transform.Pos = new OpenTK.Vector3(-50, 240, -1);
             PlayerMenuBackground.GetComponent<SpriteRenderer>().Rect = new Rect(0, 0, 400, 180);
 
+            for (int i = 0; i < 2; i++)
+            {
+                GameObject Obj = new GameObject();
+
+                foreach (var item in Scene.Current.AllObjects.ToList())
+                {
+                    if (item.Name == "PlayerMenuBackground")
+                    {
+                        Obj.Parent = item;
+                        break;
+                    }
+                }
+
+                Obj.AddComponent<Transform>();
+                Obj.AddComponent<SpriteRenderer>();
+                Obj.AddComponent(new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(-26 + 117 * i, 260, Obj.Parent.Transform.Pos.Z - 1)));
+            }
+
+            foreach (var item in Scene.Current.AllObjects.ToList())
+            {
+                if (item.Name == "PlayerMenuBackground")
+                {
+                    foreach (var children in item.Children.ToList())
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            GameObject TextObject = new GameObject();
+                            TextObject.Parent = children;
+
+                            TextObject.AddComponent<Transform>();
+                            TextObject.AddComponent<TextRenderer>();
+
+                            TextObject.Transform.Pos = new OpenTK.Vector3(TextObject.Parent.Transform.Pos.X + TextObject.Parent.GetComponent<SpriteRenderer>().Rect.W / 2, TextObject.Parent.Transform.Pos.Y - TextObject.Parent.GetComponent<SpriteRenderer>().Rect.H * i / 3, TextObject.Parent.Transform.Pos.Z - 1);
+                            TextObject.GetComponent<TextRenderer>().Text.SourceText = "Test " + i;
+                        }
+                    }
+                    break;
+                }
+            }
+
             //Adding all objects to scene
             Scene.Current.AddObject(Team1);
             Scene.Current.AddObject(Team2);
             Scene.Current.AddObject(PlayerMenuBackground);
+            Scene.Current.AddObject(PlayerMenuBackground.ChildrenDeep);
 
             //Run this when the move is selected
             PlayerMenuBackground.AddComponent(new LoopComponent(new Combat(TeamOne, TeamTwo)));

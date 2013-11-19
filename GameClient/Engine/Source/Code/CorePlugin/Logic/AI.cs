@@ -16,6 +16,15 @@ namespace Engine.Logic
 {
     public abstract class AI
     {
+        protected static bool waitingForInput = false;
+        public static Ability abilityInput = null;
+        public static int targetInput = -1;
+
+        public static bool WaitingForInput
+        {
+            get { return waitingForInput; }
+        }
+
         protected Ability nextAbility;
         protected int nextTarget;
 
@@ -119,72 +128,17 @@ namespace Engine.Logic
             //SelectionList()
             if (!setup)
             {
-                for (int i = 0; i < 3; i++)
-                {
-                    GameObject Obj = new GameObject();
-                    Obj.AddComponent<Transform>();
-                    Obj.AddComponent<SpriteRenderer>();
-                    Obj.AddComponent(new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(-26 + 117*i, 260, -1)));
-
-                    Scene.Current.AddObject(Obj);
-
-                    foreach (var item in Scene.Current.AllObjects.ToList())
-                    {
-                        if (item.Name == "PlayerMenuBackground")
-                        {
-                            Obj.Parent = item;
-                            break;
-                        }
-                    }
-                }
-
-                foreach (var item in Scene.Current.AllObjects.ToList())
-                {
-                    if (item.Name == "PlayerMenuBackground")
-                    {
-                        foreach (var parent in item.Children.ToList())
-                        {
-                            for (int i = 0; i < 3; i++)
-                            {
-                                GameObject TextObject = new GameObject();
-                                TextObject.Parent = parent;
-
-                                TextObject.AddComponent<Transform>();
-                                TextObject.AddComponent<TextRenderer>();
-
-                                TextObject.Transform.Pos = new OpenTK.Vector3(TextObject.Parent.Transform.Pos.X + TextObject.Parent.GetComponent<SpriteRenderer>().Rect.W / 2, TextObject.Parent.Transform.Pos.Y - TextObject.Parent.GetComponent<SpriteRenderer>().Rect.H*i/3, TextObject.Parent.Transform.Pos.Z-1);
-                                TextObject.GetComponent<TextRenderer>().Text.SourceText = "Test " + i;
-                                
-                                Scene.Current.AddObject(TextObject);
-                            }
-                        }
-                        break;
-                    }
-                }
-                
-
+                AI.waitingForInput = true;
                 setup = true;
             }
 
-            if (DualityApp.Mouse.ButtonPressed(MouseButton.Left))
+            if (AI.abilityInput != null && AI.targetInput != -1)
             {
-                if (DualityApp.Mouse.X == 0)
-                {
+                //Use input
 
-                }
-            }
-
-            if (DualityApp.Keyboard[Key.Up])
-            {
-
-            }
-            else if (DualityApp.Keyboard[Key.Down])
-            {
-
-            }
-            else if (DualityApp.Keyboard[Key.Enter])
-            {
-
+                AI.abilityInput = null;
+                AI.targetInput = -1;
+                AI.waitingForInput = false;
             }
         }
 

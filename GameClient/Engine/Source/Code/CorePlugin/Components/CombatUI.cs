@@ -4,6 +4,7 @@ using Duality.Components.Renderers;
 using Duality.Resources;
 using Engine.Logic;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,6 +34,9 @@ namespace Engine.Components
         private string p;
         private OpenTK.Vector3 vector3;
         private SelectionListComponent selectionListComponent;
+        private int MenuNum;
+        private int numOfMenues;
+        private bool useCreatureList = false;
 
         public String Name
         {
@@ -91,23 +95,53 @@ namespace Engine.Components
         {
             if (currentlySelected)
             {
-                if (DualityApp.Keyboard.KeyPressed(OpenTK.Input.Key.Up))
+                if (AI.WaitingForInput)
                 {
-                    if (selected == 0) return;
+                    if (DualityApp.Keyboard.KeyPressed(OpenTK.Input.Key.Up))
+                    {
+                        if (selected == 0) return;
 
-                    selected++;
-                    
+                        selected++;
+
+                    }
+                    else if (DualityApp.Keyboard.KeyPressed(OpenTK.Input.Key.Down))
+                    {
+                        if (selected == ListObjects.Count - 1) return;
+
+                        selected++;
+                    }
+                    else if (DualityApp.Keyboard.KeyPressed(OpenTK.Input.Key.Enter))
+                    {
+                        this.currentlySelected = false;
+                        if (this.listObjects[selected] is IList)
+                        {
+                            if (this.MenuNum < this.GameObj.Parent.ChildCount)
+                            {
+                                this.GameObj.Parent.Children.ToList()[MenuNum + 1].GetComponent<SelectionListComponent>().currentlySelected = true;
+                                this.GameObj.Parent.Children.ToList()[MenuNum + 1].GetComponent<SelectionListComponent>().ListObjects = (List<Object>)listObjects[selected];
+                            }
+                        }
+                        else if (this.listObjects[selected] is Ability)
+                        {
+                            AI.abilityInput = (Ability)listObjects[selected];
+                            this.currentlySelected = true;
+
+                            this.useCreatureList = true;
+                        }
+                        else if (this.useCreatureList)
+                        {
+                            AI.targetInput = selected;
+
+                            this.GameObj.Parent.Children.ToList()[0].GetComponent<SelectionListComponent>().currentlySelected = true;
+                        }
+                    }
                 }
-                else if (DualityApp.Keyboard.KeyPressed(OpenTK.Input.Key.Down))
+                for (int i = 0; i < this.GameObj.ChildCount; i++)
                 {
-                    if (selected == ListObjects.Count - 1) return;
-
-                    selected++;
-                }
-                else if (DualityApp.Keyboard.KeyPressed(OpenTK.Input.Key.Enter))
-                {
-                    this.currentlySelected = false;
-
+                    if (this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>() != null)
+                    {
+                        this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = this.ListObjects[i].ToString();
+                    }
                 }
             }
         }
