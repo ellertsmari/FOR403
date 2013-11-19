@@ -4,7 +4,7 @@
     <userName dataType="String">Unknown</userName>
     <gfxWidth dataType="Int">800</gfxWidth>
     <gfxHeight dataType="Int">600</gfxHeight>
-    <gfxMode dataType="Enum" type="Duality.ScreenMode" name="Window" value="0" />
+    <gfxMode dataType="Enum" type="Duality.ScreenMode" name="FixedWindow" value="1" />
     <gfxAAQuality dataType="Enum" type="Duality.AAQuality" name="High" value="0" />
     <sfxEffectVol dataType="Float">1</sfxEffectVol>
     <sfxSpeechVol dataType="Float">1</sfxSpeechVol>

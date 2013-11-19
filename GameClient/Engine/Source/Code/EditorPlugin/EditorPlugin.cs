@@ -15,6 +15,7 @@ namespace Engine.Editor
 		public override string Id
 		{
 			get { return "EngineEditorPlugin"; }
+            
 		}
 	}
 }
