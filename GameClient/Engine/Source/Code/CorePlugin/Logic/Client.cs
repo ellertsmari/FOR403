@@ -122,7 +122,11 @@ namespace Engine.Logic
 
                 Obj.AddComponent<Transform>();
                 Obj.AddComponent<SpriteRenderer>();
-                Obj.AddComponent(new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", new OpenTK.Vector3(-26 + 117 * i, 260, Obj.Parent.Transform.Pos.Z - 1)));
+                Obj.AddComponent(new SelectionListComponent(GameRes.Data.MenuTextures.PlayerMenu_Material, new Rect(0, 0, 117, 140), "Player Action", i, new OpenTK.Vector3(-26 + 117 * i, 260, Obj.Parent.Transform.Pos.Z - 1)));
+                if (i == 0)
+                {
+                    Obj.GetComponent<SelectionListComponent>().currentlySelected = true;
+                }
             }
 
             foreach (var children in PlayerMenuBackground.Children.ToList())

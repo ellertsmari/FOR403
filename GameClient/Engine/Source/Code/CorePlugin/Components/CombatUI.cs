@@ -20,6 +20,7 @@ namespace Engine.Components
     public class CombatList : List<object>
     {
         private string name;
+        private List<Ability> list;
 
         public CombatList(List<object> t) : base(t) { }
 
@@ -68,12 +69,13 @@ namespace Engine.Components
             set { listObjects = value; }
         }
 
-        public SelectionListComponent(ContentRef<Material> background, string name, OpenTK.Vector3 pos)
-            : this(background, new Rect(0, 0, 100, 80), name, pos) {}
+        public SelectionListComponent(ContentRef<Material> background, string name, int menunumber, OpenTK.Vector3 pos)
+            : this(background, new Rect(0, 0, 100, 80), name, menunumber, pos) {}
 
-        public SelectionListComponent(ContentRef<Material> background, Rect rect, string name, OpenTK.Vector3 pos)
+        public SelectionListComponent(ContentRef<Material> background, Rect rect, string name, int menunumber, OpenTK.Vector3 pos)
         {
             this.name = name;
+            MenuNum = menunumber;
             Background = background;
             rT = rect;
             tempPos = pos;
@@ -116,20 +118,19 @@ namespace Engine.Components
             {
                 if (AI.WaitingForInput)
                 {
-                    if (DualityApp.Keyboard.KeyPressed(OpenTK.Input.Key.Up))
+                    if (DualityApp.Keyboard.KeyHit(OpenTK.Input.Key.Up))
                     {
                         if (selected == 0) return;
 
-                        selected++;
-
+                        selected--;
                     }
-                    else if (DualityApp.Keyboard.KeyPressed(OpenTK.Input.Key.Down))
+                    else if (DualityApp.Keyboard.KeyHit(OpenTK.Input.Key.Down))
                     {
                         if (selected == ListObjects.Count - 1) return;
 
                         selected++;
                     }
-                    else if (DualityApp.Keyboard.KeyPressed(OpenTK.Input.Key.Enter))
+                    else if (DualityApp.Keyboard.KeyHit(OpenTK.Input.Key.Enter))
                     {
                         this.currentlySelected = false;
                         if (this.listObjects[selected] is IList)
@@ -152,6 +153,7 @@ namespace Engine.Components
                             if (this.MenuNum < this.GameObj.Parent.ChildCount)
                             {
                                 this.GameObj.Parent.Children.ToList()[MenuNum - 1].GetComponent<SelectionListComponent>().currentlySelected = true;
+                                this.listObjects = new List<object>();
                             }
                         }
                         else if (this.useCreatureList)
@@ -168,11 +170,11 @@ namespace Engine.Components
             {
                 if (this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>() != null)
                 {
-                    if (this.ListObjects.Count == 0)
+                    /*if (this.ListObjects.Count == 0)
                     {
                         this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = "Empty";
-                    }
-                    else if (!((selected + i - 1) < 0 || (selected + i - 1) > (this.ListObjects.Count - 1)))
+                    }*/
+                    if (!((selected + i - 1) < 0 || (selected + i - 1) > (this.ListObjects.Count - 1)))
                     {
                         this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = this.ListObjects[selected + i - 1].ToString();
                     }

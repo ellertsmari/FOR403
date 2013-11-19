@@ -1,8 +1,10 @@
 [Core] Info:    Initializing OpenAL...
-[Core] Info:        OpenAL Drivers not found. Using 64 Bit software fallback.
+[Core] Info:        OpenAL Drivers installed in C:\Windows\system32\OpenAL32.dll
 [Core] Info:        Available devices:
-[Core]              Speakers (Realtek High Definition Audio) (Default)
-[Core] Info:        Current device: OpenAL Soft
+[Core]              Generic Software on Speakers and Dual Headphones (IDT High Definition Audio CODEC) (Default),
+[Core]              Generic Software on SPDIF (Digital Out via HP Dock) (IDT High Definition Audio CODEC),
+[Core]              Generic Software on Independent Dual Headphones (IDT High Definition Audio CODEC)
+[Core] Info:        Current device: Generic Software
 [Core] Info:        256 sources available
 [Core] Info:    Assembly loaded: FarseerOpenTK
 [Core] Info:    Scanning for core plugins...

@@ -133,11 +133,14 @@ namespace Engine.Logic
                 {
                     if (item.Name == "PlayerMenuBackground")
                     {
-                        CombatList temp = new CombatList(user.abilities);
+                        CombatList temp = new CombatList(new List<object>(user.abilities));
                         temp.Add("Back");
+                        temp.Name = "Abilities";
                         item.Children.ToList()[0].GetComponent<SelectionListComponent>().ListObjects = new List<object>()
                             {
-                                temp
+                                temp,
+                                "Ble",
+                                "Bla"
                             };
 
                         break;
