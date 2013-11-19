@@ -7,7 +7,6 @@
     </globalGravity>
     <serializeObj dataType="Array" type="Duality.GameObject[]" id="292984781" length="3">
       <object dataType="Class" type="Duality.GameObject" id="96510701">
-        <name dataType="String">Player</name>
         <prefabLink />
         <identifier dataType="Struct" type="System.Guid" surrogate="true">
           <header>
@@ -19,7 +18,6 @@
         <children dataType="Class" type="System.Collections.Generic.List`1[[Duality.GameObject]]" id="216648307">
           <_items dataType="Array" type="Duality.GameObject[]" id="550160162" length="4">
             <object dataType="Class" type="Duality.GameObject" id="4288363316">
-              <name dataType="String">PlayerCamera</name>
               <prefabLink />
               <identifier dataType="Struct" type="System.Guid" surrogate="true">
                 <header>
@@ -169,6 +167,7 @@
                 <_size dataType="Int">2</_size>
                 <_version dataType="Int">2</_version>
               </compList>
+              <name dataType="String">PlayerCamera</name>
               <active dataType="Bool">true</active>
               <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
               <compTransform dataType="ObjectRef">2353710952</compTransform>
@@ -431,12 +430,12 @@
           <_size dataType="Int">4</_size>
           <_version dataType="Int">6</_version>
         </compList>
+        <name dataType="String">Player</name>
         <active dataType="Bool">true</active>
         <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
         <compTransform dataType="ObjectRef">2456825633</compTransform>
       </object>
       <object dataType="Class" type="Duality.GameObject" id="2311454344">
-        <name dataType="String">EnemyComponent</name>
         <prefabLink />
         <identifier dataType="Struct" type="System.Guid" surrogate="true">
           <header>
@@ -691,6 +690,7 @@
           <_size dataType="Int">4</_size>
           <_version dataType="Int">4</_version>
         </compList>
+        <name dataType="String">EnemyComponent</name>
         <active dataType="Bool">true</active>
         <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
         <compTransform dataType="ObjectRef">376801980</compTransform>

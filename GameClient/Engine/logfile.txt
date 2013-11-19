@@ -1,10 +1,8 @@
 [Core] Info:    Initializing OpenAL...
-[Core] Info:        OpenAL Drivers installed in C:\Windows\system32\OpenAL32.dll
+[Core] Info:        OpenAL Drivers not found. Using 64 Bit software fallback.
 [Core] Info:        Available devices:
-[Core]              Generic Software on Speakers and Dual Headphones (IDT High Definition Audio CODEC) (Default),
-[Core]              Generic Software on SPDIF (Digital Out via HP Dock) (IDT High Definition Audio CODEC),
-[Core]              Generic Software on Independent Dual Headphones (IDT High Definition Audio CODEC)
-[Core] Info:        Current device: Generic Software
+[Core]              Speakers (Realtek High Definition Audio) (Default)
+[Core] Info:        Current device: OpenAL Soft
 [Core] Info:        256 sources available
 [Core] Info:    Assembly loaded: FarseerOpenTK
 [Core] Info:    Scanning for core plugins...
@@ -18,8 +16,8 @@
 [Core] Info:    Loading UserData..
 [Core] Info:    Loading MetaData..
 [Core] Info:    DualityApp initialized
-[Core]          Debug Mode: False
-[Core]          Command line arguments: editor
+[Core]          Debug Mode: True
+[Core]          Command line arguments: 
 [Core]          Is64BitProcess: True
 [Core] Info:    Initializing core plugins...
 [Core] Info:        GamePlugin.core...
@@ -38,20 +36,9 @@
 [Core] Info:    Loading Ressource 'Data\MenuTextures\PlayerMenu.Material.res'...
 [Core] Info:        Loading Ressource 'Data\MenuTextures\PlayerMenu.Texture.res'...
 [Core] Info:            Loading Ressource 'Data\MenuTextures\PlayerMenu.Pixmap.res'...
-[Core] ERROR:   NullReferenceException at Void Client.combatScene(ContentRef<Material>, List<CreatureContainer>, List<CreatureContainer>): Object reference not set to an instance of an object.
-[Core]          CallStack:
-[Core]             at Engine.Logic.Client.combatScene(ContentRef`1 background, List`1 TeamOne, List`1 TeamTwo)
-[Core]             at Engine.Components.PlayerComponent.Duality.ICmpCollisionListener.OnCollisionBegin(Component sender, CollisionEventArgs args)
-[Core]             at Duality.Components.Physics.RigidBody.NotifyCollisionBegin(CollisionEventArgs args)
-[Core]             at Duality.Components.Physics.RigidBody.ProcessSingleCollisionEvent(ColEvent colEvent)
-[Core]             at Duality.Components.Physics.RigidBody.ProcessCollisionEvents()
-[Core]             at Duality.Components.Physics.RigidBody.Duality.ICmpUpdatable.OnUpdate()
-[Core]             at Duality.GameObject.Update()
-[Core]             at Duality.Resources.Scene.Update()
-[Core]             at Duality.DualityApp.Update()
-[Core]             at DualityLauncher.DualityLauncher.OnUpdateFrame(FrameEventArgs e)
-[Core]             at OpenTK.GameWindow.RaiseUpdateFrame(Stopwatch update_watch, Double& next_update, FrameEventArgs update_args)
-[Core]             at OpenTK.GameWindow.DispatchUpdateAndRenderFrame(Object sender, EventArgs e)
-[Core]             at OpenTK.GameWindow.Run(Double updates_per_second, Double frames_per_second)
-[Core]             at DualityLauncher.DualityLauncher.Main(String[] args)
-[Core] ERROR:   DualityApp terminated unexpectedly
+[Core] Info:    Loading Ressource 'Data\Sprites\Wolf.Material.res'...
+[Core] Info:        Loading Ressource 'Data\Sprites\Wolf.Texture.res'...
+[Core] Info:            Loading Ressource 'Data\Sprites\Wolf.Pixmap.res'...
+[Core] Info:    Saving UserData..
+[Core] Info:    Saving MetaData..
+[Core] Info:    DualityApp terminated

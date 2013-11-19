@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorePlugin", "CorePlugin\CorePlugin.csproj", "{AFE883F3-72B4-4C7C-A1D1-44EDC09C8F6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorPlugin", "EditorPlugin\EditorPlugin.csproj", "{78DBC94D-EE9D-4AC0-95ED-91A0AE2F6652}"
@@ -8,9 +8,9 @@ EndProject
 Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "DualityLauncher", "..\..\DualityLauncher.exe", "{0051C343-F70B-4F55-ACCA-DE28838A2730}"
 	ProjectSection(DebuggerProjectSystem) = preProject
 		PortSupplier = 00000000-0000-0000-0000-000000000000
-		Executable = E:\Programming\Projects\C#\FOR403\GameClient\Engine\DualityLauncher.exe
+		Executable = C:\Users\FS369745\Documents\Repos\FOR403\GameClient\Engine\DualityLauncher.exe
 		RemoteMachine = TERMINATOR
-		StartingDirectory = C:\Users\Richard\Documents\Programming\C#\FOR403\GameClient\Engine
+		StartingDirectory = C:\Users\FS369745\Documents\Repos\FOR403\GameClient\Engine
 		Environment = Default
 		LaunchingEngine = 00000000-0000-0000-0000-000000000000
 		LaunchSQLEngine = No

@@ -129,6 +129,21 @@ namespace Engine.Logic
             if (!setup)
             {
                 AI.waitingForInput = true;
+                foreach (var item in Scene.Current.AllObjects)
+                {
+                    if (item.Name == "PlayerMenuBackground")
+                    {
+                        CombatList temp = new CombatList(user.abilities);
+                        temp.Add("Back");
+                        item.Children.ToList()[0].GetComponent<SelectionListComponent>().ListObjects = new List<object>()
+                            {
+                                temp
+                            };
+
+                        break;
+                    }
+                }
+
                 setup = true;
             }
 
@@ -139,6 +154,7 @@ namespace Engine.Logic
                 AI.abilityInput = null;
                 AI.targetInput = -1;
                 AI.waitingForInput = false;
+                setup = false;
             }
         }
 

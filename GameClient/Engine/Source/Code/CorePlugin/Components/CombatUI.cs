@@ -17,6 +17,24 @@ namespace Engine.Components
         string menuName();
     }
 
+    public class CombatList : List<object>
+    {
+        private string name;
+
+        public CombatList(List<object> t) : base(t) { }
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public override string ToString()
+        {
+            return name;
+        }
+    }
+
     [Serializable]
     [RequiredComponent(typeof(SpriteRenderer))]
     [RequiredComponent(typeof(TextRenderer))]
@@ -60,6 +78,7 @@ namespace Engine.Components
             rT = rect;
             tempPos = pos;
             listObjects = new List<Object>();
+            selected = 0;
         }
 
         public void select(int selected)
@@ -128,6 +147,13 @@ namespace Engine.Components
 
                             this.useCreatureList = true;
                         }
+                        else if (this.listObjects[selected] is string)
+                        {
+                            if (this.MenuNum < this.GameObj.Parent.ChildCount)
+                            {
+                                this.GameObj.Parent.Children.ToList()[MenuNum - 1].GetComponent<SelectionListComponent>().currentlySelected = true;
+                            }
+                        }
                         else if (this.useCreatureList)
                         {
                             AI.targetInput = selected;
@@ -136,11 +162,23 @@ namespace Engine.Components
                         }
                     }
                 }
-                for (int i = 0; i < this.GameObj.ChildCount; i++)
+            }
+
+            for (int i = 0; i < this.GameObj.ChildCount; i++)
+            {
+                if (this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>() != null)
                 {
-                    if (this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>() != null)
+                    if (this.ListObjects.Count == 0)
                     {
-                        this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = this.ListObjects[i].ToString();
+                        this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = "Empty";
+                    }
+                    else if (!((selected + i - 1) < 0 || (selected + i - 1) > (this.ListObjects.Count - 1)))
+                    {
+                        this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = this.ListObjects[selected + i - 1].ToString();
+                    }
+                    else
+                    {
+                        this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = "";
                     }
                 }
             }
