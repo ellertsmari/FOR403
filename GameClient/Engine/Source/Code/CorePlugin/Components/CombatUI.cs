@@ -146,9 +146,7 @@ namespace Engine.Components
                             AI.abilityInput = (Ability)listObjects[selected];
                             this.currentlySelected = true;
 
-                            AI.targetInput = selected;
-
-                            //this.useCreatureList = true;
+                            this.useCreatureList = true;
                         }
                         else if (this.listObjects[selected].ToString() == "Back")
                         {
@@ -159,12 +157,12 @@ namespace Engine.Components
                                 this.GameObj.Parent.Children.ToList()[MenuNum - 1].GetComponent<SelectionListComponent>().SkipInput = true;
                             }
                         }
-                        /*else if (this.useCreatureList)
+                        else if (this.useCreatureList)
                         {
                             AI.targetInput = selected;
 
                             this.GameObj.Parent.Children.ToList()[0].GetComponent<SelectionListComponent>().currentlySelected = true;
-                        }*/
+                        }
                         else
                         {
                             this.currentlySelected = true;
@@ -177,13 +175,41 @@ namespace Engine.Components
             {
                 if (this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>() != null)
                 {
-                    if (!((selected + i - 1) < 0 || (selected + i - 1) > (this.ListObjects.Count - 1)))
+                    if (this.useCreatureList)
                     {
-                        this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = this.ListObjects[selected + i - 1].ToString();
+                        if (AI.abilityInput.victimType == "Enemy")
+                        {
+                            if (Client.combat.Creatures[Client.combat.NextCreature].GetComponent<CombatCreatureComponent>().Creature.Creature.currentTeam == 1)
+                            {
+                                this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = Client.Team2[selected + i - 1].GetComponent<CreatureContainer>().Creature.ToString();
+                            }
+                            else
+                            {
+                                this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = Client.Team1[selected + i - 1].GetComponent<CreatureContainer>().Creature.ToString();
+                            }
+                        }
+                        else if (AI.abilityInput.victimType == "Ally")
+                        {
+                            if (Client.combat.Creatures[Client.combat.NextCreature].GetComponent<CombatCreatureComponent>().Creature.Creature.currentTeam == 2)
+                            {
+                                this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = Client.Team2[selected + i - 1].GetComponent<CreatureContainer>().Creature.ToString();
+                            }
+                            else
+                            {
+                                this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = Client.Team1[selected + i - 1].GetComponent<CreatureContainer>().Creature.ToString();
+                            }
+                        }
                     }
                     else
                     {
-                        this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = "";
+                        if (!((selected + i - 1) < 0 || (selected + i - 1) > (this.ListObjects.Count - 1)))
+                        {
+                            this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = this.ListObjects[selected + i - 1].ToString();
+                        }
+                        else
+                        {
+                            this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = "";
+                        }
                     }
                 }
             }

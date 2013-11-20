@@ -380,6 +380,7 @@ namespace Engine.Logic
                         dispose = true;
                     }
                 }
+                Client.combat = this.combat;
             }
         }
     }

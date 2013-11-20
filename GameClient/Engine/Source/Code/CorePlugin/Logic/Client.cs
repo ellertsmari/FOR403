@@ -18,7 +18,7 @@ namespace Engine.Logic
 
     public class Client
     {
-        private static Combat combat;
+        public static Combat combat;
         private static ContentRef<Scene> previousScene;
         private static ContentRef<Scene> BlankCombatScene = GameRes.Data.Levels.Combat_Scene;
         public static List<GameObject> Team1;
