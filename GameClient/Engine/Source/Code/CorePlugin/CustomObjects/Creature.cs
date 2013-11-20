@@ -1,4 +1,5 @@
-﻿using Duality.EditorHints;
+﻿using Duality;
+using Duality.EditorHints;
 using Engine.Components;
 using Engine.Logic;
 using System;
@@ -499,7 +500,7 @@ namespace Engine.CustomObjects
         }
 
         //Needs to be implemented for diffrent creatures, remember to put a check on Manapoints for attacks
-        public abstract void generateAction(out Ability nextAbility, out int nextTarget, List<CreatureContainer> creatures);
+        public abstract void generateAction(out Ability nextAbility, out int nextTarget, List<GameObject> creatures);
     }
 
     [Serializable]
@@ -517,11 +518,12 @@ namespace Engine.CustomObjects
         {
         }
 
-        public override void generateAction(out Ability nextAbility, out int nextTarget, List<CreatureContainer> creatures)
+        public override void generateAction(out Ability nextAbility, out int nextTarget, List<GameObject> creatures)
         {
             ai.generateActionCombat(this, creatures);
             nextAbility = ai.NextAbility;
             nextTarget = ai.NextTarget;
+            ai.reset();
         }
     }
 
@@ -542,7 +544,7 @@ namespace Engine.CustomObjects
         {
         }
 
-        public override void generateAction(out Ability nextAbility, out int nextTarget, List<CreatureContainer> creatures)
+        public override void generateAction(out Ability nextAbility, out int nextTarget, List<GameObject> creatures)
         {
             ai.generateActionCombat(this, creatures);
             nextAbility = ai.NextAbility;
@@ -573,7 +575,7 @@ namespace Engine.CustomObjects
             ai = new defultAI();
         }
 
-        public override void generateAction(out Ability nextAbility, out int nextTarget, List<CreatureContainer> creatures)
+        public override void generateAction(out Ability nextAbility, out int nextTarget, List<GameObject> creatures)
         {
             ai.generateActionCombat(this, creatures);
             nextAbility = ai.NextAbility;

@@ -38,13 +38,19 @@ namespace Engine.Logic
             get { return this.nextTarget; }
         }
 
+        public void reset()
+        {
+            this.nextAbility = null;
+            this.nextTarget = -1;
+        }
+
         public AI()
         {
 
         }
 
         //This method should se nextAbility and nextTarget accordingly
-        public abstract void generateActionCombat(Creature user, List<CreatureContainer> creatures);
+        public abstract void generateActionCombat(Creature user, List<GameObject> creatures);
 
         //This method should be used to move the user through the World
         public abstract void moveWorld(Creature user);
@@ -58,7 +64,7 @@ namespace Engine.Logic
             
         }
 
-        public override void generateActionCombat(Creature user, List<CreatureContainer> creatures)
+        public override void generateActionCombat(Creature user, List<GameObject> creatures)
         {
             //Defult Action code
             this.nextAbility = AbilityStorage.Punch;
@@ -67,7 +73,7 @@ namespace Engine.Logic
             while (true)
             {
                 int target = ConstantLib.RANDOM.Next(creatures.Count);
-                if ((creatures[target].Stats.HP > 0) && (!user.compareCreature(creatures[target].Creature)) && (creatures[target].Creature.currentTeam != user.currentTeam))
+                if ((creatures[target].GetComponent<CombatCreatureComponent>().Creature.Stats.HP > 0) && (!user.compareCreature(creatures[target].GetComponent<CombatCreatureComponent>().Creature.Creature)) && (creatures[target].GetComponent<CombatCreatureComponent>().Creature.Creature.currentTeam != user.currentTeam))
                 {
                     this.nextTarget = target;
                     break;
@@ -89,7 +95,7 @@ namespace Engine.Logic
             
         }
 
-        public override void generateActionCombat(Creature user, List<CreatureContainer> creatures)
+        public override void generateActionCombat(Creature user, List<GameObject> creatures)
         {
             //Defult Action code
             this.nextAbility = AbilityStorage.Punch;
@@ -98,7 +104,7 @@ namespace Engine.Logic
             while (true)
             {
                 int target = ConstantLib.RANDOM.Next(creatures.Count);
-                if ((creatures[target].Stats.HP > 0) && (!user.compareCreature(creatures[target].Creature)) && (creatures[target].Creature.currentTeam != user.currentTeam))
+                if ((creatures[target].GetComponent<CombatCreatureComponent>().Creature.Stats.HP > 0) && (!user.compareCreature(creatures[target].GetComponent<CombatCreatureComponent>().Creature.Creature)) && (creatures[target].GetComponent<CombatCreatureComponent>().Creature.Creature.currentTeam != user.currentTeam))
                 {
                     this.nextTarget = target;
                     break;
@@ -123,37 +129,35 @@ namespace Engine.Logic
 
         }
 
-        public override void generateActionCombat(Creature user, List<CreatureContainer> creatures)
+        public override void generateActionCombat(Creature user, List<GameObject> creatures)
         {
             //SelectionList()
             if (!setup)
             {
                 AI.waitingForInput = true;
-                foreach (var item in Scene.Current.AllObjects)
-                {
-                    if (item.Name == "PlayerMenuBackground")
+                CombatList temp = new CombatList(new List<object>(user.abilities));
+                temp.Add("Back");
+                temp.Name = "Abilities";
+                Client.OverlordObject.Children.ToList()[0].GetComponent<SelectionListComponent>().ListObjects = new List<object>()
                     {
-                        CombatList temp = new CombatList(new List<object>(user.abilities));
-                        temp.Add("Back");
-                        temp.Name = "Abilities";
-                        item.Children.ToList()[0].GetComponent<SelectionListComponent>().ListObjects = new List<object>()
-                            {
-                                temp,
-                                "Ble",
-                                "Bla"
-                            };
-
-                        break;
-                    }
-                }
+                        temp,
+                        "Ble",
+                        "Bla"
+                    };
+                Client.OverlordObject.Children.ToList()[0].GetComponent<SelectionListComponent>().currentlySelected = true;
 
                 setup = true;
             }
 
             if (AI.abilityInput != null && AI.targetInput != -1)
             {
-                //Use input
+                this.nextAbility = AI.abilityInput;
+                this.nextTarget = AI.targetInput;
 
+                foreach (var item in Client.OverlordObject.Children)
+                {
+                    item.GetComponent<SelectionListComponent>().cleanup();
+                }
                 AI.abilityInput = null;
                 AI.targetInput = -1;
                 AI.waitingForInput = false;

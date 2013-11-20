@@ -33,7 +33,7 @@ namespace Engine.Components
             //this.GameObj.Transform.Pos = new Vector3(this.enemy.position.x, this.enemy.position.y, this.GameObj.Transform.Pos.Z);
         }
 
-        public void generateActionCombat(Creature user, List<CreatureContainer> creatures)
+        public void generateActionCombat(Creature user, List<GameObject> creatures)
         {
             this.AI.generateActionCombat(user, creatures);
         }

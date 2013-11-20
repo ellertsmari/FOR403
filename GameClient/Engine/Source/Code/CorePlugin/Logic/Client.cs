@@ -23,16 +23,8 @@ namespace Engine.Logic
         private static ContentRef<Scene> BlankCombatScene = GameRes.Data.Levels.Combat_Scene;
         public static List<GameObject> Team1;
         public static List<GameObject> Team2;
-
-        public static void update()
-        {
-            DualityApp.Update();
-        }
-
-        public static void render()
-        {
-            DualityApp.Render();
-        }
+        public static GameObject OverlordObject;
+        public static bool runningAnimation;
 
         //Setup Combat
         public static void combatScene(ContentRef<Material> background, List<CreatureContainer> TeamOne, List<CreatureContainer> TeamTwo)
@@ -57,6 +49,7 @@ namespace Engine.Logic
                 GameObject Object = new GameObject(TeamOne[i].ToString());
                 Object.AddComponent<Transform>();
                 Object.AddComponent<AnimSpriteRenderer>();
+                Object.AddComponent<TextRenderer>();
                 Object.AddComponent(new CombatCreatureComponent(TeamOne[i]));
 
                 //Make changes
@@ -84,6 +77,7 @@ namespace Engine.Logic
                 GameObject Object = new GameObject(TeamTwo[i].ToString());
                 Object.AddComponent<Transform>();
                 Object.AddComponent<AnimSpriteRenderer>();
+                Object.AddComponent<TextRenderer>();
                 Object.AddComponent(new CombatCreatureComponent(TeamTwo[i]));
 
                 //Make changes
@@ -107,18 +101,18 @@ namespace Engine.Logic
                 Team2.Add(Object);
             }
 
-            GameObject PlayerMenuBackground = new GameObject("PlayerMenuBackground");
-            PlayerMenuBackground.AddComponent<Transform>();
-            PlayerMenuBackground.AddComponent<SpriteRenderer>();
-            PlayerMenuBackground.GetComponent<SpriteRenderer>().SharedMaterial = GameRes.Data.MenuTextures.PlayerMenu_Material;
-            PlayerMenuBackground.Transform.Pos = new OpenTK.Vector3(-50, 240, -1);
-            PlayerMenuBackground.GetComponent<SpriteRenderer>().Rect = new Rect(0, 0, 400, 180);
+            OverlordObject = new GameObject("PlayerMenuBackground");
+            OverlordObject.AddComponent<Transform>();
+            OverlordObject.AddComponent<SpriteRenderer>();
+            OverlordObject.GetComponent<SpriteRenderer>().SharedMaterial = GameRes.Data.MenuTextures.PlayerMenu_Material;
+            OverlordObject.Transform.Pos = new OpenTK.Vector3(-50, 240, -1);
+            OverlordObject.GetComponent<SpriteRenderer>().Rect = new Rect(0, 0, 400, 180);
 
             for (int i = 0; i < 2; i++)
             {
                 GameObject Obj = new GameObject();
 
-                Obj.Parent = PlayerMenuBackground;
+                Obj.Parent = OverlordObject;
 
                 Obj.AddComponent<Transform>();
                 Obj.AddComponent<SpriteRenderer>();
@@ -129,7 +123,7 @@ namespace Engine.Logic
                 }
             }
 
-            foreach (var children in PlayerMenuBackground.Children.ToList())
+            foreach (var children in OverlordObject.Children.ToList())
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -148,11 +142,11 @@ namespace Engine.Logic
             //Adding all objects to scene
             Scene.Current.AddObject(Team1);
             Scene.Current.AddObject(Team2);
-            Scene.Current.AddObject(PlayerMenuBackground);
-            Scene.Current.AddObject(PlayerMenuBackground.ChildrenDeep);
+            Scene.Current.AddObject(OverlordObject);
+            Scene.Current.AddObject(OverlordObject.ChildrenDeep);
 
             //Run this when the move is selected
-            PlayerMenuBackground.AddComponent(new LoopComponent(new Combat(TeamOne, TeamTwo)));
+            OverlordObject.AddComponent(new LoopComponent(new Combat(Team1, Team2)));
 
         }
 

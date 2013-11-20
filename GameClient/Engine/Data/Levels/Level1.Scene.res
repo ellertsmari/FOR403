@@ -7,6 +7,7 @@
     </globalGravity>
     <serializeObj dataType="Array" type="Duality.GameObject[]" id="292984781" length="3">
       <object dataType="Class" type="Duality.GameObject" id="96510701">
+        <name dataType="String">Player</name>
         <prefabLink />
         <identifier dataType="Struct" type="System.Guid" surrogate="true">
           <header>
@@ -18,6 +19,7 @@
         <children dataType="Class" type="System.Collections.Generic.List`1[[Duality.GameObject]]" id="216648307">
           <_items dataType="Array" type="Duality.GameObject[]" id="550160162" length="4">
             <object dataType="Class" type="Duality.GameObject" id="4288363316">
+              <name dataType="String">PlayerCamera</name>
               <prefabLink />
               <identifier dataType="Struct" type="System.Guid" surrogate="true">
                 <header>
@@ -167,7 +169,6 @@
                 <_size dataType="Int">2</_size>
                 <_version dataType="Int">2</_version>
               </compList>
-              <name dataType="String">PlayerCamera</name>
               <active dataType="Bool">true</active>
               <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
               <compTransform dataType="ObjectRef">2353710952</compTransform>
@@ -345,6 +346,7 @@
                               <MPCost dataType="Int">0</MPCost>
                               <MaxNumTargets dataType="Int">1</MaxNumTargets>
                               <victimType dataType="String">Enemy</victimType>
+                              <animType dataType="Enum" type="Engine.Components.Frames" name="MELEEFRAME" value="8" />
                             </object>
                             <object dataType="Class" type="Engine.Logic.AttackMeleeBlunt" id="4016643072">
                               <damageMod dataType="Float">2</damageMod>
@@ -360,6 +362,7 @@
                               <MPCost dataType="Int">0</MPCost>
                               <MaxNumTargets dataType="Int">1</MaxNumTargets>
                               <victimType dataType="String">Enemy</victimType>
+                              <animType dataType="Enum" type="Engine.Components.Frames" name="MELEEFRAME" value="8" />
                             </object>
                             <object />
                             <object />
@@ -430,12 +433,12 @@
           <_size dataType="Int">4</_size>
           <_version dataType="Int">6</_version>
         </compList>
-        <name dataType="String">Player</name>
         <active dataType="Bool">true</active>
         <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
         <compTransform dataType="ObjectRef">2456825633</compTransform>
       </object>
       <object dataType="Class" type="Duality.GameObject" id="2311454344">
+        <name dataType="String">EnemyComponent</name>
         <prefabLink />
         <identifier dataType="Struct" type="System.Guid" surrogate="true">
           <header>
@@ -576,8 +579,28 @@
                         <creatureID dataType="Int">4</creatureID>
                         <name dataType="String">Wolf</name>
                         <currentTeam dataType="Int">0</currentTeam>
-                        <inventory />
-                        <stats dataType="Class" type="Engine.CustomObjects.Stats" id="3105659488">
+                        <inventory dataType="Class" type="Engine.CustomObjects.Inventory" id="3105659488">
+                          <gold dataType="Int">0</gold>
+                          <inv dataType="Array" type="Engine.CustomObjects.Item[]" id="2408772752" length="16">
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                            <object />
+                          </inv>
+                        </inventory>
+                        <stats dataType="Class" type="Engine.CustomObjects.Stats" id="3467662128">
                           <_level dataType="Int">1</_level>
                           <_exp dataType="Int">0</_exp>
                           <_skillPoints dataType="Int">0</_skillPoints>
@@ -597,7 +620,7 @@
                         </stats>
                         <reward />
                         <rewardNum />
-                        <itemsEquipped dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[Engine.CustomObjects.Item]]" id="3467662128" surrogate="true">
+                        <itemsEquipped dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[Engine.CustomObjects.Item]]" id="1382537664" surrogate="true">
                           <header />
                           <body>
                             <Head />
@@ -608,11 +631,11 @@
                             <LeftLeg />
                           </body>
                         </itemsEquipped>
-                        <abilities dataType="Class" type="System.Collections.Generic.List`1[[Engine.Logic.Ability]]" id="1382537664">
-                          <_items dataType="Array" type="Engine.Logic.Ability[]" id="3196865840" length="4">
-                            <object dataType="Class" type="Engine.Logic.AttackMeleeSharp" id="1268016672">
+                        <abilities dataType="Class" type="System.Collections.Generic.List`1[[Engine.Logic.Ability]]" id="2629008400">
+                          <_items dataType="Array" type="Engine.Logic.Ability[]" id="2589433696" length="4">
+                            <object dataType="Class" type="Engine.Logic.AttackMeleeSharp" id="1875049024">
                               <damageMod dataType="Float">1</damageMod>
-                              <damageTypes dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="3734996288" surrogate="true">
+                              <damageTypes dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="274784896" surrogate="true">
                                 <header />
                                 <body>
                                   <Physical dataType="Int">100</Physical>
@@ -624,6 +647,7 @@
                               <MPCost dataType="Int">0</MPCost>
                               <MaxNumTargets dataType="Int">1</MaxNumTargets>
                               <victimType dataType="String">Enemy</victimType>
+                              <animType dataType="Enum" type="Engine.Components.Frames" name="IDLEFRAME" value="0" />
                             </object>
                             <object />
                             <object />
@@ -632,7 +656,7 @@
                           <_size dataType="Int">1</_size>
                           <_version dataType="Int">1</_version>
                         </abilities>
-                        <resistance dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="2629008400" surrogate="true">
+                        <resistance dataType="Class" type="System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]" id="3085106976" surrogate="true">
                           <header />
                           <body>
                             <Physical dataType="Int">0</Physical>
@@ -690,7 +714,6 @@
           <_size dataType="Int">4</_size>
           <_version dataType="Int">4</_version>
         </compList>
-        <name dataType="String">EnemyComponent</name>
         <active dataType="Bool">true</active>
         <initState dataType="Enum" type="Duality.InitState" name="Initialized" value="1" />
         <compTransform dataType="ObjectRef">376801980</compTransform>

@@ -8,9 +8,9 @@ EndProject
 Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "DualityLauncher", "..\..\DualityLauncher.exe", "{0051C343-F70B-4F55-ACCA-DE28838A2730}"
 	ProjectSection(DebuggerProjectSystem) = preProject
 		PortSupplier = 00000000-0000-0000-0000-000000000000
-		Executable = C:\Users\Richard\Documents\Programming\C#\FOR403\GameClient\Engine\DualityLauncher.exe
+		Executable = E:\Programming\Projects\C#\FOR403\GameClient\Engine\DualityLauncher.exe
 		RemoteMachine = TERMINATOR
-		StartingDirectory = C:\Users\Richard\Documents\Programming\C#\FOR403\GameClient\Engine
+		StartingDirectory = E:\Programming\Projects\C#\FOR403\GameClient\Engine
 		Environment = Default
 		LaunchingEngine = 00000000-0000-0000-0000-000000000000
 		LaunchSQLEngine = No
@@ -47,12 +47,12 @@ Global
 		{78DBC94D-EE9D-4AC0-95ED-91A0AE2F6652}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{78DBC94D-EE9D-4AC0-95ED-91A0AE2F6652}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{78DBC94D-EE9D-4AC0-95ED-91A0AE2F6652}.Release|x86.ActiveCfg = Release|Any CPU
-		{0051C343-F70B-4F55-ACCA-DE28838A2730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0051C343-F70B-4F55-ACCA-DE28838A2730}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{0051C343-F70B-4F55-ACCA-DE28838A2730}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0051C343-F70B-4F55-ACCA-DE28838A2730}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{0051C343-F70B-4F55-ACCA-DE28838A2730}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{0051C343-F70B-4F55-ACCA-DE28838A2730}.Release|x86.ActiveCfg = Debug|Any CPU
+		{0051C343-F70B-4F55-ACCA-DE28838A2730}.Debug|Any CPU.ActiveCfg = Debug
+		{0051C343-F70B-4F55-ACCA-DE28838A2730}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{0051C343-F70B-4F55-ACCA-DE28838A2730}.Debug|x86.ActiveCfg = Debug
+		{0051C343-F70B-4F55-ACCA-DE28838A2730}.Release|Any CPU.ActiveCfg = Debug
+		{0051C343-F70B-4F55-ACCA-DE28838A2730}.Release|Mixed Platforms.ActiveCfg = Debug
+		{0051C343-F70B-4F55-ACCA-DE28838A2730}.Release|x86.ActiveCfg = Debug
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -38,15 +38,22 @@ namespace Engine.Logic
         public int MPCost;
         public int MaxNumTargets;
         public string victimType;
+        protected Frames animType;
 
-        public Ability(string name, string victimType, int MPCost) : this(name, victimType, MPCost, 1) {}
+        public Ability(string name, string victimType, int MPCost, Frames animType) : this(name, victimType, MPCost, 1, animType) { }
 
-        public Ability(string name, string victimType, int MPCost, int MaxNumTargets)
+        public Ability(string name, string victimType, int MPCost, int MaxNumTargets, Frames animType)
         {
             this.name = name;
             this.MPCost = MPCost;
             this.victimType = victimType;
             this.MaxNumTargets = MaxNumTargets;
+            this.animType = animType;
+        }
+
+        public Frames AnimType
+        {
+            get { return animType; }
         }
 
         //Here you code what the ability does
@@ -74,7 +81,7 @@ namespace Engine.Logic
         private string resultMessage;
         //END
 
-        public AttackMeleeBlunt(string name, int MPCost, float damageMod) : base(name, "Enemy", MPCost)
+        public AttackMeleeBlunt(string name, int MPCost, float damageMod) : base(name, "Enemy", MPCost, Frames.MELEEFRAME)
         {
             this.damageMod = damageMod;
             this.damageTypes.Add("Physical", 100);
@@ -213,7 +220,7 @@ namespace Engine.Logic
         //END
 
         public AttackMeleeSharp(string name, int MPCost, float damageMod)
-            : base(name, "Enemy", MPCost)
+            : base(name, "Enemy", MPCost, Frames.MELEEFRAME)
         {
             this.damageMod = damageMod;
             this.damageTypes.Add("Physical", 100);
@@ -344,6 +351,7 @@ namespace Engine.Logic
     public class LoopComponent : Component, ICmpUpdatable
     {
         private Combat combat;
+        private bool dispose = false;
 
         public Combat Combat
         {
@@ -358,9 +366,20 @@ namespace Engine.Logic
 
         void ICmpUpdatable.OnUpdate()
         {
-            if (this.combat.Creatures[this.combat.NextCreature].combatAbility(this.combat.Creatures))
+            if (!Client.runningAnimation)
             {
-                combat.runCombatCycle();
+                if (this.combat.Creatures[this.combat.NextCreature].GetComponent<CombatCreatureComponent>().Creature.combatAbility(this.combat.Creatures))
+                {
+                    if (dispose)
+                    {
+                        combat.runCombatCycle();
+                        this.DisposeLater();
+                    }
+                    else if (combat.runCombatCycle() != 0)
+                    {
+                        dispose = true;
+                    }
+                }
             }
         }
     }
@@ -368,12 +387,13 @@ namespace Engine.Logic
     [Serializable]
     public class Combat
     {
-        private List<CreatureContainer> teamOne;
-        private List<CreatureContainer> teamTwo;
-        private List<CreatureContainer> creatures;
+        private List<GameObject> teamOne;
+        private List<GameObject> teamTwo;
+        private List<GameObject> creatures;
         private bool isReward;
         private int nextCreature = 0;
         private int winningTeam = 0;
+        private int target = 0;
 
         public int NextCreature 
         {
@@ -381,24 +401,24 @@ namespace Engine.Logic
             set { this.nextCreature = value; }
         }
 
-        public List<CreatureContainer> TeamOne
+        public List<GameObject> TeamOne
         {
             get { return this.teamOne; }
         }
 
-        public List<CreatureContainer> TeamTwo
+        public List<GameObject> TeamTwo
         {
             get { return this.teamTwo; }
         }
 
-        public List<CreatureContainer> Creatures
+        public List<GameObject> Creatures
         {
             get { return creatures; }
         }
 
-        public Combat(List<CreatureContainer> TeamOne, List<CreatureContainer> TeamTwo) : this(TeamOne, TeamTwo, true) { }
+        public Combat(List<GameObject> TeamOne, List<GameObject> TeamTwo) : this(TeamOne, TeamTwo, true) { }
 
-        public Combat(List<CreatureContainer> TeamOne, List<CreatureContainer> TeamTwo, bool reward)
+        public Combat(List<GameObject> TeamOne, List<GameObject> TeamTwo, bool reward)
         {
             this.teamOne = TeamOne;
             this.teamTwo = TeamTwo;
@@ -411,16 +431,16 @@ namespace Engine.Logic
         {
             foreach (var item in teamOne)
             {
-                item.Creature.currentTeam = 1;
+                item.GetComponent<CombatCreatureComponent>().Creature.Creature.currentTeam = 1;
             }
 
             foreach (var item in teamTwo)
             {
-                item.Creature.currentTeam = 2;
+                item.GetComponent<CombatCreatureComponent>().Creature.Creature.currentTeam = 2;
             }
 
             //Determine order of attack by Dex
-            creatures = new List<CreatureContainer>();
+            creatures = new List<GameObject>();
             creatures.AddRange(teamOne);
             creatures.AddRange(teamTwo);
             creatures = determineOrder(creatures);
@@ -428,18 +448,30 @@ namespace Engine.Logic
 
         public int runCombatCycle()
         {
+            if (creatures[target].GetComponent<CombatCreatureComponent>().Creature.Stats.HP <= 0)
+            {
+                creatures[nextCreature].GetComponent<CombatCreatureComponent>().setAnim(Frames.DYINGFRAME);
+                return 0;
+            }
+
             if (winningTeam != 0) return winningTeam;
 
-            Ability ability = creatures[nextCreature].nextAbility;
-            int target = creatures[nextCreature].nextTarget;
+            Ability ability = creatures[nextCreature].GetComponent<CombatCreatureComponent>().Creature.nextAbility;
+            target = creatures[nextCreature].GetComponent<CombatCreatureComponent>().Creature.nextTarget;
 
-            creatures[nextCreature].nextAbility = null;
-            creatures[nextCreature].nextTarget = -1;
+            creatures[nextCreature].GetComponent<CombatCreatureComponent>().Creature.nextAbility = null;
+            creatures[nextCreature].GetComponent<CombatCreatureComponent>().Creature.nextTarget = -1;
 
-            Result result = ability.runAbility(creatures[nextCreature], creatures[target]);
-            creatures[nextCreature] = result.user;
-            creatures[target] = result.target;
+            Result result = ability.runAbility(creatures[nextCreature].GetComponent<CombatCreatureComponent>().Creature, creatures[target].GetComponent<CombatCreatureComponent>().Creature);
+            Client.runningAnimation = true;
+
+            creatures[nextCreature].GetComponent<CombatCreatureComponent>().setAnim(ability.AnimType);
+
+            creatures[nextCreature].GetComponent<CombatCreatureComponent>().Creature = result.user;
+            creatures[target].GetComponent<CombatCreatureComponent>().Creature = result.target;
             Message.sendMessageDev(result.result);
+
+
 
             //Updates and checks for winner
             int won = this.update();
@@ -513,24 +545,24 @@ namespace Engine.Logic
 
         //Determines order of attack by the dex variable of every creature in the args argument
         //COMPLETE
-        private List<CreatureContainer> determineOrder(params CreatureContainer[] args)
+        private List<GameObject> determineOrder(params GameObject[] args)
         {
-            return determineOrder(new List<CreatureContainer>(args));
+            return determineOrder(new List<GameObject>(args));
         }
 
         //Determines order of attack by the dex variable of every creature in the args argument
         //COMPLETE
-        private List<CreatureContainer> determineOrder(List<CreatureContainer> args)
+        private List<GameObject> determineOrder(List<GameObject> args)
         {
-            CreatureContainer[] order = new CreatureContainer[args.Count];
+            GameObject[] order = new GameObject[args.Count];
             int start = 0;
             foreach (var item in args)
             {
                 order[start] = item;
                 start++;
             }
-            Array.Sort(order, delegate(CreatureContainer x, CreatureContainer y) { return y.Stats.Dexterity.CompareTo(x.Stats.Dexterity); });
-            return new List<CreatureContainer>(order);
+            Array.Sort(order, delegate(GameObject x, GameObject y) { return y.GetComponent<CombatCreatureComponent>().Creature.Creature.Stats.Dexterity.CompareTo(x.GetComponent<CombatCreatureComponent>().Creature.Creature.Stats.Dexterity); });
+            return new List<GameObject>(order);
         }
 
         //Checks for reward and gives it
@@ -538,7 +570,7 @@ namespace Engine.Logic
         {
             if (this.isReward)
             {
-                List<CreatureContainer> give;
+                /*List<CreatureContainer> give;
                 List<CreatureContainer> take;
                 Item[] rewardItems;
                 int rewardGold = 0;
@@ -603,7 +635,7 @@ namespace Engine.Logic
                 {
                     this.teamTwo = give;
                     this.teamOne = take;
-                }
+                }*/
             }
         }
 
@@ -615,9 +647,9 @@ namespace Engine.Logic
 
             foreach (var creature in creatures)
             {
-                if (creature.Stats.HP > 0)
+                if (creature.GetComponent<CombatCreatureComponent>().Creature.Creature.Stats.HP > 0)
                 {
-                    if (creature.Creature.currentTeam == 1)
+                    if (creature.GetComponent<CombatCreatureComponent>().Creature.Creature.currentTeam == 1)
                     {
                         t1++;
                     }

@@ -56,6 +56,7 @@ namespace Engine.Components
         private int MenuNum;
         private int numOfMenues;
         private bool useCreatureList = false;
+        private bool skipInput;
 
         public String Name
         {
@@ -67,6 +68,12 @@ namespace Engine.Components
         {
             get { return listObjects; }
             set { listObjects = value; }
+        }
+
+        public bool SkipInput
+        {
+            get { return skipInput; }
+            set { skipInput = value; }
         }
 
         public SelectionListComponent(ContentRef<Material> background, string name, int menunumber, OpenTK.Vector3 pos)
@@ -81,15 +88,6 @@ namespace Engine.Components
             tempPos = pos;
             listObjects = new List<Object>();
             selected = 0;
-        }
-
-        public void select(int selected)
-        {
-            this.selected = selected;
-            for (int i = 0; i < this.listObjects.Count; i++)
-            {
-                
-            }
         }
 
         string CombatUI.menuName()
@@ -114,7 +112,7 @@ namespace Engine.Components
 
         void ICmpUpdatable.OnUpdate()
         {
-            if (currentlySelected)
+            if (this.currentlySelected && !this.SkipInput)
             {
                 if (AI.WaitingForInput)
                 {
@@ -139,6 +137,8 @@ namespace Engine.Components
                             {
                                 this.GameObj.Parent.Children.ToList()[MenuNum + 1].GetComponent<SelectionListComponent>().currentlySelected = true;
                                 this.GameObj.Parent.Children.ToList()[MenuNum + 1].GetComponent<SelectionListComponent>().ListObjects = (List<Object>)listObjects[selected];
+                                this.GameObj.Parent.Children.ToList()[MenuNum + 1].GetComponent<SelectionListComponent>().SkipInput = true;
+                                this.GameObj.Parent.Children.ToList()[MenuNum + 1].GetComponent<SelectionListComponent>().selected = 0;
                             }
                         }
                         else if (this.listObjects[selected] is Ability)
@@ -146,21 +146,28 @@ namespace Engine.Components
                             AI.abilityInput = (Ability)listObjects[selected];
                             this.currentlySelected = true;
 
-                            this.useCreatureList = true;
+                            AI.targetInput = selected;
+
+                            //this.useCreatureList = true;
                         }
-                        else if (this.listObjects[selected] is string)
+                        else if (this.listObjects[selected].ToString() == "Back")
                         {
-                            if (this.MenuNum < this.GameObj.Parent.ChildCount)
+                            if (this.MenuNum != 0)
                             {
                                 this.GameObj.Parent.Children.ToList()[MenuNum - 1].GetComponent<SelectionListComponent>().currentlySelected = true;
                                 this.listObjects = new List<object>();
+                                this.GameObj.Parent.Children.ToList()[MenuNum - 1].GetComponent<SelectionListComponent>().SkipInput = true;
                             }
                         }
-                        else if (this.useCreatureList)
+                        /*else if (this.useCreatureList)
                         {
                             AI.targetInput = selected;
 
                             this.GameObj.Parent.Children.ToList()[0].GetComponent<SelectionListComponent>().currentlySelected = true;
+                        }*/
+                        else
+                        {
+                            this.currentlySelected = true;
                         }
                     }
                 }
@@ -170,10 +177,6 @@ namespace Engine.Components
             {
                 if (this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>() != null)
                 {
-                    /*if (this.ListObjects.Count == 0)
-                    {
-                        this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = "Empty";
-                    }*/
                     if (!((selected + i - 1) < 0 || (selected + i - 1) > (this.ListObjects.Count - 1)))
                     {
                         this.GameObj.Children.ToList()[i].GetComponent<TextRenderer>().Text.SourceText = this.ListObjects[selected + i - 1].ToString();
@@ -184,6 +187,16 @@ namespace Engine.Components
                     }
                 }
             }
+
+            this.SkipInput = false;
+        }
+
+        public void cleanup()
+        {
+            this.selected = 0;
+            this.useCreatureList = false;
+            this.listObjects = new List<object>();
+            this.currentlySelected = false;
         }
     }
 }

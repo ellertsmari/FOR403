@@ -14,7 +14,7 @@
         <object />
       </_items>
       <_size dataType="Int">1</_size>
-      <_version dataType="Int">3</_version>
+      <_version dataType="Int">4</_version>
     </layers>
     <atlas dataType="Class" type="System.Collections.Generic.List`1[[Duality.Rect]]" id="256723094">
       <_items dataType="Array" type="Duality.Rect[]" id="3121028913" length="128">

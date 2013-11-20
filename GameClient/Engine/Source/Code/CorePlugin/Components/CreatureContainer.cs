@@ -108,7 +108,7 @@ namespace Engine.Components
             }
         }
 
-        public bool combatAbility(List<CreatureContainer> creatures)
+        public bool combatAbility(List<GameObject> creatures)
         {
             int target = -1;
             Ability ability = null;
