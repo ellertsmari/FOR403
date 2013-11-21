@@ -74,7 +74,7 @@
         <Content ID="0" RefID="1" />
       </Contents>
     </Pane>
-    <Pane ID="1" DockState="Document" ActiveContent="4">
+    <Pane ID="1" DockState="Document" ActiveContent="2">
       <Contents Count="2">
         <Content ID="0" RefID="2" />
         <Content ID="1" RefID="4" />

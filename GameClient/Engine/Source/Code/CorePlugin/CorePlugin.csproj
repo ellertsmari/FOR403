@@ -78,6 +78,7 @@
     <Compile Include="Components\AIComponent.cs" />
     <Compile Include="Components\CombatCreatureComponent.cs" />
     <Compile Include="Components\CreatureContainer.cs" />
+    <Compile Include="CustomRenderers\LayerRenderer.cs" />
     <Compile Include="Components\ResolutionUpdateComponent.cs" />
     <Compile Include="Components\CombatUI.cs" />
     <Compile Include="Constants\AbilityStorage.cs" />

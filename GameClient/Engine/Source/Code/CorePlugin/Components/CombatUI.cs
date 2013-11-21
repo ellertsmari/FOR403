@@ -1,5 +1,4 @@
 ﻿using Duality;
-using Duality.Components;
 using Duality.Components.Renderers;
 using Duality.Resources;
 using Engine.Logic;
@@ -7,7 +6,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Engine.Components
 {
@@ -224,5 +222,12 @@ namespace Engine.Components
             this.listObjects = new List<object>();
             this.currentlySelected = false;
         }
+    }
+
+    [Serializable]
+    [RequiredComponent(typeof(SpriteRenderer))]
+    public class HealthUI : Component
+    {
+
     }
 }

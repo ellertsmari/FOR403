@@ -4,6 +4,65 @@
         <name>GamePlugin.core</name>
     </assembly>
     <members>
+        <member name="P:Engine.CustomRenderers.LayerRenderer.Rect">
+            <summary>
+            [GET / SET] The rectangular area the sprite occupies. Relative to the <see cref="T:Duality.GameObject"/>.
+            </summary>
+        </member>
+        <member name="P:Engine.CustomRenderers.LayerRenderer.SharedMaterial">
+            <summary>
+            [GET / SET] The <see cref="T:Duality.Resources.Material"/> that is used for rendering the sprite.
+            </summary>
+        </member>
+        <member name="P:Engine.CustomRenderers.LayerRenderer.ColorTint">
+            <summary>
+            [GET / SET] A color by which the sprite is tinted.
+            </summary>
+        </member>
+        <member name="P:Engine.CustomRenderers.LayerRenderer.RectMode">
+            <summary>
+            [GET / SET] Specifies how the sprites uv-Coordinates are calculated.
+            </summary>
+        </member>
+        <member name="P:Engine.CustomRenderers.LayerRenderer.Offset">
+            <summary>
+            [GET / SET] A virtual Z offset that affects the order in which objects are drawn. If you want to assure an object is drawn after another one,
+            just assign a higher Offset value to the background object.
+            </summary>
+        </member>
+        <member name="P:Engine.CustomRenderers.LayerRenderer.VertexZOffset">
+            <summary>
+            [GET] The internal Z-Offset added to the renderers vertices based on its <see cref="P:Engine.CustomRenderers.LayerRenderer.Offset"/> value.
+            </summary>
+        </member>
+        <member name="T:Engine.CustomRenderers.LayerRenderer.UVMode">
+            <summary>
+            SPecifies, how the sprites uv-Coordinates are calculated.
+            </summary>
+        </member>
+        <member name="F:Engine.CustomRenderers.LayerRenderer.UVMode.Stretch">
+            <summary>
+            The uv-Coordinates are constant, stretching the supplied texture to fit the SpriteRenderers dimensions.
+            </summary>
+        </member>
+        <member name="F:Engine.CustomRenderers.LayerRenderer.UVMode.WrapHorizontal">
+            <summary>
+            The u-Coordinate is calculated based on the available horizontal space, allowing the supplied texture to be
+            tiled across the SpriteRenderers width.
+            </summary>
+        </member>
+        <member name="F:Engine.CustomRenderers.LayerRenderer.UVMode.WrapVertical">
+            <summary>
+            The v-Coordinate is calculated based on the available vertical space, allowing the supplied texture to be
+            tiled across the SpriteRenderers height.
+            </summary>
+        </member>
+        <member name="F:Engine.CustomRenderers.LayerRenderer.UVMode.WrapBoth">
+            <summary>
+            The uv-Coordinates are calculated based on the available space, allowing the supplied texture to be
+            tiled across the SpriteRenderers size.
+            </summary>
+        </member>
         <member name="T:Engine.EngineCorePlugin">
             <summary>
             Defines a Duality core plugin.
